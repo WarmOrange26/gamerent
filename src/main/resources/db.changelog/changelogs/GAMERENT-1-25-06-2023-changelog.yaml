@@ -20,6 +20,7 @@ databaseChangeLog:
                   name: email
                   type: varchar(60)
                   constraints:
+                    unique: true
                     nullable: false
               - column:
                   name: password
@@ -50,7 +51,6 @@ databaseChangeLog:
                   type: boolean
                   constraints:
                     nullable: false
-
   - changeSet:
       id: 2
       author: aleksandr.mikhalevich89@gmail.com
@@ -69,6 +69,7 @@ databaseChangeLog:
                   name: name
                   type: varchar(30)
                   constraints:
+                    unique: true
                     nullable: false
   - changeSet:
       id: 3
@@ -77,13 +78,6 @@ databaseChangeLog:
         - createTable:
             tableName: users_roles
             columns:
-              - column:
-                 name: id
-                 type: bigint
-                 autoIncrement: true
-                 constraints:
-                   primaryKey: true
-                   nullable: false
               - column:
                  name: user_id
                  type: bigint
@@ -94,11 +88,10 @@ databaseChangeLog:
                  type: bigint
                  constraints:
                    nullable: false
-              - column:
-                 name: assigning_time
-                 type: timestamp
-                 constraints:
-                   nullable: false
+        - addPrimaryKey:
+              columnNames: user_id, role_id
+              constraintName: pk_users_roles
+              tableName: users_roles
         - addForeignKeyConstraint:
               baseColumnNames: user_id
               baseTableName: users_roles
@@ -107,8 +100,6 @@ databaseChangeLog:
               onUpdate: CASCADE
               referencedColumnNames: id
               referencedTableName: users
-              referencedTableSchemaName: public
-              validate: true
         - addForeignKeyConstraint:
               baseColumnNames: role_id
               baseTableName: users_roles
@@ -118,5 +109,3 @@ databaseChangeLog:
               onUpdate: CASCADE
               referencedColumnNames: id
               referencedTableName: roles
-              referencedTableSchemaName: public
-              validate: true

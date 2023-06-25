@@ -1,6 +1,5 @@
 package ru.aston.gamerent.model.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Objects;
 
@@ -19,16 +19,15 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(name = "roles")
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     @Enumerated(EnumType.STRING)
     private RoleNameEnum name;
 
@@ -36,19 +35,11 @@ public class Role {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Role role)) return false;
-        return Objects.equals(id, role.id) && name == role.name;
+        return name == role.name;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name=" + name +
-                '}';
+        return Objects.hash(name);
     }
 }
