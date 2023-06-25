@@ -1,0 +1,111 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: aleksandr.mikhalevich89@gmail.com
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(30)
+              - column:
+                  name: email
+                  type: varchar(60)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(45)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(30)
+              - column:
+                  name: last_name
+                  type: varchar(30)
+              - column:
+                  name: registration_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: update_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birth_date
+                  type: date
+              - column:
+                  name: is_blocked
+                  type: boolean
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 2
+      author: aleksandr.mikhalevich89@gmail.com
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(30)
+                  constraints:
+                    unique: true
+                    nullable: false
+  - changeSet:
+      id: 3
+      author: aleksandr.mikhalevich89@gmail.com
+      changes:
+        - createTable:
+            tableName: users_roles
+            columns:
+              - column:
+                 name: user_id
+                 type: bigint
+                 constraints:
+                   nullable: false
+              - column:
+                 name: role_id
+                 type: bigint
+                 constraints:
+                   nullable: false
+        - addPrimaryKey:
+              columnNames: user_id, role_id
+              constraintName: pk_users_roles
+              tableName: users_roles
+        - addForeignKeyConstraint:
+              baseColumnNames: user_id
+              baseTableName: users_roles
+              constraintName: fk_users_roles_user_id
+              onDelete: CASCADE
+              onUpdate: CASCADE
+              referencedColumnNames: id
+              referencedTableName: users
+        - addForeignKeyConstraint:
+              baseColumnNames: role_id
+              baseTableName: users_roles
+              baseTableSchemaName: public
+              constraintName: fk_users_roles_role_id
+              onDelete: CASCADE
+              onUpdate: CASCADE
+              referencedColumnNames: id
+              referencedTableName: roles
