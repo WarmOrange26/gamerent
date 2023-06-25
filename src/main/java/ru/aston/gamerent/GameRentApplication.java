@@ -1,4 +1,4 @@
-package ru.aston.gamerent.entity;
+package ru.aston.gamerent;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
