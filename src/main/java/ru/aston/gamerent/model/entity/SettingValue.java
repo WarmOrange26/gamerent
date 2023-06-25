@@ -13,7 +13,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @ToString
-@Table(name = "settings_vales")
+@Table(name = "settings_values")
 public class SettingValue {
 
     @Id

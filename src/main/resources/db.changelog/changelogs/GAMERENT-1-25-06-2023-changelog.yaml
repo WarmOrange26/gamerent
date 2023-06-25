@@ -150,7 +150,7 @@ databaseChangeLog:
       author: yuri
       changes:
         - createTable:
-            tableName: settings_vales
+            tableName: settings_values
             columns:
               - column:
                   name: id
@@ -159,7 +159,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: pk_setting_vales
+                    primaryKeyName: pk_setting_values
               - column:
                   name: profile_id
                   type: bigint
@@ -177,7 +177,7 @@ databaseChangeLog:
                     nullable: false
         - addForeignKeyConstraint:
             baseColumnNames: setting_id
-            baseTableName: settings_vales
+            baseTableName: settings_values
             constraintName: fk_vlg2stg
             onDelete: CASCADE
             onUpdate: CASCADE
@@ -185,7 +185,7 @@ databaseChangeLog:
             referencedTableName: settings
         - addForeignKeyConstraint:
             baseColumnNames: profile_id
-            baseTableName: settings_vales
+            baseTableName: settings_values
             constraintName: fk_vlg2pfl
             onDelete: CASCADE
             onUpdate: CASCADE
