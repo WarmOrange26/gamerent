@@ -109,3 +109,123 @@ databaseChangeLog:
               onUpdate: CASCADE
               referencedColumnNames: id
               referencedTableName: roles
+  - changeSet:
+      id: 8
+      author: mashafadik@yahoo.com
+      changes:
+        - createTable:
+            tableName: games
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    primaryKeyName: games_pkey
+              - column:
+                  name: title
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  constraints:
+                    nullable: false
+                  name: developer_id
+                  type: bigint
+              - column:
+                  constraints:
+                    nullable: false
+                  name: release_date
+                  type: date
+              - column:
+                  constraints:
+                    nullable: false
+                  name: description
+                  type: text
+              - column:
+                  constraints:
+                    nullable: false
+                  name: price
+                  type: numeric(12,2)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: image
+                  type: varchar(250)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: trailer_url
+                  type: varchar(250)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: create_time
+                  type: timestamp
+              - column:
+                  constraints:
+                    nullable: false
+                  name: update_time
+                  type: timestamp
+
+  - changeSet:
+      id: 9
+      author: mashafadik@yahoo.com
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: genres_pkey
+                  name: id
+                  type: bigint
+              - column:
+                  constraints:
+                    nullable: false
+                  name: title
+                  type: varchar(30)
+            tableName: games
+
+  - changeSet:
+      id: 10
+      author: mashafadik@yahoo.com
+      changes:
+        - createTable:
+            tableName: games_genres
+            columns:
+              - column:
+                  name: game_id
+                  type:
+                  constraints:
+                    nullable: false
+              - column:
+                  name: genre_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            columnNames: game_id, genre_id
+            constraintName: pk_games_genres
+            tableName: games_genres
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: games_genres
+            constraintName: fk_games_genres_game_id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: games
+        - addForeignKeyConstraint:
+            baseColumnNames: genre_id
+            baseTableName: games_genres
+            baseTableSchemaName: public
+            constraintName: fk_games_genres_genre_id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: genres
