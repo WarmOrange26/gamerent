@@ -17,8 +17,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Objects;
-
 @Entity
 @Getter
 @Setter
@@ -49,13 +47,13 @@ public class SettingValue {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof SettingValue)) return false;
         SettingValue that = (SettingValue) o;
-        return id.equals(that.id) && value.equals(that.value);
+        return id != null && id.equals(that.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, value);
+        return getClass().hashCode();
     }
 }
