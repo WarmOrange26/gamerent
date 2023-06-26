@@ -59,6 +59,9 @@ public class Game {
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
+    @OneToMany(mappedBy = "game")
+    private List<Screenshot> screenshots;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
