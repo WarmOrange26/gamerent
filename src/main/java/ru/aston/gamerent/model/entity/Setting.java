@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ru.aston.gamerent.model.enums.SettingsNamesEnum;
+import ru.aston.gamerent.model.enumeration.SettingsNamesEnum;
 
 import java.util.List;
 import java.util.Objects;

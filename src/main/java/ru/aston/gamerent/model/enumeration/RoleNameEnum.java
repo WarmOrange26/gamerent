@@ -1,4 +1,4 @@
-package ru.aston.gamerent.model.enums;
+package ru.aston.gamerent.model.enumeration;
 
 public enum RoleNameEnum {
     ROLE_ADMIN,

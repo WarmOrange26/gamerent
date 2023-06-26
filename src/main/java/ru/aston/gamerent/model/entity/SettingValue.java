@@ -51,11 +51,11 @@ public class SettingValue {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SettingValue that = (SettingValue) o;
-        return user.equals(that.user) && setting.equals(that.setting) && value.equals(that.value);
+        return id.equals(that.id) && value.equals(that.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, setting, value);
+        return Objects.hash(id, value);
     }
 }
