@@ -1,0 +1,82 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1687736553291-9
+      author: valdemar.shahnyuk@gmail.com
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_platforms
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: CHARACTER VARYING(30)
+            tableName: platforms
+  - changeSet:
+      id: 1687736553291-10
+      author: valdemar.shahnyuk@gmail.com
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_postponed_games
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: game_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: postponed_time
+                  type: DATETIME
+            tableName: postponed_games
+  - changeSet:
+      id: 1687736553291-18
+      author: valdemar.shahnyuk@gmail.com
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_wallet_actions
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: wallet_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: transaction_value
+                  type: DOUBLE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: transaction_time
+                  type: DATETIME
+              - column:
+                  name: type_id
+                  type: BIGINT
+            tableName: wallet_actions
+
