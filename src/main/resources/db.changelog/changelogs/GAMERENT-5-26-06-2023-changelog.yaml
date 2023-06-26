@@ -45,7 +45,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                   name: postponed_time
-                  type: DATETIME
+                  type: TIMESTAMP
             tableName: postponed_games
   - changeSet:
       id: 1687800324056-18
@@ -69,12 +69,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                   name: transaction_value
-                  type: DOUBLE
+                  type: NUMERIC(12,2)
               - column:
                   constraints:
                     nullable: false
                   name: transaction_time
-                  type: DATETIME
+                  type: TIMESTAMP
               - column:
                   name: type_id
                   type: BIGINT

@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -37,10 +38,10 @@ public class WalletAction {
     @ToString.Exclude
     private Wallet wallet;
 
-    @Column(name = "transaction_value", nullable = false)
-    private Double transactionValue;
+    @Column(name = "transaction_value", nullable = false, columnDefinition = "NUMERIC(12,2)")
+    private BigDecimal transactionValue;
 
-    @Column(name = "transaction_time", nullable = false)
+    @Column(name = "transaction_time", nullable = false, columnDefinition = "TIMESTAMP(6) WITHOUT TIME ZONE")
     private LocalDateTime transactionTime;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

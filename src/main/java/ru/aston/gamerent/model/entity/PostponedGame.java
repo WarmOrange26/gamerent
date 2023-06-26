@@ -42,7 +42,7 @@ public class PostponedGame {
     @ToString.Exclude
     private Game game;
 
-    @Column(name = "postponed_time", nullable = false)
+    @Column(name = "postponed_time", nullable = false, columnDefinition = "TIMESTAMP(6) WITHOUT TIME ZONE")
     private LocalDateTime postponedTime;
 
     @Override
