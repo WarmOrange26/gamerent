@@ -1,14 +1,12 @@
 package ru.aston.gamerent.model.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.Builder;
-import org.hibernate.annotations.CascadeType;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,8 +31,7 @@ public class Game {
     private String title;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @Cascade(value = CascadeType.SAVE_UPDATE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id")
     private Developer developer;
 
