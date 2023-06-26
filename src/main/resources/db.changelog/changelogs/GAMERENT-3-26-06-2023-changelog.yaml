@@ -1,0 +1,74 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: yauhennia2@gmail.com
+      changes:
+        - createTable:
+            tableName: screenshots
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: url
+                  type: varchar(250)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: game_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseColumnNames: game_id
+                  baseTableName: screenshots
+                  constraintName: fk_screenshots_game_id
+                  onDelete: CASCADE
+                  onUpdate: CASCADE
+                  referencedColumnNames: id
+                  referencedTableName: games
+  - changeSet:
+      id: 2
+      author: yauhennia2@gmail.com
+      changes:
+        - createTable:
+            tableName: warm_company_bank_account
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: wallet_action_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: action_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseColumnNames: wallet_action_id
+                  baseTableName: warm_company_bank_account
+                  constraintName: fk_warm_company_bank_account_wallet_action_id
+                  onDelete: CASCADE
+                  onUpdate: CASCADE
+                  referencedColumnNames: id
+                  referencedTableName: wallet_actions
+              - addForeignKeyConstraint:
+                  baseColumnNames: action_id
+                  baseTableName: warm_company_bank_account
+                  constraintName: fk_warm_company_bank_account_action_id
+                  onDelete: CASCADE
+                  onUpdate: CASCADE
+                  referencedColumnNames: id
+                  referencedTableName: action_types
