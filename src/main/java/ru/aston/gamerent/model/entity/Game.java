@@ -29,7 +29,7 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(name = "title", unique = true, nullable = false, columnDefinition = "CHARACTER VARYING(50)")
     private String title;
 
 
@@ -38,28 +38,29 @@ public class Game {
     @JoinColumn(name = "id")
     private Developer developer;
 
-    @Column(name = "release_date")
+    @Column(name = "release_date", nullable = false, columnDefinition = "DATE")
     private LocalDate releaseDate;
 
-    @Column
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column
+    @Column(name = "price", nullable = false, columnDefinition = "NUMERIC(12,2)")
     private Double price;
 
-    @Column
+    @Column(name = "image", nullable = false, columnDefinition = "CHARACTER VARYING(100)")
     private String image;
 
-    @Column(name = "trailer_url")
+    @Column(name = "trailer_url", nullable = false, columnDefinition = "CHARACTER VARYING(250)")
     private String trailerUrl;
 
-    @Column(name = "create_time")
+    @Column(name = "create_time", nullable = false, columnDefinition = "TIMESTAMP(6) WITHOUT TIME ZONE")
     private LocalDateTime createTime;
 
-    @Column(name = "update_time")
+    @Column(name = "update_time", nullable = false, columnDefinition = "TIMESTAMP(6) WITHOUT TIME ZONE")
     private LocalDateTime updateTime;
 
     @OneToMany(mappedBy = "game")
+    @ToString.Exclude
     private List<Screenshot> screenshots;
 
     @Override
