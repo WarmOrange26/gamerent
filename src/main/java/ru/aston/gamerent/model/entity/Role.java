@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ru.aston.gamerent.model.enumeration.RoleNameEnum;
 
 import java.util.Objects;
 
