@@ -1,6 +1,15 @@
 package ru.aston.gamerent.model.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +19,7 @@ import lombok.ToString;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -52,9 +62,8 @@ public class User {
     @Column(name = "is_blocked")
     private Boolean isBlocked;
 
-    @OneToOne
-    @JoinColumn(name = "profile_id")
-    private SettingsProfile settingsProfile;
+    @OneToMany(mappedBy = "user")
+    private List<SettingValue> settings;
 
     @ManyToMany
     @JoinTable(name = "users_roles",

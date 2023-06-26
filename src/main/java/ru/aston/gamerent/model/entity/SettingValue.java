@@ -1,6 +1,17 @@
 package ru.aston.gamerent.model.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +22,9 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Table(name = "settings_values")
 public class SettingValue {
@@ -19,12 +32,13 @@ public class SettingValue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "profile_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", unique = true, nullable = false)
     @ToString.Exclude
-    private SettingsProfile settingsProfile;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "setting_id")
+    private User user;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "setting_id", unique = true, nullable = false)
+    @ToString.Exclude
     private Setting setting;
     @Column(nullable = false)
     private Boolean value;
@@ -34,11 +48,11 @@ public class SettingValue {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SettingValue that = (SettingValue) o;
-        return Objects.equals(settingsProfile, that.settingsProfile) && Objects.equals(setting, that.setting) && Objects.equals(value, that.value);
+        return user.equals(that.user) && setting.equals(that.setting) && value.equals(that.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(settingsProfile, setting, value);
+        return Objects.hash(user, setting, value);
     }
 }
