@@ -32,14 +32,17 @@ public class SettingValue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", unique = true, nullable = false)
     @ToString.Exclude
     private User user;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "setting_id", unique = true, nullable = false)
     @ToString.Exclude
     private Setting setting;
+
     @Column(nullable = false)
     private Boolean value;
 

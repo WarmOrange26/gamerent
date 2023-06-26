@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ru.aston.gamerent.model.entity.enums.SettingsNamesEnum;
+import ru.aston.gamerent.model.enums.SettingsNamesEnum;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,9 +33,11 @@ public class Setting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "setting_name", unique = true, nullable = false, columnDefinition = "CHARACTER VARYING(30)")
     @Enumerated(EnumType.STRING)
     private SettingsNamesEnum settingName;
+
     @OneToMany(mappedBy = "setting")
     @ToString.Exclude
     private List<SettingValue> settingsProfiles;
