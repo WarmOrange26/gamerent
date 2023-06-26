@@ -3,6 +3,7 @@ package ru.aston.gamerent.model.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,8 +32,9 @@ public class WalletAction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "wallet_id")
+    @ToString.Exclude
     private Wallet wallet;
 
     @Column(name = "transaction_value", nullable = false)
@@ -41,23 +43,20 @@ public class WalletAction {
     @Column(name = "transaction_time", nullable = false)
     private LocalDateTime transactionTime;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "type_id")
+    @ToString.Exclude
     private ActionType actionType;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        WalletAction that = (WalletAction) o;
-        return Objects.equals(wallet, that.wallet)
-                && Objects.equals(transactionValue, that.transactionValue)
-                && Objects.equals(transactionTime, that.transactionTime)
-                && Objects.equals(actionType, that.actionType);
+        if (!(o instanceof WalletAction that)) return false;
+        return id != null && id.equals(that.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(wallet, transactionValue, transactionTime, actionType);
+        return Objects.hash(id);
     }
 }
