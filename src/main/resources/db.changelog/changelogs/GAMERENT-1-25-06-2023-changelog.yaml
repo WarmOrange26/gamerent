@@ -109,3 +109,4 @@ databaseChangeLog:
               onUpdate: CASCADE
               referencedColumnNames: id
               referencedTableName: roles
+
