@@ -29,7 +29,7 @@ CREATE TABLE users
 (
     id bigserial PRIMARY KEY,
     username character varying(30),
-    email character varying(60) NOT NULL,
+    email character varying(60) NOT NULL UNIQUE,
     password character varying(45) NOT NULL,
     first_name character varying(30),
     last_name character varying(30),
@@ -83,7 +83,7 @@ CREATE TABLE wallet_actions
 CREATE TABLE roles
 (
     id bigserial PRIMARY KEY,
-    role character varying(30) NOT NULL
+    role character varying(30) NOT NULL UNIQUE
 );
 
 CREATE TABLE users_roles
@@ -105,14 +105,14 @@ CREATE TABLE users_roles
 CREATE TABLE developers
 (
     id bigserial PRIMARY KEY,
-    title character varying(30) NOT NULL,
+    title character varying(30) NOT NULL UNIQUE ,
     description text
 );
 
 CREATE TABLE genres
 (
     id bigserial PRIMARY KEY,
-    title character varying(30) NOT NULL
+    title character varying(30) NOT NULL UNIQUE
 );
 
 CREATE TABLE games
@@ -127,6 +127,7 @@ CREATE TABLE games
     trailer_url character varying(250),
     create_time timestamp NOT NULL,
     update_time timestamp NOT NULL,
+    UNIQUE (title, release_date),
     CONSTRAINT fk_gms2dvp FOREIGN KEY (developer_id)
         REFERENCES developers (id)
         ON UPDATE CASCADE
@@ -136,7 +137,7 @@ CREATE TABLE games
 CREATE TABLE screenshots
 (
     id bigserial PRIMARY KEY,
-    url character varying(250) NOT NULL,
+    url character varying(250) NOT NULL UNIQUE,
     game_id bigint NOT NULL,
     CONSTRAINT fk_scr2gms FOREIGN KEY (game_id)
         REFERENCES games (id)
@@ -162,13 +163,13 @@ CREATE TABLE games_genres
 CREATE TABLE platforms
 (
     id bigserial PRIMARY KEY,
-    name character varying(30) NOT NULL
+    name character varying(30) NOT NULL UNIQUE
 );
 
 CREATE TABLE accounts
 (
     id bigserial PRIMARY KEY,
-    login character varying(30) NOT NULL,
+    login character varying(30) NOT NULL UNIQUE,
     password character varying(45) NOT NULL,
     creation_time timestamp NOT NULL,
     update_time timestamp NOT NULL,
