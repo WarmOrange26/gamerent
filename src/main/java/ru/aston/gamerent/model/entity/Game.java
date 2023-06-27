@@ -30,9 +30,9 @@ public class Game {
     @Column(name = "title", unique = true, nullable = false, columnDefinition = "CHARACTER VARYING(50)")
     private String title;
 
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "id")
+    @ToString.Exclude
     private Developer developer;
 
     @Column(name = "release_date", nullable = false, columnDefinition = "DATE")
