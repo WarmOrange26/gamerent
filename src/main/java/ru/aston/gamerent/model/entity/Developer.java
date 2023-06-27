@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "developers")
@@ -30,29 +30,30 @@ import java.util.Set;
 public class Developer {
 
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false, unique = true, columnDefinition = "character varying(30)")
     private String title;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "text")
     private String description;
 
-    @OneToMany(mappedBy = "developer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "developer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
-    private Set<Game> games;
+    private List<Game> games;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Developer developer = (Developer) o;
-        return Objects.equals(title, developer.title) && Objects.equals(description, developer.description);
+        return Objects.equals(title, developer.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, description);
+        return Objects.hash(title);
     }
 }
