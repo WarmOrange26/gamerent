@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: dmitry
+      author: dmitrygityuk@gmail.com
       changes:
         - createTable:
             tableName: developers
@@ -17,13 +17,14 @@ databaseChangeLog:
                   name: title
                   type: varchar(30)
                   constraints:
+                    unique: true
                     nullable: false
               - column:
                   name: description
                   type: text
   - changeSet:
       id: 2
-      author: dmitry
+      author: dmitrygityuk@gmail.com
       changes:
         - createTable:
             tableName: action_types
@@ -42,7 +43,7 @@ databaseChangeLog:
                     nullable: false
   - changeSet:
       id: 3
-      author: dmitry
+      author: dmitrygityuk@gmail.com
       changes:
         - createTable:
             tableName: wallets
