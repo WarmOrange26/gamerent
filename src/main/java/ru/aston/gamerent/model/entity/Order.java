@@ -52,10 +52,8 @@ public class Order {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof Order)) return false;
         Order that = (Order) o;
-
         return id != null && id.equals(that.getId());
     }
 

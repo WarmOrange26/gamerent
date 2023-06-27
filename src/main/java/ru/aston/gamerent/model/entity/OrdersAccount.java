@@ -41,10 +41,8 @@ public class OrdersAccount {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof OrdersAccount)) return false;
         OrdersAccount that = (OrdersAccount) o;
-
         return id != null && id.equals(that.getId());
     }
 
