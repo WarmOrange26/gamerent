@@ -2,8 +2,21 @@ databaseChangeLog:
   - include:
       file: db.changelog/changelogs/GAMERENT-1-25-06-2023-changelog.yaml
   - include:
-      file: db.changelog/changelogs/GAMERENT-7-26-06-2023-changelog.yaml
-  - include:
       file: db.changelog/changelogs/GAMERENT-2-26-06-2023-changelog.yaml
   - include:
+      file: db.changelog/changelogs/GAMERENT-3-26-06-2023-changelog.yaml
+  - include:
+      file: db.changelog/changelogs/GAMERENT-6-25-06-2023-changelog.yaml
+  - include:
+      file: db.changelog/changelogs/GAMERENT-7-26-06-2023-changelog.yaml
+  - include:
       file: db.changelog/changelogs/GAMERENT-5-26-06-2023-changelog.yaml
+  - include:
+      file: db.changelog/changelogs/GAMERENT-8-27-06-2023-changelog.yaml
+  - include:
+      file: db.changelog/changelogs/GAMERENT-5-27-06-2023-changelog.yaml
+
+
+
+
+

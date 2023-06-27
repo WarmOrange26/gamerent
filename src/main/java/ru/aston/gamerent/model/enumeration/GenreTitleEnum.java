@@ -1,4 +1,4 @@
-package ru.aston.gamerent.model.entity;
+package ru.aston.gamerent.model.enumeration;
 
 public enum GenreTitleEnum {
 

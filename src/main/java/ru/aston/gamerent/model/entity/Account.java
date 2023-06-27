@@ -54,12 +54,14 @@ public class Account {
     @ToString.Exclude
     private Platform platform;
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @Builder.Default
     private List<AccountsGames> accountsGame = new ArrayList<>();
 
     @OneToMany(mappedBy = "account")
     @ToString.Exclude
+    @Builder.Default
     private List<OrdersAccount> ordersAccounts = new ArrayList<>();
 
     @Override

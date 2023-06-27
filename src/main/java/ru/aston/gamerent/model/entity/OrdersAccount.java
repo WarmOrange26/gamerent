@@ -1,20 +1,22 @@
 package ru.aston.gamerent.model.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
-import java.util.Objects;
-
 @Entity
-@Table(name = "orders_account")
+@Table(name = "orders_accounts")
 @Getter
 @Setter
 @Builder
@@ -41,8 +43,7 @@ public class OrdersAccount {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof OrdersAccount)) return false;
-        OrdersAccount that = (OrdersAccount) o;
+        if (!(o instanceof OrdersAccount that)) return false;
         return id != null && id.equals(that.getId());
     }
 

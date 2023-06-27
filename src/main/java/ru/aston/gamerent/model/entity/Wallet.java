@@ -35,7 +35,6 @@ import java.util.List;
 public class Wallet {
 
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -47,8 +46,9 @@ public class Wallet {
     private BigDecimal value;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "id", nullable = false)
-    private User users;
+    @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
+    private User user;
 
     @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
     @ToString.Exclude
@@ -57,8 +57,7 @@ public class Wallet {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Wallet)) return false;
-        Wallet wallet = (Wallet) o;
+        if (!(o instanceof Wallet wallet)) return false;
         return id != null && id.equals(wallet.getId());
     }
 

@@ -59,12 +59,12 @@ databaseChangeLog:
                     nullable: false
                   name: update_time
                   type: timestamp
-
   - changeSet:
       id: 2
       author: mashafadik@yahoo.com
       changes:
         - createTable:
+            tableName: genres
             columns:
               - column:
                   autoIncrement: true
@@ -79,8 +79,6 @@ databaseChangeLog:
                     nullable: false
                   name: title
                   type: varchar(30)
-            tableName: games
-
   - changeSet:
       id: 3
       author: mashafadik@yahoo.com
@@ -90,7 +88,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: game_id
-                  type:
+                  type: bigint
                   constraints:
                     nullable: false
               - column:
@@ -103,7 +101,7 @@ databaseChangeLog:
             constraintName: pk_games_genres
             tableName: games_genres
         - addForeignKeyConstraint:
-            baseColumnNames: user_id
+            baseColumnNames: game_id
             baseTableName: games_genres
             constraintName: fk_games_genres_game_id
             onDelete: CASCADE

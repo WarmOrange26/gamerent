@@ -31,7 +31,7 @@ public class Game {
     private String title;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "developer_id")
     @ToString.Exclude
     private Developer developer;
 
@@ -64,7 +64,7 @@ public class Game {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Game game)) return false;
-        return title == game.title;
+        return Objects.equals(title, game.title);
     }
 
     @Override

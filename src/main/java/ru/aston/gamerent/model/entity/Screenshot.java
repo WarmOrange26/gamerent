@@ -37,7 +37,7 @@ public class Screenshot {
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name  = "id")
+    @JoinColumn(name  = "game_id")
     private Game game;
 
     @Override

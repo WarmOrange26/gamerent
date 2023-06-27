@@ -61,7 +61,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
-            baseColumnNames: orders_id
+            baseColumnNames: order_id
             baseTableName: orders_accounts
             constraintName: fk_orders_accounts_order_id
             onDelete: CASCADE
