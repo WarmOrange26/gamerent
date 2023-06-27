@@ -17,7 +17,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.Builder;
 
-
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -47,7 +46,7 @@ public class Screenshot {
         if (!(o instanceof Screenshot that)) return false;
         return Objects.equals(url, that.url);
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hash(url);
