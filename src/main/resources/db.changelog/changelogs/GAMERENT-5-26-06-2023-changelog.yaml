@@ -1,0 +1,134 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1687736553291-9
+      author: valdemar.shahnyuk@gmail.com
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_platforms
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: CHARACTER VARYING(30)
+            tableName: platforms
+  - changeSet:
+      id: 1687800324056-10
+      author: valdemar.shahnyuk@gmail.com
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_postponed_games
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: game_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: postponed_time
+                  type: TIMESTAMP
+            tableName: postponed_games
+  - changeSet:
+      id: 1687800324056-18
+      author: valdemar.shahnyuk@gmail.com
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_wallet_actions
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: wallet_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: transaction_value
+                  type: NUMERIC(12,2)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: transaction_time
+                  type: TIMESTAMP
+              - column:
+                  name: type_id
+                  type: BIGINT
+            tableName: wallet_actions
+  - changeSet:
+      id: 1687800324056-20
+      author: valdemar.shahnyuk@gmail.com
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: uc_platforms_name
+            tableName: platforms
+  - changeSet:
+      id: 1687800324056-21
+      author: valdemar.shahnyuk@gmail.com
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: game_id
+            baseTableName: postponed_games
+            constraintName: FK_POSTPONED_GAMES_ON_GAME
+            referencedColumnNames: id
+            referencedTableName: games
+  - changeSet:
+      id: 1687800324056-22
+      author: valdemar.shahnyuk@gmail.com
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: postponed_games
+            constraintName: FK_POSTPONED_GAMES_ON_USER
+            referencedColumnNames: id
+            referencedTableName: users
+  - changeSet:
+      id: 1687800324056-23
+      author: valdemar.shahnyuk@gmail.com
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: type_id
+            baseTableName: wallet_actions
+            constraintName: FK_WALLET_ACTIONS_ON_TYPE
+            referencedColumnNames: id
+            referencedTableName: action_types
+  - changeSet:
+      id: 1687800324056-24
+      author: valdemar.shahnyuk@gmail.com
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: wallet_id
+            baseTableName: wallet_actions
+            constraintName: FK_WALLET_ACTIONS_ON_WALLET
+            referencedColumnNames: id
+            referencedTableName: wallets

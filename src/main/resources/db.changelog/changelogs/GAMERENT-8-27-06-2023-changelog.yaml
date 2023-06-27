@@ -1,0 +1,99 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: maks.silevich@gmail.com
+      changes:
+        - createTable:
+            tableName: accounts
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: login
+                  type: varchar(30)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(45)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: creation_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: update_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expiration_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: platform_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: platform_id
+            baseTableName: accounts
+            constraintName: fk_accounts_platform_id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: platforms
+  - changeSet:
+      id: 2
+      author: maks.silevich@gmail.com
+      changes:
+        - createTable:
+            tableName: accounts_games
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: game_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: assigning_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: account_id
+            baseTableName: accounts_games
+            constraintName: fk_accounts_games_account_id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: accounts
+        - addForeignKeyConstraint:
+            baseColumnNames: game_id
+            baseTableName: accounts_games
+            constraintName: fk_accounts_games_game_id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: games
