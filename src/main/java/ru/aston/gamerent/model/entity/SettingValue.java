@@ -1,6 +1,5 @@
 package ru.aston.gamerent.model.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,12 +30,12 @@ public class SettingValue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", unique = true, nullable = false)
     @ToString.Exclude
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "setting_id", unique = true, nullable = false)
     @ToString.Exclude
     private Setting setting;
@@ -47,8 +46,7 @@ public class SettingValue {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SettingValue)) return false;
-        SettingValue that = (SettingValue) o;
+        if (!(o instanceof SettingValue that)) return false;
         return id != null && id.equals(that.getId());
     }
 
@@ -56,4 +54,5 @@ public class SettingValue {
     public int hashCode() {
         return getClass().hashCode();
     }
+
 }

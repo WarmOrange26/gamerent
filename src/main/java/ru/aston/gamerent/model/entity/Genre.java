@@ -2,16 +2,16 @@ package ru.aston.gamerent.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.Builder;
 import ru.aston.gamerent.model.enumeration.GenreTitleEnum;
 
 import java.util.Objects;
@@ -25,22 +25,25 @@ import java.util.Objects;
 @Entity
 @Table(name = "genres")
 public class Genre {
+
     @Id
     @Column
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(unique = true, nullable = false)
     private GenreTitleEnum title;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Genre genre)) return false;
-        return title == genre.title;
+        if (!(o instanceof Genre that)) return false;
+        return title == that.getTitle();
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(title);
     }
+
 }

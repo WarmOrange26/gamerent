@@ -1,21 +1,20 @@
 package ru.aston.gamerent.model.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.FetchType;
-
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.Builder;
 
 import java.util.Objects;
 
@@ -28,27 +27,29 @@ import java.util.Objects;
 @Entity
 @Table(name = "screenshots")
 public class Screenshot {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "url", unique = true, nullable = false, columnDefinition = "CHARACTER VARYING(250)")
+    @Column(unique = true, nullable = false, length = 250)
     private String url;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "game_id")
     @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name  = "game_id")
     private Game game;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Screenshot that)) return false;
-        return Objects.equals(url, that.url);
+        return Objects.equals(url, that.getUrl());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(url);
     }
+
 }

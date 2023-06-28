@@ -15,33 +15,33 @@ import lombok.ToString;
 
 import java.util.Objects;
 
-@Entity
-@Table(name = "action_types")
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Entity
+@Table(name = "action_types")
 public class ActionType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "action", nullable = false)
+    @Column(unique = true, nullable = false, length = 30)
     private String action;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ActionType actionType = (ActionType) o;
-        return action.equals(actionType.action);
+        if (!(o instanceof ActionType that)) return false;
+        return Objects.equals(action, that.getAction());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(action);
     }
+
 }
