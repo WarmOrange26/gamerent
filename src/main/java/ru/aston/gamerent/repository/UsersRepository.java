@@ -6,4 +6,5 @@ import ru.aston.gamerent.model.entity.User;
 
 @Repository
 public interface UsersRepository extends JpaRepository<User, Long> {
+
 }

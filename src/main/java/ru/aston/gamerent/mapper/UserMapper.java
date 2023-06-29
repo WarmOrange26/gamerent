@@ -8,4 +8,5 @@ import ru.aston.gamerent.model.entity.User;
 public interface UserMapper {
 
     UserResponse userToUserResponseDto(User user);
+
 }

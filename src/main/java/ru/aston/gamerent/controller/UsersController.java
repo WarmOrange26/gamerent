@@ -20,4 +20,5 @@ public class UsersController {
     public ResponseEntity<?> getUser(@PathVariable Integer id) throws NoEntityException {
         return ResponseEntity.ok(usersService.getUserById(id));
     }
+
 }
