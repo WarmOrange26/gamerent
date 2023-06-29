@@ -1,8 +1,5 @@
 package ru.aston.gamerent.model.dto.response;
 
-import ru.aston.gamerent.model.entity.Role;
-import ru.aston.gamerent.model.entity.SettingValue;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,6 +20,6 @@ public record UserResponse(
         String phone,
         LocalDate birthDate,
         Boolean isBlocked,
-        List<SettingValue> settings,
-        Set<Role> roles) {
+        List<SettingValueResponse> settings,
+        Set<RoleResponse> roles) {
 }
