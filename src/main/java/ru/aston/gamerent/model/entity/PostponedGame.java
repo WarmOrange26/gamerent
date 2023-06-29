@@ -1,6 +1,5 @@
 package ru.aston.gamerent.model.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,7 +16,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,17 +30,17 @@ public class PostponedGame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     private User user;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "game_id")
     @ToString.Exclude
     private Game game;
 
-    @Column(name = "postponed_time", nullable = false, columnDefinition = "TIMESTAMP(6) WITHOUT TIME ZONE")
+    @Column(name = "postponed_time", nullable = false)
     private LocalDateTime postponedTime;
 
     @Override
@@ -54,6 +52,7 @@ public class PostponedGame {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return getClass().hashCode();
     }
+
 }

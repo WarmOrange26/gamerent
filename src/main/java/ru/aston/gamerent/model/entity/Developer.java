@@ -1,6 +1,5 @@
 package ru.aston.gamerent.model.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,41 +18,40 @@ import lombok.ToString;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "developers")
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Entity
+@Table(name = "developers")
 public class Developer {
 
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false, unique = true, columnDefinition = "character varying(30)")
+    @Column(nullable = false, unique = true, length = 30)
     private String title;
 
-    @Column(name = "description", columnDefinition = "text")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(mappedBy = "developer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "developer")
     @ToString.Exclude
     private List<Game> games;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Developer developer = (Developer) o;
-        return Objects.equals(title, developer.title);
+        if (!(o instanceof Developer that)) return false;
+        return Objects.equals(title, that.getTitle());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(title);
     }
+
 }
