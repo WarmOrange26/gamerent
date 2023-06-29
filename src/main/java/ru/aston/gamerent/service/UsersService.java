@@ -15,7 +15,7 @@ public class UsersService {
     private final UsersRepository usersRepository;
     private final UserMapper userMapper;
 
-    public UserResponse getUserById(long id) throws NoEntityException {
+    public UserResponse getUserById(long id) {
         User user = usersRepository.findById(id).orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
         return userMapper.userToUserResponseDto(user);
     }
