@@ -1,4 +1,4 @@
-package ru.aston.gamerent.model.entity.enums;
+package ru.aston.gamerent.model.enumeration;
 
 import lombok.Getter;
 
