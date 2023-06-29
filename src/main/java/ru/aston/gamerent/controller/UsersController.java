@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.aston.gamerent.exception.NoEntityException;
+import ru.aston.gamerent.model.dto.response.UserResponse;
 import ru.aston.gamerent.service.UsersService;
 
 @RestController
@@ -16,7 +17,8 @@ public class UsersController {
     private final UsersService usersService;
 
     @GetMapping("/{id}")
-    public String getUser(@PathVariable Integer id) throws NoEntityException {
+    public UserResponse getUser(@PathVariable Integer id) throws NoEntityException {
         return usersService.getUserById(id);
     }
+
 }

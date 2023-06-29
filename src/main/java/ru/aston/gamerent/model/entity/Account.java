@@ -7,6 +7,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -18,27 +19,28 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "accounts")
+
 @Getter
 @Setter
 @Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "accounts")
 public class Account {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 30)
     private String login;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 45)
     private String password;
 
     @Column(name = "creation_time", nullable = false)
@@ -50,32 +52,29 @@ public class Account {
     @Column(name = "expiration_time", nullable = false)
     private LocalDateTime expirationTime;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "platform_id")
     @ToString.Exclude
     private Platform platform;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "account")
     @ToString.Exclude
-    @Builder.Default
-    private List<AccountsGames> accountsGame = new ArrayList<>();
+    private List<AccountsGames> accountsGame;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
     @ToString.Exclude
-    @Builder.Default
-    private List<OrdersAccount> ordersAccounts = new ArrayList<>();
+    private List<OrdersAccount> ordersAccounts;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Account account = (Account) o;
-
-        return Objects.equals(login, account.login);
+        if (!(o instanceof Account that)) return false;
+        return Objects.equals(login, that.getLogin());
     }
 
     @Override
     public int hashCode() {
-        return login != null ? login.hashCode() : 0;
+        return Objects.hash(login);
     }
+
 }

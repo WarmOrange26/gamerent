@@ -27,18 +27,19 @@ public class Platform {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false, columnDefinition = "CHARACTER VARYING(30)")
+    @Column(unique = true, nullable = false, length = 30)
     private String name;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Platform platform)) return false;
-        return name.equals(platform.name);
+        if (!(o instanceof Platform that)) return false;
+        return Objects.equals(name, that.getName());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(name);
     }
+
 }
