@@ -1,6 +1,5 @@
 package ru.aston.gamerent.model.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,7 +17,6 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,18 +31,18 @@ public class WalletAction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "wallet_id")
     @ToString.Exclude
     private Wallet wallet;
 
-    @Column(name = "transaction_value", nullable = false, columnDefinition = "NUMERIC(12,2)")
+    @Column(name = "transaction_value", nullable = false, precision = 12, scale = 2)
     private BigDecimal transactionValue;
 
-    @Column(name = "transaction_time", nullable = false, columnDefinition = "TIMESTAMP(6) WITHOUT TIME ZONE")
+    @Column(name = "transaction_time", nullable = false)
     private LocalDateTime transactionTime;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "type_id")
     @ToString.Exclude
     private ActionType actionType;
@@ -58,6 +56,7 @@ public class WalletAction {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return getClass().hashCode();
     }
+
 }

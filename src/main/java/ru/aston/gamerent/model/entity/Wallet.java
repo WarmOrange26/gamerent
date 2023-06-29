@@ -1,6 +1,5 @@
 package ru.aston.gamerent.model.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,45 +23,46 @@ import ru.aston.gamerent.model.enumeration.CurrencyCode;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Entity
-@Table(name = "wallets")
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Entity
+@Table(name = "wallets")
 public class Wallet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "currency", nullable = false, columnDefinition = "character varying(10)")
+    @Column(nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
     private CurrencyCode currency;
 
-    @Column(name = "value", nullable = false, columnDefinition = "numeric(12, 2)")
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal value;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
     @ToString.Exclude
     private User user;
 
-    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "wallet")
     @ToString.Exclude
     private List<WalletAction> walletActions;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Wallet wallet)) return false;
-        return id != null && id.equals(wallet.getId());
+        if (!(o instanceof Wallet that)) return false;
+        return id != null && id.equals(that.getId());
     }
 
     @Override
     public int hashCode() {
         return getClass().hashCode();
     }
+
 }
