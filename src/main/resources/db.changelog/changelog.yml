@@ -16,6 +16,8 @@ databaseChangeLog:
   - include:
       file: db.changelog/changelogs/GAMERENT-5-27-06-2023-changelog.yaml
   - include:
+      file: db.changelog/changelogs/GAMERENT-1-29-06-2023-changelog.yaml
+  - include:
       file: db.changelog/changelogs/GAMERENT-3-29-06-2023-changelog.yaml
 
 

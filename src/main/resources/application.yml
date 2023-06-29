@@ -10,3 +10,7 @@ spring:
         format_sql: true
   liquibase:
     change-log: db.changelog/changelog.yml
+  security:
+    jwt:
+      secret: ${JWT_SECRET_PHRASE}
+      expired: 3600000
