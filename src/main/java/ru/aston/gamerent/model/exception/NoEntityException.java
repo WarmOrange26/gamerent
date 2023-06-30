@@ -1,4 +1,4 @@
-package ru.aston.gamerent.exception;
+package ru.aston.gamerent.model.exception;
 
 public class NoEntityException extends RuntimeException {
 

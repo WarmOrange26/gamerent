@@ -1,13 +1,11 @@
-package ru.aston.gamerent.security.jwt;
+package ru.aston.gamerent.web.security.jwt;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import ru.aston.gamerent.model.entity.Role;
 import ru.aston.gamerent.model.entity.User;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class JwtUserFactory {
 
@@ -22,10 +20,9 @@ public final class JwtUserFactory {
         );
     }
 
-    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> userRoles) {
+    private static List<? extends GrantedAuthority> mapToGrantedAuthorities(List<Role> userRoles) {
         return userRoles.stream()
-                .map(role ->
-                        new SimpleGrantedAuthority(role.getName().name())
-                ).collect(Collectors.toList());
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .toList();
     }
 }

@@ -1,15 +1,13 @@
-package ru.aston.gamerent.security.jwt;
+package ru.aston.gamerent.web.security.jwt;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 
 @RequiredArgsConstructor
 public class JwtUser implements UserDetails {
-
     private final String username;
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
