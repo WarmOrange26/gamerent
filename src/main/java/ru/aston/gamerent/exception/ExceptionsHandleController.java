@@ -12,4 +12,9 @@ public class ExceptionsHandleController {
     public ResponseEntity<String> handleNoEntityException(NoEntityException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
     }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<String> handleBadRequestException(BadRequestException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
+    }
 }
