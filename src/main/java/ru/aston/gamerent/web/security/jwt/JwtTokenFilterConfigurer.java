@@ -1,5 +1,4 @@
-package ru.aston.gamerent.security.jwt;
-
+package ru.aston.gamerent.web.security.jwt;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -9,7 +8,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @RequiredArgsConstructor
 public class JwtTokenFilterConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override

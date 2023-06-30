@@ -1,4 +1,4 @@
-package ru.aston.gamerent.security.jwt;
+package ru.aston.gamerent.web.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -16,10 +16,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import ru.aston.gamerent.dto.AuthenticationUserDto;
+import ru.aston.gamerent.model.dto.security.AuthenticationUserDto;
 import ru.aston.gamerent.model.enumeration.RoleNameEnum;
-import ru.aston.gamerent.security.JwtUserDetailsService;
-
+import ru.aston.gamerent.web.security.JwtUserDetailsService;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.Date;

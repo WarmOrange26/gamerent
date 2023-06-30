@@ -1,4 +1,4 @@
-package ru.aston.gamerent.config;
+package ru.aston.gamerent.web.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -9,8 +9,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import ru.aston.gamerent.security.jwt.JwtTokenFilterConfigurer;
-import ru.aston.gamerent.security.jwt.JwtTokenProvider;
+import ru.aston.gamerent.web.security.jwt.JwtTokenFilterConfigurer;
+import ru.aston.gamerent.web.security.jwt.JwtTokenProvider;
 
 @RequiredArgsConstructor
 @Configuration
