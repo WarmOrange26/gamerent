@@ -41,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
         RandomStringGenerator randomStringGenerator = new RandomStringGenerator.Builder()
                 .withinRange(33, 122)
                 .build();
-        return randomStringGenerator.generate(random.nextInt(20) + 30);
+        return randomStringGenerator.generate(random.nextInt(20) + 25);
     }
 
     private boolean changeAccountPasswordApi(Account account, String newPassword) {
