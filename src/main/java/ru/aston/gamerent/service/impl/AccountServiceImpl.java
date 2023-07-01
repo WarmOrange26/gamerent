@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.aston.gamerent.model.entity.Account;
+import ru.aston.gamerent.model.exception.PlatformApiConnectionException;
 import ru.aston.gamerent.repository.AccountRepository;
 import ru.aston.gamerent.service.AccountService;
 
@@ -39,7 +40,7 @@ public class AccountServiceImpl implements AccountService {
             account.setPassword(newPassword);
             account.setUpdateTime(LocalDateTime.now());
             accountRepository.save(account);
-        } catch (RuntimeException e) {
+        } catch (PlatformApiConnectionException e) {
             log.warn("connection to " + account.getPlatform().getName() + " was failed");
         }
     }
