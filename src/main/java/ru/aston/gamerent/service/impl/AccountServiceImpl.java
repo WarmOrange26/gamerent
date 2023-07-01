@@ -37,9 +37,7 @@ public class AccountServiceImpl implements AccountService {
             String newPassword = generateNewPassword();
             //some code that connect to account platform api and set new password
             log.info("connection to " + account.getPlatform().getName() + " api and set password: " + newPassword);
-            account.setPassword(newPassword);
-            account.setUpdateTime(LocalDateTime.now());
-            accountRepository.save(account);
+            saveNewPassword(account, newPassword);
         } catch (PlatformApiConnectionException e) {
             log.warn("connection to " + account.getPlatform().getName() + " was failed");
         }
@@ -50,5 +48,11 @@ public class AccountServiceImpl implements AccountService {
                 .withinRange(33, 122)
                 .build();
         return randomStringGenerator.generate(random.nextInt(20) + 25);
+    }
+
+    private void saveNewPassword(Account account, String newPassword) {
+        account.setPassword(newPassword);
+        account.setUpdateTime(LocalDateTime.now());
+        accountRepository.save(account);
     }
 }
