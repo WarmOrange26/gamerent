@@ -26,7 +26,9 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     public void blockAccounts() {
         accountRepository.findAll().forEach(account -> {
-            if (account.getExpirationTime().isBefore(LocalDateTime.now())) {
+            boolean needToChangePassword = account.getExpirationTime().isBefore(LocalDateTime.now()) &&
+                    account.getExpirationTime().isAfter(account.getUpdateTime());
+            if (needToChangePassword) {
                 String newPassword = generateNewPassword();
                 if (changeAccountPasswordApi(account, newPassword)) {
                     accountRepository.save(account);
@@ -45,6 +47,8 @@ public class AccountServiceImpl implements AccountService {
     private boolean changeAccountPasswordApi(Account account, String newPassword) {
         //some code that connect to account platform api and set new password
         log.info("connection to " + account.getPlatform().getName() + " api and set password: " + newPassword);
+        account.setPassword(newPassword);
+        account.setUpdateTime(LocalDateTime.now());
         return true;
     }
 }
