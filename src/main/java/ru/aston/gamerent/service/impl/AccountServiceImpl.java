@@ -25,16 +25,23 @@ public class AccountServiceImpl implements AccountService {
     @Scheduled(cron = "${game-rent.scheduling.account-blocking}")
     @Transactional
     public void blockAccounts() {
-        accountRepository.findAll().forEach(account -> {
-            boolean needToChangePassword = account.getExpirationTime().isBefore(LocalDateTime.now()) &&
-                    account.getExpirationTime().isAfter(account.getUpdateTime());
-            if (needToChangePassword) {
-                String newPassword = generateNewPassword();
-                if (changeAccountPasswordApi(account, newPassword)) {
-                    accountRepository.save(account);
-                }
-            }
-        });
+        accountRepository.findAll().stream()
+                .filter(account -> account.getExpirationTime().isBefore(LocalDateTime.now()) &&
+                        account.getExpirationTime().isAfter(account.getUpdateTime()))
+                .forEach(this::changeAccountPassword);
+    }
+
+    private void changeAccountPassword(Account account) {
+        try {
+            String newPassword = generateNewPassword();
+            //some code that connect to account platform api and set new password
+            log.info("connection to " + account.getPlatform().getName() + " api and set password: " + newPassword);
+            account.setPassword(newPassword);
+            account.setUpdateTime(LocalDateTime.now());
+            accountRepository.save(account);
+        } catch (RuntimeException e) {
+            log.warn("connection to " + account.getPlatform().getName() + " was failed");
+        }
     }
 
     private String generateNewPassword() {
@@ -42,13 +49,5 @@ public class AccountServiceImpl implements AccountService {
                 .withinRange(33, 122)
                 .build();
         return randomStringGenerator.generate(random.nextInt(20) + 25);
-    }
-
-    private boolean changeAccountPasswordApi(Account account, String newPassword) {
-        //some code that connect to account platform api and set new password
-        log.info("connection to " + account.getPlatform().getName() + " api and set password: " + newPassword);
-        account.setPassword(newPassword);
-        account.setUpdateTime(LocalDateTime.now());
-        return true;
     }
 }
