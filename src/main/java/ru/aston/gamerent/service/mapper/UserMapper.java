@@ -2,6 +2,7 @@ package ru.aston.gamerent.service.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import ru.aston.gamerent.model.dto.request.UserRequest;
 import ru.aston.gamerent.model.dto.response.AccountResponse;
 import ru.aston.gamerent.model.dto.response.UserResponse;
 import ru.aston.gamerent.model.dto.response.WalletResponse;
@@ -21,4 +22,6 @@ public interface UserMapper {
     List<WalletResponse> walletsToWalletsResponse(List<Wallet> wallets);
 
     List<AccountResponse> accountToAccountsResponse(List<Account> accounts);
+
+    User userRequestToUser(UserRequest userRequest);
 }
