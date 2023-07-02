@@ -27,7 +27,9 @@ import ru.aston.gamerent.service.UserService;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
@@ -81,13 +83,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public Boolean buyAccount(OrderRequest orderRequest) {
+    public Map<String, String> buyAccount(OrderRequest orderRequest) {
         User user = getUser(orderRequest.playerId());
         List<Account> accounts = getAccounts(orderRequest.gameIds());
         BigDecimal gamesCost = getTotalCost(accounts, orderRequest.periods());
-        getPayment(gamesCost, orderRequest.walletId());
+        executePayment(gamesCost, orderRequest.walletId());
         savePaymentData(accounts, user, orderRequest.periods());
-        return true;
+        return getAccountsPasswords(accounts);
     }
 
     private User getUser(Long userId) {
@@ -113,7 +115,7 @@ public class AccountServiceImpl implements AccountService {
         return gamesCost.multiply(BigDecimal.valueOf(periods));
     }
 
-    private void getPayment(BigDecimal cost, Long walletId) {
+    private void executePayment(BigDecimal cost, Long walletId) {
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new NoEntityException("Wallet with id " + walletId + " was not found"));
         if (wallet.getValue().compareTo(cost) < 0) {
@@ -137,5 +139,11 @@ public class AccountServiceImpl implements AccountService {
             ordersAccount.setPeriods(periods);
             orderAccountRepository.save(ordersAccount);
         });
+    }
+
+    private Map<String, String> getAccountsPasswords(List<Account> accounts) {
+        Map<String, String> passwords = new HashMap<>();
+        accounts.forEach(account -> passwords.put(account.getLogin(), account.getPassword()));
+        return passwords;
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.aston.gamerent.model.dto.request.OrderRequest;
 import ru.aston.gamerent.service.AccountService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/vi/account")
 @RequiredArgsConstructor
@@ -16,7 +18,7 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping("/buying")
-    public Boolean buyAccounts(@RequestBody OrderRequest orderRequest) {
+    public Map<String, String> buyAccounts(@RequestBody OrderRequest orderRequest) {
         return accountService.buyAccount(orderRequest);
     }
 }
