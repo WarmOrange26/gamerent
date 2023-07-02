@@ -1,6 +1,7 @@
 package ru.aston.gamerent.web.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +26,7 @@ public class UsersController {
 
     @PatchMapping("/{id}")
     public String updateUser(@PathVariable Long id,
-                             @RequestBody UserRequest userRequest) {
+                             @Validated @RequestBody UserRequest userRequest) {
         usersService.updateUser(id, userRequest);
         return "User is update";
     }
