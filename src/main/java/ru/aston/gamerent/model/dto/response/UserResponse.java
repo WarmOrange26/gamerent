@@ -19,5 +19,7 @@ public record UserResponse(
         LocalDate birthDate,
         Boolean isBlocked,
         List<SettingValueResponse> settings,
-        Set<RoleResponse> roles) {
+        Set<RoleResponse> roles,
+        List<WalletResponse> wallets,
+        List<AccountResponse> accounts) {
 }

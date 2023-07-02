@@ -12,6 +12,7 @@ import ru.aston.gamerent.service.UserService;
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 public class UsersController {
+
     private final UserService usersService;
 
     @GetMapping("/{id}")
