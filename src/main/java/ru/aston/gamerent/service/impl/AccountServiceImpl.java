@@ -23,14 +23,13 @@ import ru.aston.gamerent.repository.OrderRepository;
 import ru.aston.gamerent.repository.UserRepository;
 import ru.aston.gamerent.repository.WalletRepository;
 import ru.aston.gamerent.service.AccountService;
-import ru.aston.gamerent.service.UserService;
+import ru.aston.gamerent.service.util.AccountValidator;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Random;
 
 @Slf4j
@@ -38,13 +37,13 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
-    private final UserService userService;
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
     private final OrderAccountRepository orderAccountRepository;
     private final GameRepository gameRepository;
     private final WalletRepository walletRepository;
+    private final AccountValidator accountValidator;
     private final Random random = new Random();
 
     @Override
@@ -52,8 +51,7 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     public void blockAccounts() {
         accountRepository.findAll().stream()
-                .filter(account -> account.getExpirationTime().isBefore(LocalDateTime.now()) &&
-                        account.getExpirationTime().isAfter(account.getUpdateTime()))
+                .filter(accountValidator::validateAccountExpiration)
                 .forEach(this::changeAccountPassword);
     }
 
@@ -93,8 +91,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private User getUser(Long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        return optionalUser.isEmpty() ? userService.createNewUser() : optionalUser.get();
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new NoEntityException("User with id " + userId + " was not found"));
     }
 
     private List<Account> getAccounts(List<Long> gameIds) {
