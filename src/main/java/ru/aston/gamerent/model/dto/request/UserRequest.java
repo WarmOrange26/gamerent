@@ -3,7 +3,7 @@ package ru.aston.gamerent.model.dto.request;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import ru.aston.gamerent.model.entity.SettingValue;
+import lombok.Builder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,6 +18,7 @@ import static ru.aston.gamerent.model.dto.validation.ValidationConstants.USERNAM
 /**
  * DTO for {@link ru.aston.gamerent.model.entity.User}
  */
+@Builder
 public record UserRequest(
 
         @NotBlank(message = "Username is mandatory!")
@@ -46,5 +47,5 @@ public record UserRequest(
         String phone,
 
         LocalDate birthDate,
-        List<SettingValue> settings) {
+        List<SettingValueRequest> settings) {
 }
