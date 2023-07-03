@@ -6,12 +6,31 @@ import org.apache.commons.text.RandomStringGenerator;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.aston.gamerent.model.dto.request.OrderRequest;
 import ru.aston.gamerent.model.entity.Account;
+import ru.aston.gamerent.model.entity.Game;
+import ru.aston.gamerent.model.entity.Order;
+import ru.aston.gamerent.model.entity.OrdersAccount;
+import ru.aston.gamerent.model.entity.User;
+import ru.aston.gamerent.model.entity.Wallet;
+import ru.aston.gamerent.model.exception.NoEntityException;
+import ru.aston.gamerent.model.exception.NotEnoughMoneyException;
 import ru.aston.gamerent.model.exception.PlatformApiConnectionException;
 import ru.aston.gamerent.repository.AccountRepository;
+import ru.aston.gamerent.repository.GameRepository;
+import ru.aston.gamerent.repository.OrderAccountRepository;
+import ru.aston.gamerent.repository.OrderRepository;
+import ru.aston.gamerent.repository.UserRepository;
+import ru.aston.gamerent.repository.WalletRepository;
 import ru.aston.gamerent.service.AccountService;
+import ru.aston.gamerent.service.UserService;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 @Slf4j
@@ -19,7 +38,13 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
+    private final UserService userService;
     private final AccountRepository accountRepository;
+    private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
+    private final OrderAccountRepository orderAccountRepository;
+    private final GameRepository gameRepository;
+    private final WalletRepository walletRepository;
     private final Random random = new Random();
 
     @Override
@@ -54,5 +79,71 @@ public class AccountServiceImpl implements AccountService {
         account.setPassword(newPassword);
         account.setUpdateTime(LocalDateTime.now());
         accountRepository.save(account);
+    }
+
+    @Override
+    @Transactional
+    public Map<String, String> buyAccount(OrderRequest orderRequest) {
+        User user = getUser(orderRequest.playerId());
+        List<Account> accounts = getAccounts(orderRequest.gameIds());
+        BigDecimal gamesCost = getTotalCost(accounts, orderRequest.periods());
+        executePayment(gamesCost, orderRequest.walletId());
+        savePaymentData(accounts, user, orderRequest.periods());
+        return getAccountsPasswords(accounts);
+    }
+
+    private User getUser(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        return optionalUser.isEmpty() ? userService.createNewUser() : optionalUser.get();
+    }
+
+    private List<Account> getAccounts(List<Long> gameIds) {
+        List<Game> games = gameRepository.findAllById(gameIds);
+        return games.stream()
+                .map(game -> game.getAccounts().stream()
+                        .filter(account -> account.getExpirationTime().isBefore(LocalDateTime.now()))
+                        .findFirst()
+                        .orElseThrow(() -> new NoEntityException("Accounts were not found")))
+                .toList();
+    }
+
+    private BigDecimal getTotalCost(List<Account> accounts, Integer periods) {
+        BigDecimal gamesCost = accounts.stream()
+                .flatMap(account -> account.getAccountsGame().stream())
+                .map(accountsGames -> accountsGames.getGame().getPrice())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        return gamesCost.multiply(BigDecimal.valueOf(periods));
+    }
+
+    private void executePayment(BigDecimal cost, Long walletId) {
+        Wallet wallet = walletRepository.findById(walletId)
+                .orElseThrow(() -> new NoEntityException("Wallet with id " + walletId + " was not found"));
+        if (wallet.getValue().compareTo(cost) < 0) {
+            throw new NotEnoughMoneyException("We have no money at wallet with id " + wallet.getId());
+        }
+        wallet.setValue(wallet.getValue().subtract(cost));
+        walletRepository.save(wallet);
+    }
+
+    private void savePaymentData(List<Account> accounts, User player, Integer periods) {
+        Order order = new Order();
+        order.setPaymentTime(LocalDateTime.now());
+        order.setUser(player);
+        orderRepository.save(order);
+        accounts.forEach(account -> {
+            account.setExpirationTime(LocalDateTime.now().plusDays(periods));
+            account.setUpdateTime(LocalDateTime.now());
+            OrdersAccount ordersAccount = new OrdersAccount();
+            ordersAccount.setAccount(accountRepository.save(account));
+            ordersAccount.setOrder(order);
+            ordersAccount.setPeriods(periods);
+            orderAccountRepository.save(ordersAccount);
+        });
+    }
+
+    private Map<String, String> getAccountsPasswords(List<Account> accounts) {
+        Map<String, String> passwords = new HashMap<>();
+        accounts.forEach(account -> passwords.put(account.getLogin(), account.getPassword()));
+        return passwords;
     }
 }
