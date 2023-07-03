@@ -12,7 +12,6 @@ import ru.aston.gamerent.repository.UserRepository;
 import ru.aston.gamerent.service.UserService;
 import ru.aston.gamerent.service.mapper.UserMapper;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,7 +21,8 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     public UserResponse getUserById(long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
         List<Account> accounts = userRepository.findAccountsByUser(user);
         List<Wallet> wallets = userRepository.findWalletsByUser(user);
         return userMapper.userToUserResponseDto(user, wallets, accounts);
@@ -30,13 +30,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(Long id, UserRequest userRequest) {
-        User userFromRequest = userMapper.userRequestToUser(userRequest);
-        User userFromDB = userRepository.findById(id).orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
-        userFromRequest.setId(id);
-        userFromRequest.setRegistrationTime(userFromDB.getRegistrationTime());
-        userFromRequest.setUpdateTime(LocalDateTime.now());
-        userFromRequest.setIsBlocked(userFromDB.getIsBlocked());
-        userFromRequest.setRoles(userFromDB.getRoles());
-        userRepository.saveAndFlush(userFromRequest);
+        User userFromDB = userRepository.findById(id)
+                .orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
+
+        userRepository.saveAndFlush(userMapper.userRequestToUser(userRequest, userFromDB));
     }
 }
