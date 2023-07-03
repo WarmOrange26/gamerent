@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.aston.gamerent.model.dto.request.OrderRequest;
+import ru.aston.gamerent.model.dto.response.ActiveAccountResponse;
 import ru.aston.gamerent.model.entity.Account;
 import ru.aston.gamerent.model.entity.Game;
 import ru.aston.gamerent.model.entity.Order;
@@ -23,13 +24,13 @@ import ru.aston.gamerent.repository.OrderRepository;
 import ru.aston.gamerent.repository.UserRepository;
 import ru.aston.gamerent.repository.WalletRepository;
 import ru.aston.gamerent.service.AccountService;
+import ru.aston.gamerent.service.mapper.AccountMapper;
 import ru.aston.gamerent.service.util.AccountValidator;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 @Slf4j
@@ -44,6 +45,7 @@ public class AccountServiceImpl implements AccountService {
     private final GameRepository gameRepository;
     private final WalletRepository walletRepository;
     private final AccountValidator accountValidator;
+    private final AccountMapper accountMapper;
     private final Random random = new Random();
 
     @Override
@@ -81,7 +83,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public Map<String, String> buyAccount(OrderRequest orderRequest) {
+    public List<ActiveAccountResponse> buyAccount(OrderRequest orderRequest) {
         User user = getUser(orderRequest.playerId());
         List<Account> accounts = getAccounts(orderRequest.gameIds());
         BigDecimal gamesCost = getTotalCost(accounts, orderRequest.periods());
@@ -106,11 +108,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private BigDecimal getTotalCost(List<Account> accounts, Integer periods) {
-        BigDecimal gamesCost = accounts.stream()
+        return accounts.stream()
                 .flatMap(account -> account.getAccountsGame().stream())
                 .map(accountsGames -> accountsGames.getGame().getPrice())
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        return gamesCost.multiply(BigDecimal.valueOf(periods));
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .multiply(BigDecimal.valueOf(periods));
     }
 
     private void executePayment(BigDecimal cost, Long walletId) {
@@ -139,9 +141,7 @@ public class AccountServiceImpl implements AccountService {
         });
     }
 
-    private Map<String, String> getAccountsPasswords(List<Account> accounts) {
-        Map<String, String> passwords = new HashMap<>();
-        accounts.forEach(account -> passwords.put(account.getLogin(), account.getPassword()));
-        return passwords;
+    private List<ActiveAccountResponse> getAccountsPasswords(List<Account> accounts) {
+        return accounts.stream().map(accountMapper::accountToActiveAccountResponse).toList();
     }
 }
