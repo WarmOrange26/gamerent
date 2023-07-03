@@ -1,5 +1,6 @@
 package ru.aston.gamerent.model.dto.request;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -46,6 +47,9 @@ public record UserRequest(
         @Pattern(regexp = PHONE_PATTERN, message = "Invalid phone")
         String phone,
 
+        @NotBlank(message = "Date of birth is mandatory!")
         LocalDate birthDate,
+
+        @Valid
         List<SettingValueRequest> settings) {
 }
