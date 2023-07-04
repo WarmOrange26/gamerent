@@ -80,6 +80,13 @@ public class Game {
     @ToString.Exclude
     private Set<Account> accounts;
 
+    @ManyToMany
+    @JoinTable(name = "games_genres",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    @ToString.Exclude
+    private Set<Genre> genres;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

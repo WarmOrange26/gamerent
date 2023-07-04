@@ -31,7 +31,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -144,4 +146,25 @@ public class AccountServiceImpl implements AccountService {
     private List<ActiveAccountResponse> getAccountsPasswords(List<Account> accounts) {
         return accounts.stream().map(accountMapper::accountToActiveAccountResponse).toList();
     }
+    @Override
+    @Transactional
+    public Account getAccountById(long id) {
+        Optional<Account> foundAccount = accountRepository.findById(id);
+        return foundAccount.orElseThrow(( ) -> new NoEntityException("Account with this id doesn't exists"));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Account> findByGameId(Long gameId) {
+        return accountRepository.findByGameId(gameId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public int numberOfAvailableAccounts(Long gameId){
+        return accountRepository.findByGameId(gameId).stream()
+                .filter(account -> account.getExpirationTime().isBefore(LocalDateTime.now()))
+                .collect(Collectors.toList()).size();
+    }
+
 }

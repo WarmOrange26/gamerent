@@ -1,11 +1,6 @@
 package ru.aston.gamerent.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +10,7 @@ import lombok.ToString;
 import ru.aston.gamerent.model.enumeration.GenreTitleEnum;
 
 import java.util.Objects;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,6 +29,10 @@ public class Genre {
     @Enumerated(EnumType.STRING)
     @Column(unique = true, nullable = false)
     private GenreTitleEnum title;
+
+    @ManyToMany(mappedBy = "genres")
+    @ToString.Exclude
+    private Set<Game> games;
 
     @Override
     public boolean equals(Object o) {
