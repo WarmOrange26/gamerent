@@ -8,12 +8,22 @@ import ru.aston.gamerent.model.exception.NoEntityException;
 import ru.aston.gamerent.repository.GameRepository;
 import ru.aston.gamerent.service.GameService;
 import ru.aston.gamerent.service.mapper.GameMapper;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService {
     private final GameRepository gameRepository;
     private final GameMapper gameMapper;
+
+    @Override
+    public List<GameResponse> getAllGames() {
+        return gameRepository.findAll()
+                .stream()
+                .map(gameMapper::gameToGameResponseDto)
+                .toList();
+    }
+
     @Override
     @Transactional
     public GameResponse getGameById(Long id) {

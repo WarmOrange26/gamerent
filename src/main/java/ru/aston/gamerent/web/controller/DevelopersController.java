@@ -10,14 +10,16 @@ import ru.aston.gamerent.service.DeveloperService;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("api/v1/developers")
+@RequestMapping("developers")
 public class DevelopersController {
+    public static final String DEVELOPER_RESPONSE = "developerResponse";
+    public static final String DEVELOPER_PAGE = "developer";
     private final DeveloperService developerService;
+
     @GetMapping("/{id}")
     public String show(@PathVariable Long id, Model model){
+        model.addAttribute(DEVELOPER_RESPONSE, developerService.findDeveloperById(id));
 
-        model.addAttribute("developerResponse", developerService.findDeveloperById(id));
-
-        return "developer";
+        return DEVELOPER_PAGE;
     }
 }

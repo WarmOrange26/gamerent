@@ -11,7 +11,6 @@ import ru.aston.gamerent.model.enumeration.SettingsNamesEnum;
  */
 @Builder
 public record SettingValueRequest(
-
         @NotBlank(message = "Setting is mandatory!")
         @EnumValidator(
                 enumClazz = SettingsNamesEnum.class,

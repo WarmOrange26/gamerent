@@ -45,5 +45,4 @@ public class Genre {
     public int hashCode() {
         return Objects.hash(title);
     }
-
 }

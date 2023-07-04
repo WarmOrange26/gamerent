@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -41,5 +40,4 @@ public class Platform {
     public int hashCode() {
         return Objects.hash(name);
     }
-
 }

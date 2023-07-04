@@ -54,5 +54,4 @@ public class OrdersAccount {
     public int hashCode() {
         return getClass().hashCode();
     }
-
 }

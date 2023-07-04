@@ -1,15 +1,14 @@
 package ru.aston.gamerent.model.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
-
 import java.time.LocalDate;
 import java.util.List;
-
 import static ru.aston.gamerent.model.dto.validation.ValidationConstants.EMAIL_PATTERN;
 import static ru.aston.gamerent.model.dto.validation.ValidationConstants.FIRST_NAME_PATTERN;
 import static ru.aston.gamerent.model.dto.validation.ValidationConstants.LAST_NAME_PATTERN;
@@ -22,7 +21,6 @@ import static ru.aston.gamerent.model.dto.validation.ValidationConstants.USERNAM
  */
 @Builder
 public record UserRequest(
-
         @NotBlank(message = "Username is mandatory!")
         @Size(max = 30, message = "Username length must be up to 30 characters")
         @Pattern(regexp = USERNAME_PATTERN, message = "Only Latin letters are allowed")
@@ -49,6 +47,7 @@ public record UserRequest(
         String phone,
 
         @NotNull(message = "Date of birth is mandatory!")
+        @JsonFormat(pattern = "dd/MM/yyyy")
         LocalDate birthDate,
 
         @Valid

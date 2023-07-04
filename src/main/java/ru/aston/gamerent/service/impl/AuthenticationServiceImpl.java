@@ -13,11 +13,8 @@ import ru.aston.gamerent.service.mapper.AuthenticationUserMapper;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
-
     private final UserRepository userRepository;
-
     private final AuthenticationUserMapper authenticationUserMapper;
-
     private final PasswordEncoder passwordEncoder;
 
     @Override
