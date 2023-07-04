@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="UTF-8">
+<title>Update game</title>
+</head>
+<body>
+<form action="#" th:action="@{/game-update}" th:object="${gamr}" method="post">
+    <label for="title">Title</label>
+    <input type="text" th:field="*{title}" id="title" placeholder="Введите название игры">
+    <label for="developer">developer</label>
+    <input type="text" th:field="*{developer}" id="developer" placeholder="Введите производителя">
+    <label for="releaseDate">releaseDate</label>
+    <input type="datetime-local" th:field="*{releaseDate}" id="releaseDate" placeholder="Введите дату создания релиза">
+    <label for="description">releaseDate</label>
+    <input type="description" th:field="*{releaseDate}" id="description" placeholder="Введите описание">
+    <label for="price">price</label>
+    <input type="number" th:field="*{price}" id="price" placeholder="Введите цену, За неделю? или за день?">
+    <label for="image">price</label>
+    <input type="url" th:field="*{image}" id="image" placeholder="Введите ссылку на обложку">
+    <label for="trailerUrl">trailerUrl</label>
+    <input type="url" th:field="*{trailerUrl}" id="trailerUrl" placeholder="Введите ссылку на трейлер">
+    <input type="submit" value="Update">
+</form>
+</body>
+</html>
