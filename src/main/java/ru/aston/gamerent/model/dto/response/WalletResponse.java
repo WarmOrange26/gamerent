@@ -2,7 +2,6 @@ package ru.aston.gamerent.model.dto.response;
 
 import lombok.Builder;
 import ru.aston.gamerent.model.enumeration.CurrencyCode;
-
 import java.math.BigDecimal;
 
 /**

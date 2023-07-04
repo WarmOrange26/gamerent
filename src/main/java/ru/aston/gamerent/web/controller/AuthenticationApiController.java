@@ -30,6 +30,7 @@ public class AuthenticationApiController {
         Map<Object, Object> response = new HashMap<>();
         response.put(EMAIL, user.email());
         response.put(ACCESS_TOKEN, jwtTokenProvider.createToken(user));
+
         return ResponseEntity.ok(response);
     }
 }

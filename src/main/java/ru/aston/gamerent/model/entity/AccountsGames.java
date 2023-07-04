@@ -15,7 +15,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.time.LocalDateTime;
 
 @Getter
@@ -56,5 +55,4 @@ public class AccountsGames {
     public int hashCode() {
         return getClass().hashCode();
     }
-
 }

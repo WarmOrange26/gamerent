@@ -12,7 +12,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.util.Objects;
 
 @Builder
@@ -43,5 +42,4 @@ public class ActionType {
     public int hashCode() {
         return Objects.hash(action);
     }
-
 }

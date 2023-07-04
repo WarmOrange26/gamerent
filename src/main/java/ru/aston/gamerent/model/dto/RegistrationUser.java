@@ -2,9 +2,9 @@ package ru.aston.gamerent.model.dto;
 
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
 import java.time.LocalDate;
 
 import static ru.aston.gamerent.model.dto.validation.ValidationConstants.*;
@@ -38,5 +38,6 @@ public record RegistrationUser(
         @Pattern(regexp = LAST_NAME_PATTERN, message = "Invalid last name")
         String lastName,
 
+        @NotNull
         LocalDate birthDate) {
 }

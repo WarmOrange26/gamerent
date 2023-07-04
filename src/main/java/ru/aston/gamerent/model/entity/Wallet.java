@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import ru.aston.gamerent.model.enumeration.CurrencyCode;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -64,5 +63,4 @@ public class Wallet {
     public int hashCode() {
         return getClass().hashCode();
     }
-
 }

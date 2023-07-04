@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>Games</title>
+</head>
+<body>
+<h1>GAMES</h1>
+<div th:each="game: ${games}">
+  <h4>
+    <a th:href="@{/games/{id}(id=${game.getId()})}"
+       th:text="${game.getTitle()}">GAME NAME</a>
+  </h4>
+  <div>
+    <span>Price: </span> <span th:text="${game.getPrice()}">PRICE</span> <span> RUB</span>
+  </div>
+  <div>
+    <span>Game description: </span> <span th:text="${game.getDescription()}">GAME DESCRIPTION</span>
+  </div>
+  <span>genre: </span>
+  <span th:each="genre : ${game.getGenres()}">
+    <span th:text="${genre.getTitle()}"> </span> <span>;     </span>
+</span>
+  <div>
+    <a th:href="@{/developers/{id}(id=${game.getDeveloper().getId()})}"
+       th:text="${game.getDeveloper().getTitle()}">DEVELOPER</a>
+  </div>
+  <div>
+    <span> Date of release: </span> <span th:text="${game.getReleaseDate()}">DATE</span>
+  </div>
+  <div th:text="${game.getImage()}">IMAGE</div>
+  <div th:each="screenshot : ${game.getScreenshots()}">
+    <span>screenshot: </span>
+    <span th:text="${screenshot.getUrl()}">SCREENSHOT</span>
+  </div>
+  <span>Trailer URL: </span><span th:text="${game.getTrailerUrl()}">TRAILER</span>
+  </br>
+</div>
+
+</body>
+</html>

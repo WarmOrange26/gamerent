@@ -15,9 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.time.LocalDateTime;
-
 
 @Getter
 @Setter
@@ -52,5 +50,4 @@ public class Order {
     public int hashCode() {
         return getClass().hashCode();
     }
-
 }

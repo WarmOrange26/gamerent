@@ -16,7 +16,7 @@ import ru.aston.gamerent.service.UserService;
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 public class UsersController {
-
+    public static final String UPDATE_MESSAGE = "User is update";
     private final UserService usersService;
 
     @GetMapping("/{id}")
@@ -28,6 +28,7 @@ public class UsersController {
     public String updateUser(@PathVariable Long id,
                              @Valid @RequestBody UserRequest userRequest) {
         usersService.updateUser(id, userRequest);
-        return "User is update";
+
+        return UPDATE_MESSAGE;
     }
 }

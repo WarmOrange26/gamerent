@@ -17,7 +17,7 @@
     <span th:text="${genre.getTitle()}"> </span> <span>;     </span>
 </span>
 <div>
-    <a th:href="@{/api/v1/developers/{id}(id=${gameResponse.getDeveloper().getId()})}"
+    <a th:href="@{/developers/{id}(id=${gameResponse.getDeveloper().getId()})}"
        th:text="${gameResponse.getDeveloper().getTitle()}">DEVELOPER</a>
 </div>
 <div>
@@ -34,7 +34,7 @@
     <span>Number of available accounts: </span> <span th:text="${numberOfAvailableAccounts}">DATE</span>
 </div>
 <div th:if="${numberOfAvailableAccounts}">
-<form th:method="POST" th:action="@{/api/v1/games/{id}/postpone(id=${gameResponse.getId()})}">
+<form th:method="POST" th:action="@{/games/{id}/postpone(id=${gameResponse.getId()})}">
     <input type="submit" value="POSTPONE">
 </form>
 </div>
