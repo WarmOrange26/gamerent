@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Game description</title>
+</head>
+<body>
+<h4 th:text="${gameResponse.getTitle()}">NAME OF THE GAME</h4>
+<div>
+    <span>Price: </span> <span th:text="${gameResponse.getPrice()}">PRICE</span> <span> RUB</span>
+</div>
+<div>
+    <span>Game description: </span> <span th:text="${gameResponse.getDescription()}">GAME DESCRIPTION</span>
+</div>
+<span>genre: </span>
+<span th:each="genre : ${gameResponse.getGenres()}">
+    <span th:text="${genre.getTitle()}"> </span> <span>;     </span>
+</span>
+<div>
+    <a th:href="@{/api/v1/developers/{id}(id=${gameResponse.getDeveloper().getId()})}"
+       th:text="${gameResponse.getDeveloper().getTitle()}">DEVELOPER</a>
+</div>
+<div>
+    <span> Date of release: </span> <span th:text="${gameResponse.getReleaseDate()}">DATE</span>
+</div>
+<div th:text="${gameResponse.getImage()}">IMAGE</div>
+<div th:each="screenshot : ${gameResponse.getScreenshots()}">
+    <span>screenshot: </span>
+    <span th:text="${screenshot.getUrl()}">SCREENSHOT</span>
+</div>
+<span>Trailer URL: </span><span th:text="${gameResponse.getTrailerUrl()}">TRAILER</span>
+</body>
+<div>
+    <span>Number of available accounts: </span> <span th:text="${numberOfAvailableAccounts}">DATE</span>
+</div>
+<div th:if="${numberOfAvailableAccounts}">
+<form th:method="POST" th:action="@{/api/v1/games/{id}/postpone(id=${gameResponse.getId()})}">
+    <input type="submit" value="POSTPONE">
+</form>
+</div>
+</html>
