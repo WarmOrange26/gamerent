@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -22,6 +24,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -69,6 +72,13 @@ public class Game {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
     @ToString.Exclude
     private List<Screenshot> screenshots;
+
+    @ManyToMany
+    @JoinTable(name = "accounts_games",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "account_id"))
+    @ToString.Exclude
+    private Set<Account> accounts;
 
     @Override
     public boolean equals(Object o) {

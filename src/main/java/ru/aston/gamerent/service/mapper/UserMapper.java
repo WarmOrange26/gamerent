@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import ru.aston.gamerent.model.dto.request.SettingValueRequest;
 import ru.aston.gamerent.model.dto.request.UserRequest;
 import ru.aston.gamerent.model.dto.response.AccountResponse;
+import ru.aston.gamerent.model.dto.RegistrationUser;
 import ru.aston.gamerent.model.dto.response.UserResponse;
 import ru.aston.gamerent.model.dto.response.WalletResponse;
 import ru.aston.gamerent.model.entity.Account;
@@ -53,4 +54,12 @@ public interface UserMapper {
 
         return userFromBD;
     }
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "isBlocked", ignore = true)
+    @Mapping(target = "registrationTime", ignore = true)
+    @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "settings", ignore = true)
+    @Mapping(target = "updateTime", ignore = true)
+    User userRegistrationDtoToUser(RegistrationUser registrationUser);
 }
