@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: yauhennia2@gmail.com
+      changes:
+        - createTable:
+            tableName: screenshots
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: url
+                  type: varchar(250)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: game_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseColumnNames: game_id
+                  baseTableName: screenshots
+                  constraintName: fk_screenshots_game_id
+                  onDelete: CASCADE
+                  onUpdate: CASCADE
+                  referencedColumnNames: id
+                  referencedTableName: games

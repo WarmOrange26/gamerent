@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Games</title>
+</head>
+<body>
+<div th:switch="${games}">
+    <h2 th:case="null">No games found!</h2>
+    <div th:case="*">
+        <h2>Game</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>title</th>
+                <th>developer</th>
+                <th>releaseDate</th>
+                <th>description</th>
+                <th>price</th>
+                <th>image</th>
+                <th>trailerUrl</th>
+                <th>createTime</th>
+                <th>screenshots</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="game : ${games}">
+                <td th:text="${game.id}"></td>
+                <td th:text="${game.title}"></td>
+                <td th:text="${game.developer}"></td>
+                <td th:text="${game.releaseDate}"></td>
+                <td th:text="${game.description}"></td>
+                <td th:text="${game.price}"></td>
+                <td th:text="${game.image}"></td>
+                <td th:text="${game.trailerUrl}"></td>
+                <td th:text="${game.createTime}"></td>
+                <td th:text="${game.updateTime}"></td>
+                <td th:text="${game.screenshots}"></td>
+                <td><a th:href="@{game-update/{id}(id=${game.id})}">Edit</a></td>
+                <td><a th:href="@{game-delete/{id}(id=${game.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/game-create">Create game</a></p>
+</div>
+</body>
+</html>

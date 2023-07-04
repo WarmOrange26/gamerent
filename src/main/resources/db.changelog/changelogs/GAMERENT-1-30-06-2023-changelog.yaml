@@ -1,0 +1,10 @@
+databaseChangeLog:
+  -  changeSet:
+       id:  hotfix-change-password-length
+       author:  aleksandr.mikhalevich89@gmail.com
+       changes:
+         -  modifyDataType:
+              columnName:  password
+              newDataType:  varchar(70)
+              schemaName:  public
+              tableName:  users
