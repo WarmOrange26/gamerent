@@ -16,6 +16,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -61,9 +63,11 @@ public class Game {
     private String trailerUrl;
 
     @Column(name = "create_time", nullable = false)
+    @CreationTimestamp
     private LocalDateTime createTime;
 
     @Column(name = "update_time", nullable = false)
+    @UpdateTimestamp
     private LocalDateTime updateTime;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
