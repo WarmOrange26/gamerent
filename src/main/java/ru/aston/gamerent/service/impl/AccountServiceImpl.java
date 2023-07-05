@@ -6,17 +6,17 @@ import org.apache.commons.text.RandomStringGenerator;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.aston.gamerent.model.dto.request.OrderRequest;
-import ru.aston.gamerent.model.dto.response.ActiveAccountResponse;
+import ru.aston.gamerent.exception.NoEntityException;
+import ru.aston.gamerent.exception.NotEnoughMoneyException;
+import ru.aston.gamerent.exception.PlatformApiConnectionException;
+import ru.aston.gamerent.mapper.AccountMapper;
+import ru.aston.gamerent.model.dto.request.OrderRequestDto;
+import ru.aston.gamerent.model.dto.response.ActiveAccountResponseDto;
 import ru.aston.gamerent.model.entity.Account;
-import ru.aston.gamerent.model.entity.Game;
 import ru.aston.gamerent.model.entity.Order;
 import ru.aston.gamerent.model.entity.OrdersAccount;
 import ru.aston.gamerent.model.entity.User;
 import ru.aston.gamerent.model.entity.Wallet;
-import ru.aston.gamerent.model.exception.NoEntityException;
-import ru.aston.gamerent.model.exception.NotEnoughMoneyException;
-import ru.aston.gamerent.model.exception.PlatformApiConnectionException;
 import ru.aston.gamerent.repository.AccountRepository;
 import ru.aston.gamerent.repository.GameRepository;
 import ru.aston.gamerent.repository.OrderAccountRepository;
@@ -24,11 +24,9 @@ import ru.aston.gamerent.repository.OrderRepository;
 import ru.aston.gamerent.repository.UserRepository;
 import ru.aston.gamerent.repository.WalletRepository;
 import ru.aston.gamerent.service.AccountService;
-import ru.aston.gamerent.service.mapper.AccountMapper;
-import ru.aston.gamerent.service.util.AccountValidator;
-import ru.aston.gamerent.service.util.BankApiConnector;
-
 import ru.aston.gamerent.util.AccountValidator;
+import ru.aston.gamerent.util.BankApiConnector;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -46,6 +44,7 @@ public class AccountServiceImpl implements AccountService {
     private final GameRepository gameRepository;
     private final WalletRepository walletRepository;
     private final AccountValidator accountValidator;
+    private final BankApiConnector bankApiConnector;
     private final AccountMapper accountMapper;
     private final Random random = new Random();
 

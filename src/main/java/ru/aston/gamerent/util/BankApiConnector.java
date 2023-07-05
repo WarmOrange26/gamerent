@@ -1,12 +1,12 @@
-package ru.aston.gamerent.service.util;
+package ru.aston.gamerent.util;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.aston.gamerent.model.enumeration.CurrencyCode;
-import ru.aston.gamerent.model.exception.CurrencyConvertingException;
+import ru.aston.gamerent.exception.CurrencyConvertingException;
+import ru.aston.gamerent.model.enumeration.CurrencyCodeEnum;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,21 +20,21 @@ public class BankApiConnector {
     @Value("${game-rent.currency.data-path}")
     private String path;
 
-    public BigDecimal getCurrencyValue(CurrencyCode currencyCode) {
-        if (currencyCode.equals(CurrencyCode.RUB)) {
+    public BigDecimal getCurrencyValue(CurrencyCodeEnum currencyCodeEnum) {
+        if (currencyCodeEnum.equals(CurrencyCodeEnum.RUB)) {
             return BigDecimal.ONE;
         }
         else {
-            return getTodayValue(currencyCode);
+            return getTodayValue(currencyCodeEnum);
         }
     }
 
-    private BigDecimal getTodayValue(CurrencyCode currencyCode) {
+    private BigDecimal getTodayValue(CurrencyCodeEnum currencyCodeEnum) {
         try (InputStream stream = new URL(path).openStream()) {
             String jsonData = new String(stream.readAllBytes());
             JsonReader reader = Json.createReader(new StringReader(jsonData));
             JsonObject jsonObject = reader.readObject().getJsonObject("Valute");
-            JsonObject currentCurrency = jsonObject.getJsonObject(String.valueOf(currencyCode));
+            JsonObject currentCurrency = jsonObject.getJsonObject(String.valueOf(currencyCodeEnum));
             return BigDecimal.valueOf(Double.parseDouble(String.valueOf(currentCurrency.get("Value"))));
         }
         catch (IOException e) {
