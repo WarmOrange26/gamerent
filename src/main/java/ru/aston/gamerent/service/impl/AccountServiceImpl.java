@@ -26,7 +26,10 @@ import ru.aston.gamerent.repository.WalletRepository;
 import ru.aston.gamerent.service.AccountService;
 import ru.aston.gamerent.service.mapper.AccountMapper;
 import ru.aston.gamerent.service.util.AccountValidator;
+import ru.aston.gamerent.service.util.BankApiConnector;
+
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +46,7 @@ public class AccountServiceImpl implements AccountService {
     private final GameRepository gameRepository;
     private final WalletRepository walletRepository;
     private final AccountValidator accountValidator;
+    private final BankApiConnector bankApiConnector;
     private final AccountMapper accountMapper;
     private final Random random = new Random();
 
@@ -116,7 +120,8 @@ public class AccountServiceImpl implements AccountService {
     private void executePayment(BigDecimal cost, Long walletId) {
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new NoEntityException("Wallet with id " + walletId + " was not found"));
-        if (wallet.getValue().compareTo(cost) < 0) {
+        BigDecimal moneyInRoubles = cost.divide(bankApiConnector.getCurrencyValue(wallet.getCurrency()), RoundingMode.DOWN);
+        if (wallet.getValue().compareTo(moneyInRoubles) < 0) {
             throw new NotEnoughMoneyException("We have no money at wallet with id " + wallet.getId());
         }
         wallet.setValue(wallet.getValue().subtract(cost));
