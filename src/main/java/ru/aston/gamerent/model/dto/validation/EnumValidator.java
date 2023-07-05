@@ -4,7 +4,7 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import jakarta.validation.ReportAsSingleViolation;
 import jakarta.validation.constraints.NotNull;
-
+import ru.aston.gamerent.model.dto.validation.impl.EnumValidatorImpl;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -26,5 +26,4 @@ public @interface EnumValidator {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
 }

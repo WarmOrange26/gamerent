@@ -1,14 +1,15 @@
 package ru.aston.gamerent.model.enumeration;
 
 public enum GenreTitleEnum {
-
-    ACTION_AND_ADVENTURE,
-    DRIVING_AND_RACING,
+    ACTION,
+    ADVENTURE,
+    RACING,
     ROLE_PLAYING,
     SHOOTER,
-    SINGLE_COMBAT,
+    FIGHTING,
+    STEALTH,
+    SLASHER,
     SPORT,
     STRATEGY,
     THRILLER
-
 }

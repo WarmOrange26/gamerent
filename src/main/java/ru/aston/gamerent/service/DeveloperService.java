@@ -1,7 +1,7 @@
 package ru.aston.gamerent.service;
 
-import ru.aston.gamerent.model.dto.response.DeveloperResponse;
+import ru.aston.gamerent.model.dto.response.DeveloperResponseDto;
 
 public interface DeveloperService {
-    DeveloperResponse findDeveloperById(Long id);
+    DeveloperResponseDto findDeveloperById(Long id);
 }

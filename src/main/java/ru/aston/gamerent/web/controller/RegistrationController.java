@@ -7,7 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.aston.gamerent.model.dto.RegistrationUser;
+import ru.aston.gamerent.model.dto.request.RegistrationUserRequestDto;
 import ru.aston.gamerent.service.EmailService;
 import ru.aston.gamerent.service.UserService;
 import jakarta.validation.Valid;
@@ -24,12 +24,12 @@ public class RegistrationController {
     private final EmailService emailService;
 
     @GetMapping("/registration")
-    public String newUser(@ModelAttribute("user") RegistrationUser user) {
+    public String newUser(@ModelAttribute("user") RegistrationUserRequestDto user) {
         return REGISTRATION_PAGE;
     }
 
     @PostMapping("/registration")
-    public String addUser(@ModelAttribute("user") @Valid RegistrationUser user, BindingResult bindingResult, Model model) {
+    public String addUser(@ModelAttribute("user") @Valid RegistrationUserRequestDto user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return REGISTRATION_PAGE;
         }
