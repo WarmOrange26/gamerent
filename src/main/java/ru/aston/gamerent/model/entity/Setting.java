@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import ru.aston.gamerent.model.enumeration.SettingsNamesEnum;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -54,5 +53,4 @@ public class Setting {
     public int hashCode() {
         return Objects.hash(settingName);
     }
-
 }

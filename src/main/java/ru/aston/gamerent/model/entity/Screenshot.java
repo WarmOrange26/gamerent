@@ -15,7 +15,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -51,5 +50,4 @@ public class Screenshot {
     public int hashCode() {
         return Objects.hash(url);
     }
-
 }

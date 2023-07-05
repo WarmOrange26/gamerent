@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import ru.aston.gamerent.model.enumeration.RoleNameEnum;
-
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -45,5 +44,4 @@ public class Role {
     public int hashCode() {
         return Objects.hash(name);
     }
-
 }

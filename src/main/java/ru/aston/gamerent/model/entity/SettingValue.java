@@ -54,5 +54,4 @@ public class SettingValue {
     public int hashCode() {
         return getClass().hashCode();
     }
-
 }

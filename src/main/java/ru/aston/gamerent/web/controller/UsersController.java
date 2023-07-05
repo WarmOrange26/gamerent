@@ -1,10 +1,14 @@
 package ru.aston.gamerent.web.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.aston.gamerent.model.dto.request.UserRequest;
 import ru.aston.gamerent.model.dto.response.UserResponse;
 import ru.aston.gamerent.service.UserService;
 
@@ -12,10 +16,19 @@ import ru.aston.gamerent.service.UserService;
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 public class UsersController {
+    public static final String UPDATE_MESSAGE = "User is update";
     private final UserService usersService;
 
     @GetMapping("/{id}")
-    public UserResponse getUser(@PathVariable Integer id) {
+    public UserResponse getUser(@PathVariable Long id) {
         return usersService.getUserById(id);
+    }
+
+    @PostMapping("/{id}")
+    public String updateUser(@PathVariable Long id,
+                             @Valid @RequestBody UserRequest userRequest) {
+        usersService.updateUser(id, userRequest);
+
+        return UPDATE_MESSAGE;
     }
 }
