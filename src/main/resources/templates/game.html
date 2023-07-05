@@ -5,36 +5,36 @@
     <title>Game description</title>
 </head>
 <body>
-<h4 th:text="${gameResponse.getTitle()}">NAME OF THE GAME</h4>
+<h4 th:text="${game.title()}">NAME OF THE GAME</h4>
 <div>
-    <span>Price: </span> <span th:text="${gameResponse.getPrice()}">PRICE</span> <span> RUB</span>
+    <span>Price: </span> <span th:text="${game.price()}">PRICE</span> <span> RUB</span>
 </div>
 <div>
-    <span>Game description: </span> <span th:text="${gameResponse.getDescription()}">GAME DESCRIPTION</span>
+    <span>Game description: </span> <span th:text="${game.description()}">GAME DESCRIPTION</span>
 </div>
 <span>genre: </span>
-<span th:each="genre : ${gameResponse.getGenres()}">
+<span th:each="genre : ${game.genres()}">
     <span th:text="${genre.getTitle()}"> </span> <span>;     </span>
 </span>
 <div>
-    <a th:href="@{/developers/{id}(id=${gameResponse.getDeveloper().getId()})}"
-       th:text="${gameResponse.getDeveloper().getTitle()}">DEVELOPER</a>
+    <a th:href="@{/developers/{id}(id=${game.developer().getId()})}"
+       th:text="${game.developer().getTitle()}">DEVELOPER</a>
 </div>
 <div>
-    <span> Date of release: </span> <span th:text="${gameResponse.getReleaseDate()}">DATE</span>
+    <span> Date of release: </span> <span th:text="${game.releaseDate()}">DATE</span>
 </div>
-<div th:text="${gameResponse.getImage()}">IMAGE</div>
-<div th:each="screenshot : ${gameResponse.getScreenshots()}">
+<div th:text="${game.image()}">IMAGE</div>
+<div th:each="screenshot : ${game.screenshots()}">
     <span>screenshot: </span>
     <span th:text="${screenshot.getUrl()}">SCREENSHOT</span>
 </div>
-<span>Trailer URL: </span><span th:text="${gameResponse.getTrailerUrl()}">TRAILER</span>
+<span>Trailer URL: </span><span th:text="${game.trailerUrl()}">TRAILER</span>
 </body>
 <div>
     <span>Number of available accounts: </span> <span th:text="${numberOfAvailableAccounts}">DATE</span>
 </div>
 <div th:if="${numberOfAvailableAccounts}">
-<form th:method="POST" th:action="@{/games/{id}/postpone(id=${gameResponse.getId()})}">
+<form th:method="POST" th:action="@{/games/{id}/postpone(id=${game.id()})}">
     <input type="submit" value="POSTPONE">
 </form>
 </div>

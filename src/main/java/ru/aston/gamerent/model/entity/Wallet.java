@@ -18,7 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ru.aston.gamerent.model.enumeration.CurrencyCode;
+import ru.aston.gamerent.model.enumeration.CurrencyCodeEnum;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class Wallet {
 
     @Column(nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
-    private CurrencyCode currency;
+    private CurrencyCodeEnum currency;
 
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal value;

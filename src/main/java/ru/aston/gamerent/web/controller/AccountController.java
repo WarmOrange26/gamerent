@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.aston.gamerent.model.dto.request.OrderRequest;
-import ru.aston.gamerent.model.dto.response.ActiveAccountResponse;
+import ru.aston.gamerent.model.dto.request.OrderRequestDto;
+import ru.aston.gamerent.model.dto.response.ActiveAccountResponseDto;
 import ru.aston.gamerent.service.AccountService;
 
 import java.util.List;
@@ -15,11 +15,10 @@ import java.util.List;
 @RequestMapping("/api/vi/account")
 @RequiredArgsConstructor
 public class AccountController {
-
     private final AccountService accountService;
 
     @PostMapping("/buying")
-    public List<ActiveAccountResponse> buyAccounts(@RequestBody OrderRequest orderRequest) {
-        return accountService.buyAccount(orderRequest);
+    public List<ActiveAccountResponseDto> buyAccounts(@RequestBody OrderRequestDto orderRequestDto) {
+        return accountService.buyAccount(orderRequestDto);
     }
 }

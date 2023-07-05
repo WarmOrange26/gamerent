@@ -16,7 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import ru.aston.gamerent.model.dto.security.AuthenticationUser;
+import ru.aston.gamerent.model.dto.security.AuthenticationUserDto;
 import ru.aston.gamerent.model.enumeration.RoleNameEnum;
 import ru.aston.gamerent.web.security.JwtUserDetailsService;
 import java.security.Key;
@@ -42,7 +42,7 @@ public class JwtTokenProvider {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String createToken(AuthenticationUser user) {
+    public String createToken(AuthenticationUserDto user) {
         Claims claims = Jwts.claims().setSubject(user.email());
         claims.put("roles", getRoleNames(user.roleNames().stream().toList()));
         Date now = new Date();
