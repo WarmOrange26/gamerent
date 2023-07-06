@@ -14,11 +14,11 @@
 </div>
 <span>genre: </span>
 <span th:each="genre : ${game.genres()}">
-    <span th:text="${genre.getTitle()}"> </span> <span>;     </span>
+    <span th:text="${genre}"> </span> <span>;     </span>
 </span>
 <div>
-    <a th:href="@{/developers/{id}(id=${game.developer().getId()})}"
-       th:text="${game.developer().getTitle()}">DEVELOPER</a>
+    <a th:href="@{/developers/{id}(id=${game.developer().id()})}"
+       th:text="${game.developer().title()}">DEVELOPER</a>
 </div>
 <div>
     <span> Date of release: </span> <span th:text="${game.releaseDate()}">DATE</span>
@@ -26,7 +26,7 @@
 <div th:text="${game.image()}">IMAGE</div>
 <div th:each="screenshot : ${game.screenshots()}">
     <span>screenshot: </span>
-    <span th:text="${screenshot.getUrl()}">SCREENSHOT</span>
+    <span th:text="${screenshot}">SCREENSHOT</span>
 </div>
 <span>Trailer URL: </span><span th:text="${game.trailerUrl()}">TRAILER</span>
 </body>

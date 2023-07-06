@@ -1,13 +1,14 @@
 package ru.aston.gamerent.model.dto.response;
 
-import lombok.Data;
-import ru.aston.gamerent.model.entity.Game;
+import lombok.Builder;
+
 import java.util.List;
 
-@Data
-public class DeveloperResponseDto {
-    private Long id;
-    private String title;
-    private String description;
-    private List<Game> games;
+@Builder
+public record DeveloperResponseDto (
+        String title,
+        String description,
+        List<String> games
+) {
+
 }

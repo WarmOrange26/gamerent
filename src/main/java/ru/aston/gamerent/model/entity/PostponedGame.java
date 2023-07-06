@@ -9,17 +9,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @ToString
 @Entity
 @Table(name = "postponed_games")
@@ -39,7 +37,7 @@ public class PostponedGame {
     @ToString.Exclude
     private Game game;
 
-    @Column(name = "postponed_time", nullable = false)
+    @Column(name = "postpone_time", nullable = false)
     private LocalDateTime postponedTime;
 
     @Override

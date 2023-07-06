@@ -1,10 +1,11 @@
 package ru.aston.gamerent.model.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-<<<<<<< HEAD
-
-=======
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -22,13 +23,11 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
->>>>>>> origin/dev
 @Entity
+@Table(name = "screenshots")
 public class Screenshot {
+
     @Id
-<<<<<<< HEAD
-    Long id;
-=======
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -51,5 +50,4 @@ public class Screenshot {
     public int hashCode() {
         return Objects.hash(url);
     }
->>>>>>> origin/dev
 }
