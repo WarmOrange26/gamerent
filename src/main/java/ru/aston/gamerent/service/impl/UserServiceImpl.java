@@ -4,31 +4,38 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.aston.gamerent.exception.NoEntityException;
+import ru.aston.gamerent.mapper.ConfirmationTokenMapper;
+import ru.aston.gamerent.mapper.UserMapper;
 import ru.aston.gamerent.model.dto.request.RegistrationUserRequestDto;
 import ru.aston.gamerent.model.dto.request.UserRequestDto;
+import ru.aston.gamerent.model.dto.response.ConfirmationResponseDto;
 import ru.aston.gamerent.model.dto.response.UserResponseDto;
 import ru.aston.gamerent.model.entity.Account;
+import ru.aston.gamerent.model.entity.ConfirmationToken;
 import ru.aston.gamerent.model.entity.Role;
 import ru.aston.gamerent.model.entity.User;
 import ru.aston.gamerent.model.entity.Wallet;
 import ru.aston.gamerent.model.enumeration.RoleNameEnum;
-import ru.aston.gamerent.exception.NoEntityException;
 import ru.aston.gamerent.repository.AccountRepository;
+import ru.aston.gamerent.repository.ConfirmationTokenRepository;
 import ru.aston.gamerent.repository.UserRepository;
 import ru.aston.gamerent.repository.WalletRepository;
 import ru.aston.gamerent.service.UserService;
-import ru.aston.gamerent.mapper.UserMapper;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+    private final ConfirmationTokenMapper confirmationTokenMapper;
     private final UserRepository userRepository;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
     private final WalletRepository walletRepository;
     private final AccountRepository accountRepository;
     private final UserMapper userMapper;
@@ -53,12 +60,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean saveUser(RegistrationUserRequestDto registrationUserRequestDto) {
+    public ConfirmationResponseDto saveUser(RegistrationUserRequestDto registrationUserRequestDto) {
         Optional<User> userFromDB = userRepository.findByEmail(registrationUserRequestDto.email());
 
         if (userFromDB.isPresent()) {
             log.info("User with email {} already exists!", registrationUserRequestDto.email());
-            return false;
+            return null;
         }
 
         User newUser = userMapper.userRegistrationDtoToUser(registrationUserRequestDto);
@@ -66,11 +73,33 @@ public class UserServiceImpl implements UserService {
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         newUser.setRegistrationTime(LocalDateTime.now());
         newUser.setUpdateTime(LocalDateTime.now());
-        newUser.setIsBlocked(false);
+        newUser.setIsBlocked(true);
         userRepository.save(newUser);
 
-        log.info("User {} successfully saved", newUser);
+        ConfirmationToken confirmationToken = new ConfirmationToken(newUser);
+        confirmationTokenRepository.save(confirmationToken);
 
-        return true;
+        log.info("User {} successfully saved. Confirmation token: {}", newUser, confirmationToken.getToken());
+
+        return confirmationTokenMapper.confirmationTokenToDto(confirmationToken);
+    }
+
+    @Override
+    public boolean confirmEmail(UUID token) {
+        ConfirmationToken confirmationToken = confirmationTokenRepository.findByToken(token);
+
+        if (confirmationToken != null)
+        {
+            User user = userRepository.findByEmail(confirmationToken.getUser().getEmail())
+                    .orElseThrow(() -> new NoEntityException("User with email " + confirmationToken.getUser().getEmail() + " not found"));
+            user.setIsBlocked(false);
+            userRepository.save(user);
+            log.info("User {} successfully confirm email by token {}", user, confirmationToken.getToken());
+            return true;
+        }
+
+        log.warn("Confirmation token {} not found", token);
+
+        return false;
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import ru.aston.gamerent.service.EmailService;
 
+import java.util.UUID;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -18,29 +20,31 @@ public class EmailServiceImpl implements EmailService {
     private String sender;
 
     private static final String TEXT_MESSAGE = """
-                            Good day!
-                            You have successfully registered in WARM online gamerent shop.
-                            You username: %s
-                            E-mail: %s
-                            Password: %s
-                            """;
+            Good day!
+            You have successfully registered in WARM online gamerent shop.
+            You username: %s
+            E-mail: %s
+            Password: %s
+            To confirm your account, please click here:
+            http://localhost:8080/registration/verify?token=%s
+            """;
 
     private static final String SUBJECT_MESSAGE = "WARM online gamerent shop registration";
 
     private static final String USER_INFO_SUCCESS = "A letter with registration data is sent to the e-mail" +
-            " specified during registration. You can now use these details to log into the site";
+            " specified during registration. Please, verify you account before entering the site!";
 
     private static final String USER_INFO_ERROR = "Аn error occurred during registration email sending!";
 
     @Override
-    public String sendRegistrationMail(String username, String email, String password) {
+    public String sendRegistrationMail(String username, String email, String password, UUID token) {
         String userInfo;
 
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
             mailMessage.setFrom(sender);
             mailMessage.setTo(email);
-            mailMessage.setText(String.format(TEXT_MESSAGE, username, email, password));
+            mailMessage.setText(String.format(TEXT_MESSAGE, username, email, password, token));
             mailMessage.setSubject(SUBJECT_MESSAGE);
             javaMailSender.send(mailMessage);
 

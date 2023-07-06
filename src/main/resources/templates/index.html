@@ -5,14 +5,20 @@
     <title>WARM Gamerent Home</title>
 </head>
 <body class="d-flex flex-column min-vh-100">
-<span style="text-align: center">
+<div class="container">
+    <div class="row justify-content-center" style="margin-top:20px">
+        <span style="text-align: center">
     <a href="/registration">Registration</a>
-</span>
-<span class="text-info" style="text-align: center" th:text="${registrationMessage}"></span>
-<div class="wrapper flex-grow-1">
-</div>
-<span style="text-align: center">
+         <span style="text-align: center">
     <a href="/games">Games</a>
 </span>
+</span>
+        <span class="text-info" style="text-align: center" th:text="${registrationMessage}"></span>
+        <span class="text-info" style="text-align: center" th:text="${verifyError}"></span>
+        <span class="text-info" style="text-align: center" th:text="${verifyMessage}"></span>
+    </div>
+</div>
+<div class="wrapper flex-grow-1">
+</div>
 </body>
 </html>
