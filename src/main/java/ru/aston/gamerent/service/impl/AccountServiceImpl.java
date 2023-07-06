@@ -6,30 +6,18 @@ import org.apache.commons.text.RandomStringGenerator;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.aston.gamerent.model.dto.request.OrderRequest;
-import ru.aston.gamerent.model.dto.response.ActiveAccountResponse;
-import ru.aston.gamerent.model.entity.Account;
-import ru.aston.gamerent.model.entity.Game;
-import ru.aston.gamerent.model.entity.Order;
-import ru.aston.gamerent.model.entity.OrdersAccount;
-import ru.aston.gamerent.model.entity.User;
-import ru.aston.gamerent.model.entity.Wallet;
-import ru.aston.gamerent.model.exception.NoEntityException;
-import ru.aston.gamerent.model.exception.NotEnoughMoneyException;
-import ru.aston.gamerent.model.exception.PlatformApiConnectionException;
-import ru.aston.gamerent.repository.AccountRepository;
-import ru.aston.gamerent.repository.GameRepository;
-import ru.aston.gamerent.repository.OrderAccountRepository;
-import ru.aston.gamerent.repository.OrderRepository;
-import ru.aston.gamerent.repository.UserRepository;
-import ru.aston.gamerent.repository.WalletRepository;
+import ru.aston.gamerent.exception.NoEntityException;
+import ru.aston.gamerent.exception.NotEnoughMoneyException;
+import ru.aston.gamerent.exception.PlatformApiConnectionException;
+import ru.aston.gamerent.mapper.AccountMapper;
+import ru.aston.gamerent.model.dto.request.OrderRequestDto;
+import ru.aston.gamerent.model.dto.response.ActiveAccountResponseDto;
+import ru.aston.gamerent.model.entity.*;
+import ru.aston.gamerent.repository.*;
 import ru.aston.gamerent.service.AccountService;
-import ru.aston.gamerent.service.mapper.AccountMapper;
-import ru.aston.gamerent.service.util.AccountValidator;
-
+import ru.aston.gamerent.util.AccountValidator;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -37,7 +25,6 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
-
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
@@ -69,10 +56,10 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private String generateNewPassword() {
-        RandomStringGenerator randomStringGenerator = new RandomStringGenerator.Builder()
+        return new RandomStringGenerator.Builder()
                 .withinRange(33, 122)
-                .build();
-        return randomStringGenerator.generate(random.nextInt(20) + 25);
+                .build()
+                .generate(random.nextInt(20) + 25);
     }
 
     private void saveNewPassword(Account account, String newPassword) {
@@ -83,23 +70,21 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public List<ActiveAccountResponse> buyAccount(OrderRequest orderRequest) {
-        User user = getUser(orderRequest.playerId());
-        List<Account> accounts = getAccounts(orderRequest.gameIds());
-        BigDecimal gamesCost = getTotalCost(accounts, orderRequest.periods());
-        executePayment(gamesCost, orderRequest.walletId());
-        savePaymentData(accounts, user, orderRequest.periods());
+    public List<ActiveAccountResponseDto> buyAccount(OrderRequestDto orderRequestDto) {
+        User user = userRepository.findById(orderRequestDto.userId())
+                .orElseThrow(() -> new NoEntityException("User with id " + orderRequestDto.userId() + " was not found"));
+
+        List<Account> accounts = getAccounts(orderRequestDto.gameIds());
+        BigDecimal gamesCost = getTotalCost(accounts, orderRequestDto.periods());
+
+        executePayment(gamesCost, orderRequestDto.walletId());
+        savePaymentData(accounts, user, orderRequestDto.periods());
+
         return getAccountsPasswords(accounts);
     }
 
-    private User getUser(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new NoEntityException("User with id " + userId + " was not found"));
-    }
-
     private List<Account> getAccounts(List<Long> gameIds) {
-        List<Game> games = gameRepository.findAllById(gameIds);
-        return games.stream()
+        return gameRepository.findAllById(gameIds).stream()
                 .map(game -> game.getAccounts().stream()
                         .filter(account -> account.getExpirationTime().isBefore(LocalDateTime.now()))
                         .findFirst()
@@ -118,9 +103,11 @@ public class AccountServiceImpl implements AccountService {
     private void executePayment(BigDecimal cost, Long walletId) {
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new NoEntityException("Wallet with id " + walletId + " was not found"));
+
         if (wallet.getValue().compareTo(cost) < 0) {
             throw new NotEnoughMoneyException("We have no money at wallet with id " + wallet.getId());
         }
+
         wallet.setValue(wallet.getValue().subtract(cost));
         walletRepository.save(wallet);
     }
@@ -130,6 +117,7 @@ public class AccountServiceImpl implements AccountService {
         order.setPaymentTime(LocalDateTime.now());
         order.setUser(player);
         orderRepository.save(order);
+
         accounts.forEach(account -> {
             account.setExpirationTime(LocalDateTime.now().plusDays(periods));
             account.setUpdateTime(LocalDateTime.now());
@@ -141,7 +129,28 @@ public class AccountServiceImpl implements AccountService {
         });
     }
 
-    private List<ActiveAccountResponse> getAccountsPasswords(List<Account> accounts) {
-        return accounts.stream().map(accountMapper::accountToActiveAccountResponse).toList();
+    private List<ActiveAccountResponseDto> getAccountsPasswords(List<Account> accounts) {
+        return accounts.stream()
+                .map(accountMapper::accountToActiveAccountResponse)
+                .toList();
+    }
+
+    @Override
+    public Account getAccountById(long id) {
+        return accountRepository.findById(id)
+                .orElseThrow(() -> new NoEntityException("Account with this id doesn't exists"));
+    }
+
+    @Override
+    public List<Account> findByGameId(Long gameId) {
+        return accountRepository.findByGameId(gameId);
+    }
+
+    @Override
+    public int numberOfAvailableAccounts(Long gameId) {
+        return accountRepository.findByGameId(gameId).stream()
+                .filter(account -> account.getExpirationTime().isBefore(LocalDateTime.now()))
+                .toList()
+                .size();
     }
 }

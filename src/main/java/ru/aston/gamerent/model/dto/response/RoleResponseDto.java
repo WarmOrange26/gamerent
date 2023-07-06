@@ -1,11 +1,10 @@
 package ru.aston.gamerent.model.dto.response;
 
+import lombok.Builder;
 import ru.aston.gamerent.model.enumeration.RoleNameEnum;
 
-/**
- * DTO for {@link ru.aston.gamerent.model.entity.Role}
- */
-public record RoleResponse(
+@Builder
+public record RoleResponseDto(
         Long id,
         RoleNameEnum name) {
 }

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Pattern;
 
 import static ru.aston.gamerent.model.dto.validation.ValidationConstants.EMAIL_PATTERN;
 
-public record AuthenticationRequest(
+public record AuthenticationRequestDto(
         @NotBlank(message = "Email is mandatory!")
         @Pattern(regexp = EMAIL_PATTERN, message = "Invalid e-mail address")
         String email,

@@ -1,4 +1,4 @@
-package ru.aston.gamerent.service.util;
+package ru.aston.gamerent.util;
 
 import org.springframework.stereotype.Service;
 import ru.aston.gamerent.model.entity.Account;

@@ -1,14 +1,13 @@
 package ru.aston.gamerent.model.dto.response;
 
+import lombok.Builder;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-/**
- * DTO for {@link ru.aston.gamerent.model.entity.User}
- */
-public record UserResponse(
+@Builder
+public record UserResponseDto(
         Long id,
         String username,
         String email,
@@ -18,6 +17,8 @@ public record UserResponse(
         String phone,
         LocalDate birthDate,
         Boolean isBlocked,
-        List<SettingValueResponse> settings,
-        Set<RoleResponse> roles) {
+        List<SettingValueResponseDto> settings,
+        Set<RoleResponseDto> roles,
+        List<WalletResponseDto> wallets,
+        List<AccountResponseDto> accounts) {
 }

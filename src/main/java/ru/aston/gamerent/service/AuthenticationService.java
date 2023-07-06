@@ -1,8 +1,8 @@
 package ru.aston.gamerent.service;
 
-import ru.aston.gamerent.model.dto.security.AuthenticationRequest;
-import ru.aston.gamerent.model.dto.security.AuthenticationUser;
+import ru.aston.gamerent.model.dto.security.AuthenticationRequestDto;
+import ru.aston.gamerent.model.dto.security.AuthenticationUserDto;
 
 public interface AuthenticationService {
-    AuthenticationUser findByEmailAndPassword(AuthenticationRequest authenticationRequest);
+    AuthenticationUserDto findByEmailAndPassword(AuthenticationRequestDto authenticationRequestDto);
 }

@@ -1,4 +1,4 @@
-package ru.aston.gamerent.model.exception;
+package ru.aston.gamerent.exception;
 
 public class BadRequestException extends RuntimeException {
 

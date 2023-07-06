@@ -1,11 +1,9 @@
-package ru.aston.gamerent.web.controller;
+package ru.aston.gamerent.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import ru.aston.gamerent.model.exception.BadRequestException;
-import ru.aston.gamerent.model.exception.NoEntityException;
 
 @ControllerAdvice
 public class ExceptionsHandleController {

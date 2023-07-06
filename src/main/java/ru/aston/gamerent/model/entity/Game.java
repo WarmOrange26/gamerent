@@ -18,7 +18,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -80,6 +79,13 @@ public class Game {
     @ToString.Exclude
     private Set<Account> accounts;
 
+    @ManyToMany
+    @JoinTable(name = "games_genres",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    @ToString.Exclude
+    private Set<Genre> genres;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,5 +97,4 @@ public class Game {
     public int hashCode() {
         return Objects.hash(title);
     }
-
 }
