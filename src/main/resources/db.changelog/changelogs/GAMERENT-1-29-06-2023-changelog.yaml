@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: feature/security
+      author: aleksandr.mikhalevich89@gmail.com
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: phone
+                  type: varchar(25)

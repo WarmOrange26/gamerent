@@ -1,0 +1,26 @@
+databaseChangeLog:
+-  changeSet:
+     id:  1
+     author:  yauhennia2@gmail.com
+     changes:
+       -  addForeignKeyConstraint:
+            baseColumnNames:  game_id
+            baseTableName:  screenshots
+            constraintName:  fk_screenshots_game_id
+            onDelete:  CASCADE
+            onUpdate:  CASCADE
+            referencedColumnNames:  id
+            referencedTableName:  games
+
+-  changeSet:
+        id:  2
+        author:  yauhennia2@gmail.com
+        changes:
+             -  addForeignKeyConstraint:
+                     baseColumnNames:  developer_id
+                     baseTableName:  games
+                     constraintName:  fk_games_developer_id
+                     onDelete:  CASCADE
+                     onUpdate:  CASCADE
+                     referencedColumnNames:  id
+                     referencedTableName:  developers

@@ -10,3 +10,20 @@ spring:
         format_sql: true
   liquibase:
     change-log: db.changelog/changelog.yml
+  security:
+    jwt:
+      secret: ${JWT_SECRET_PHRASE}
+      expired: 3600000
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_SENDER}
+    password: ${EMAIL_PASSWORD}
+    protocol: smtp
+    properties.mail.smtp:
+        auth: true
+        starttls.enable: true
+        ssl.trust: smtp.gmail.com
+game-rent:
+  scheduling:
+    account-blocking: 0 0 * * * *

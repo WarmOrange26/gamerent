@@ -1,17 +1,30 @@
 package ru.aston.gamerent.model.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.Builder;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,49 +35,56 @@ import java.util.List;
 @Entity
 @Table(name = "games")
 public class Game {
+
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", unique = true, nullable = false, columnDefinition = "CHARACTER VARYING(50)")
+    @Column(unique = true, nullable = false, length = 50)
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "developer_id")
     @ToString.Exclude
     private Developer developer;
 
-    @Column(name = "release_date", nullable = false, columnDefinition = "DATE")
+    @Column(name = "release_date", nullable = false)
     private LocalDate releaseDate;
 
-    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "price", nullable = false, columnDefinition = "NUMERIC(12,2)")
-    private Double price;
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal price;
 
-    @Column(name = "image", nullable = false, columnDefinition = "CHARACTER VARYING(100)")
+    @Column(nullable = false, length = 100)
     private String image;
 
-    @Column(name = "trailer_url", nullable = false, columnDefinition = "CHARACTER VARYING(250)")
+    @Column(name = "trailer_url", unique = true, nullable = false, length = 250)
     private String trailerUrl;
 
-    @Column(name = "create_time", nullable = false, columnDefinition = "TIMESTAMP(6) WITHOUT TIME ZONE")
+    @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
 
-    @Column(name = "update_time", nullable = false, columnDefinition = "TIMESTAMP(6) WITHOUT TIME ZONE")
+    @Column(name = "update_time", nullable = false)
     private LocalDateTime updateTime;
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
     @ToString.Exclude
     private List<Screenshot> screenshots;
+
+    @ManyToMany
+    @JoinTable(name = "accounts_games",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "account_id"))
+    @ToString.Exclude
+    private Set<Account> accounts;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Game game)) return false;
-        return title == game.title;
+        if (!(o instanceof Game that)) return false;
+        return title.equals(that.getTitle());
     }
 
     @Override

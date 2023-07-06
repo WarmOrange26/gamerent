@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,24 +35,24 @@ public class Setting {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "setting_name", unique = true, nullable = false, columnDefinition = "CHARACTER VARYING(30)")
     @Enumerated(EnumType.STRING)
+    @Column(name = "setting_name", unique = true, nullable = false)
     private SettingsNamesEnum settingName;
 
-    @OneToMany(mappedBy = "setting")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "setting")
     @ToString.Exclude
     private List<SettingValue> settingsProfiles;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Setting setting = (Setting) o;
-        return settingName.equals(setting.settingName);
+        if (!(o instanceof Setting that)) return false;
+        return Objects.equals(settingName, that.settingName);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(settingName);
     }
+
 }

@@ -1,5 +1,6 @@
 package ru.aston.gamerent.model.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -30,17 +31,19 @@ public class Role {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(unique = true, nullable = false)
     private RoleNameEnum name;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Role role)) return false;
-        return name == role.name;
+        if (!(o instanceof Role that)) return false;
+        return name == that.getName();
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(name);
     }
+
 }
