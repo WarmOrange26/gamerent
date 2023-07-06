@@ -10,7 +10,7 @@ public interface AccountService {
 
     List<ActiveAccountResponseDto> buyAccount(OrderRequestDto orderRequestDto);
 
-    Account getAccountById(long id);
+    Account getAccountById(Long id);
 
     List<Account> findByGameId(Long gameId);
 
