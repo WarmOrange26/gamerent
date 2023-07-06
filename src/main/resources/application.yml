@@ -14,6 +14,15 @@ spring:
     jwt:
       secret: ${JWT_SECRET_PHRASE}
       expired: 3600000
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: ${OAUTH_CLIENT_ID}
+            clientSecret: ${OAUTH_CLIENT_SECRET}
+            scope:
+              - email
+              - profile
   mail:
     host: smtp.gmail.com
     port: 587

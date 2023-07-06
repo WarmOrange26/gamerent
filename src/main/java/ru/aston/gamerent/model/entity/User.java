@@ -2,6 +2,8 @@ package ru.aston.gamerent.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +18,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ru.aston.gamerent.model.enumeration.Provider;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -68,6 +72,9 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     @ToString.Exclude
     private List<SettingValue> settings;
+
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
 
     @ManyToMany
     @JoinTable(name = "users_roles",

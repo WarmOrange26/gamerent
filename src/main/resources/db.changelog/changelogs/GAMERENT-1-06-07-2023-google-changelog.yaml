@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: feature/google-oauth2
+      author: aleksandr.mikhalevich89@gmail.com
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: provider
+                  type: varchar(15)
