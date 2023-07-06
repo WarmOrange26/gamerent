@@ -37,7 +37,7 @@ public class RegistrationController {
             model.addAttribute(PASSWORD_ERROR, "Passwords does not match!");
             return REGISTRATION_PAGE;
         }
-        if (!userService.saveUser(user)) {
+        if (userService.saveUser(user).id() == null) {
             model.addAttribute(EMAIL_ERROR, String.format("User with email %s already exists!", user.email()));
             return REGISTRATION_PAGE;
         }

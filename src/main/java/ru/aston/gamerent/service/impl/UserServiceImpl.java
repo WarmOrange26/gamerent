@@ -4,20 +4,21 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.aston.gamerent.exception.NoEntityException;
+import ru.aston.gamerent.mapper.UserMapper;
 import ru.aston.gamerent.model.dto.request.RegistrationUserRequestDto;
 import ru.aston.gamerent.model.dto.request.UserRequestDto;
+import ru.aston.gamerent.model.dto.response.UserDto;
 import ru.aston.gamerent.model.dto.response.UserResponseDto;
 import ru.aston.gamerent.model.entity.Account;
 import ru.aston.gamerent.model.entity.Role;
 import ru.aston.gamerent.model.entity.User;
 import ru.aston.gamerent.model.entity.Wallet;
 import ru.aston.gamerent.model.enumeration.RoleNameEnum;
-import ru.aston.gamerent.exception.NoEntityException;
 import ru.aston.gamerent.repository.AccountRepository;
 import ru.aston.gamerent.repository.UserRepository;
 import ru.aston.gamerent.repository.WalletRepository;
 import ru.aston.gamerent.service.UserService;
-import ru.aston.gamerent.mapper.UserMapper;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -45,20 +46,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(Long id, UserRequestDto userRequestDto) {
+    public UserDto updateUser(Long id, UserRequestDto userRequestDto) {
         User userFromDB = userRepository.findById(id)
                 .orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
 
-        userRepository.saveAndFlush(userMapper.userRequestToUser(userRequestDto, userFromDB));
+        User user = userRepository.saveAndFlush(userMapper.userRequestToUser(userRequestDto, userFromDB));
+        return userMapper.userToUserDto(user);
     }
 
+    // TODO: 06.07.2023 Может быть бросать исключение при проверке на Email
+    //  + нужно проверить phone
     @Override
-    public boolean saveUser(RegistrationUserRequestDto registrationUserRequestDto) {
+    public UserDto saveUser(RegistrationUserRequestDto registrationUserRequestDto) {
         Optional<User> userFromDB = userRepository.findByEmail(registrationUserRequestDto.email());
 
         if (userFromDB.isPresent()) {
             log.info("User with email {} already exists!", registrationUserRequestDto.email());
-            return false;
+            return UserDto.builder().build();
         }
 
         User newUser = userMapper.userRegistrationDtoToUser(registrationUserRequestDto);
@@ -71,6 +75,6 @@ public class UserServiceImpl implements UserService {
 
         log.info("User {} successfully saved", newUser);
 
-        return true;
+        return userMapper.userToUserDto(newUser);
     }
 }
