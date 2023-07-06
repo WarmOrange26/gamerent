@@ -5,10 +5,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
+
 import java.time.LocalDate;
 
 import static ru.aston.gamerent.model.dto.validation.ValidationConstants.*;
 
+@Builder
 public record RegistrationUserRequestDto(
         @NotBlank(message = "Username is mandatory!")
         @Size(max = 30, message = "Username length must be up to 30 characters")
