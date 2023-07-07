@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.aston.gamerent.exception.NoEntityException;
+import ru.aston.gamerent.model.dto.response.UserDto;
 import ru.aston.gamerent.mapper.ConfirmationTokenMapper;
 import ru.aston.gamerent.mapper.UserMapper;
 import ru.aston.gamerent.model.dto.request.RegistrationUserRequestDto;
@@ -55,11 +56,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(Long id, UserRequestDto userRequestDto) {
-        User userFromDB = userRepository.findById(id)
+    public UserDto updateUser(Long id, UserRequestDto userRequestDto) {
+        return userRepository.findById(id)
+                .map(user -> userMapper.userRequestToUser(userRequestDto, user))
+                .map(userRepository::saveAndFlush)
+                .map(userMapper::userToUserDto)
                 .orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
-
-        userRepository.saveAndFlush(userMapper.userRequestToUser(userRequestDto, userFromDB));
     }
 
     @Override

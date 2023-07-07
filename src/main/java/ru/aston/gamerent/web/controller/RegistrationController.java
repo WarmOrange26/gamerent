@@ -44,10 +44,12 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return REGISTRATION_PAGE;
         }
+      
         if (!user.password().equals(user.passwordConfirm())) {
             model.addAttribute(PASSWORD_ERROR, "Passwords does not match!");
             return REGISTRATION_PAGE;
         }
+      
         Optional<ConfirmationResponseDto> confirmationToken = userService.saveUser(user);
         if (confirmationToken.isEmpty()) {
             model.addAttribute(EMAIL_ERROR, String.format("User with email %s already exists!", user.email()));
