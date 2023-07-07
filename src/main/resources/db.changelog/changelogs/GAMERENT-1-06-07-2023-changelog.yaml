@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: account-verification
+      author: aleksandr.mikhalevich89@gmail.com
+      changes:
+        - createTable:
+            tableName: tokens
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: token
+                  type: uuid
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: creation_time
+                  type: timestamp
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: tokens
+            constraintName: fk_tokens_users_id
+            referencedColumnNames: id
+            referencedTableName: users
