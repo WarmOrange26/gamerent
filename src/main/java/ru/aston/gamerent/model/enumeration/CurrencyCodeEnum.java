@@ -4,7 +4,19 @@ import lombok.Getter;
 
 @Getter
 public enum CurrencyCodeEnum {
-    EUR,
-    RUB,
-    USD
+    RUB("Российский рубль"),
+    BYN("Белорусский рубль"),
+    EUR("Евро"),
+    USD("Доллар США"),
+    GEL("Грузинский лари"),
+    KZT("Казахстанских тенге"),
+    KGS("Киргизских сомов"),
+    TJS("Таджикских сомони"),
+    UZS("Узбекских сумов");
+
+    private final String nameCurrency;
+
+    CurrencyCodeEnum(String nameCurrency) {
+        this.nameCurrency = nameCurrency;
+    }
 }

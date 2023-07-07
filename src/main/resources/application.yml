@@ -27,3 +27,5 @@ spring:
 game-rent:
   scheduling:
     account-blocking: 0 0 * * * *
+  currency:
+    data-path: https://www.cbr-xml-daily.ru/daily_json.js

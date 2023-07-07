@@ -17,4 +17,9 @@ public class ExceptionsHandleController {
     public ResponseEntity<String> handleBadRequestException(BadRequestException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getLocalizedMessage());
     }
+
+    @ExceptionHandler(CurrencyConvertingException.class)
+    public ResponseEntity<String> handleBadRequestException(CurrencyConvertingException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getLocalizedMessage());
+    }
 }
