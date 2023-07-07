@@ -8,8 +8,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.aston.gamerent.exception.NoEntityException;
-import ru.aston.gamerent.generator.DtoGeneratorTest;
-import ru.aston.gamerent.generator.EntityGeneratorTest;
+import ru.aston.gamerent.generator.DtoGenerator;
+import ru.aston.gamerent.generator.EntityGenerator;
 import ru.aston.gamerent.mapper.UserMapper;
 import ru.aston.gamerent.model.dto.request.RegistrationUserRequestDto;
 import ru.aston.gamerent.model.dto.request.UserRequestDto;
@@ -62,15 +62,15 @@ class UserServiceImplTest {
 
     @BeforeEach
     void setup() {
-        EntityGeneratorTest entityGeneratorTest = new EntityGeneratorTest();
-        DtoGeneratorTest dtoGeneratorTest = new DtoGeneratorTest();
-        user = entityGeneratorTest.getUser();
-        userResponseDto = dtoGeneratorTest.getUserResponseDto();
-        userRequestDto = dtoGeneratorTest.getUserRequestDto();
-        userDto = dtoGeneratorTest.getUserDto();
-        registrationUserRequestDto = dtoGeneratorTest.getRegistrationUserRequestDto();
-        accounts = List.of(entityGeneratorTest.getAccount());
-        wallets = List.of(entityGeneratorTest.getWallet());
+        EntityGenerator entityGenerator = new EntityGenerator();
+        DtoGenerator dtoGenerator = new DtoGenerator();
+        user = entityGenerator.getUser();
+        userResponseDto = dtoGenerator.getUserResponseDto();
+        userRequestDto = dtoGenerator.getUserRequestDto();
+        userDto = dtoGenerator.getUserDto();
+        registrationUserRequestDto = dtoGenerator.getRegistrationUserRequestDto();
+        accounts = List.of(entityGenerator.getAccount());
+        wallets = List.of(entityGenerator.getWallet());
     }
 
     @Test

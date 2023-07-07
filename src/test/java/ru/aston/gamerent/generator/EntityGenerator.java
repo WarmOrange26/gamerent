@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
-public class EntityGeneratorTest {
+public class EntityGenerator {
 
     User user = User.builder()
             .id(1L)

@@ -8,10 +8,8 @@ import ru.aston.gamerent.model.dto.response.UserResponseDto;
 import ru.aston.gamerent.model.entity.User;
 
 @Getter
-public class DtoGeneratorTest {
-
-    private static final EntityGeneratorTest entityGeneratorTest = new EntityGeneratorTest();
-
+public class DtoGenerator {
+    private static final EntityGenerator entityGeneratorTest = new EntityGenerator();
     private final User user = entityGeneratorTest.getUser();
 
     UserResponseDto userResponseDto = UserResponseDto.builder()

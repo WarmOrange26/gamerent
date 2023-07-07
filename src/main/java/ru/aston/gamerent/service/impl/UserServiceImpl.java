@@ -19,7 +19,6 @@ import ru.aston.gamerent.repository.AccountRepository;
 import ru.aston.gamerent.repository.UserRepository;
 import ru.aston.gamerent.repository.WalletRepository;
 import ru.aston.gamerent.service.UserService;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -47,15 +46,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(Long id, UserRequestDto userRequestDto) {
-        User userFromDB = userRepository.findById(id)
+        return userRepository.findById(id)
+                .map(user -> userMapper.userRequestToUser(userRequestDto, user))
+                .map(userRepository::saveAndFlush)
+                .map(userMapper::userToUserDto)
                 .orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
-
-        User user = userRepository.saveAndFlush(userMapper.userRequestToUser(userRequestDto, userFromDB));
-        return userMapper.userToUserDto(user);
     }
 
-    // TODO: 06.07.2023 Может быть бросать исключение при проверке на Email
-    //  + нужно проверить phone
     @Override
     public UserDto saveUser(RegistrationUserRequestDto registrationUserRequestDto) {
         Optional<User> userFromDB = userRepository.findByEmail(registrationUserRequestDto.email());
