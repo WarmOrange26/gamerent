@@ -1,5 +1,6 @@
 package ru.aston.gamerent.service;
 
+import ru.aston.gamerent.model.dto.request.GameRequest;
 import ru.aston.gamerent.model.dto.response.GameResponse;
 import ru.aston.gamerent.model.entity.Game;
 
@@ -11,7 +12,9 @@ public interface GameService {
 
     List<Game> findAll();
 
-    Game saveGame(Game game);
+    GameResponse saveGame(GameRequest gameRequest);
+
+    void updateGame(Long id, GameRequest GameRequest);
 
     void deleteById(Long id);
 }

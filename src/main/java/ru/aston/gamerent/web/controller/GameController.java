@@ -4,16 +4,13 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.aston.gamerent.model.dto.response.GameResponse;
-import ru.aston.gamerent.model.entity.Developer;
+import ru.aston.gamerent.model.dto.request.GameRequest;
 import ru.aston.gamerent.model.entity.Game;
 import ru.aston.gamerent.service.GameService;
-import ru.aston.gamerent.service.mapper.GameMapper;
 
 import java.util.List;
 
@@ -22,7 +19,6 @@ import java.util.List;
 public class GameController {
 
     private final GameService gameService;
-    private final GameMapper gameMapper;
 
 
     @GetMapping("/games")
@@ -33,13 +29,13 @@ public class GameController {
     }
 
     @GetMapping("/game-create")
-    public String createGameForm(Game game) {
+    public String createGameForm(GameRequest gameRequest) {
         return "game-create";
     }
 
     @PostMapping("/game-create")
-    public String createGame(@ModelAttribute("game") @Valid Game game) {
-        gameService.saveGame(game);
+    public String createGame(@ModelAttribute("gameRequest") @Valid GameRequest gameRequest) {
+        gameService.saveGame(gameRequest);
         return "redirect:/games";
     }
 
@@ -50,15 +46,13 @@ public class GameController {
     }
 
     @GetMapping("/game-update/{id}")
-    public String updateGameForm(@PathVariable("id") Long id, Model model) {
-        GameResponse gameResponse = gameService.getGameById(id);
-        model.addAttribute("game", gameResponse);
+    public String updateGameForm(@PathVariable("id") Long id, GameRequest gameRequest) {
         return "game-update";
     }
 
-    @PostMapping("/game-update")
-    public String updateGame(@ModelAttribute("game") Game game) {
-        gameService.saveGame(game);
+    @PostMapping("/game-update/{id}")
+    public String updateGame(@PathVariable("id") Long id, @ModelAttribute("gameRequest") @Valid GameRequest gameRequest) {
+        gameService.updateGame(id, gameRequest);
         return "redirect:/games";
     }
 }

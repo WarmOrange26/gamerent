@@ -1,10 +1,15 @@
 package ru.aston.gamerent.model.dto.response;
 
-import lombok.Data;
+import lombok.Builder;
 import ru.aston.gamerent.model.entity.Game;
 
 import java.util.List;
-@Data
+
+/**
+ * DTO for {@link ru.aston.gamerent.model.entity.Developer}
+ */
+
+@Builder
 public class DeveloperResponse {
     private Long id;
     private String title;

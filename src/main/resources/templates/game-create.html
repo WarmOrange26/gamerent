@@ -5,19 +5,19 @@
     <title>Create game</title>
 </head>
 <body>
-<form action="#" th:action="@{/game-create}" th:object="${game}" method="post">
+<form action="#" th:action="@{/game-create}" th:object="${gameRequest}" method="post">
     <label for="title">Title</label>
-    <input type="text" th:field="*{title}" id="title" placeholder="Введите название игры">
+    <input type="text" th:field="*{title}" id="title" placeholder="Введите название игры"><br>
     <label for="developer">developer</label>
-    <input type="text" th:field="*{developer}" id="developer" placeholder="Введите производителя">
+    <input type="text" th:field="*{developer}" id="developer" placeholder="Введите производителя"><br>
     <label for="releaseDate">releaseDate</label>
-    <input type="date" th:field="*{releaseDate}" id="releaseDate" placeholder="Введите дату создания релиза">
+    <input type="date" th:field="*{releaseDate}" id="releaseDate" placeholder="Введите дату создания релиза"><br>
     <label for="description">description</label>
-    <input type="text" th:field="*{description}" id="description" placeholder="Введите описание">
+    <input type="text" th:field="*{description}" id="description" placeholder="Введите описание"><br>
     <label for="price">price</label>
-    <input type="number" th:field="*{price}" id="price" placeholder="Введите цену за день">
-    <label for="image">price</label>
-    <input type="url" th:field="*{image}" id="image" placeholder="Введите ссылку на обложку">
+    <input type="number" th:field="*{price}" id="price" placeholder="Введите цену за день"><br>
+    <label for="image">image</label>
+    <input type="url" th:field="*{image}" id="image" placeholder="Введите ссылку на обложку"><br>
     <label for="trailerUrl">trailerUrl</label>
     <input type="url" th:field="*{trailerUrl}" id="trailerUrl" placeholder="Введите ссылку на трейлер">
     <input type="submit" value="Create">
