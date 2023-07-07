@@ -7,15 +7,15 @@
 <body class="d-flex flex-column min-vh-100">
 <div class="container">
     <div class="row justify-content-center" style="margin-top:20px">
-        <span style="text-align: center">
-    <a href="/registration">Registration</a>
-         <span style="text-align: center">
-    <a href="/games">Games</a>
-</span>
-</span>
-        <span class="text-info" style="text-align: center" th:text="${registrationMessage}"></span>
-        <span class="text-info" style="text-align: center" th:text="${verifyError}"></span>
-        <span class="text-info" style="text-align: center" th:text="${verifyMessage}"></span>
+        <p style="text-align: center">
+            <a href="/registration">Registration</a>
+        </p>
+        <p style="text-align: center">
+            <a href="/games">Games</a>
+        </p>
+        <p class="text-info" style="text-align: center" th:text="${registrationMessage}"></p>
+        <p class="text-info" style="text-align: center; color: red" th:text="${verifyError}"></p>
+        <p class="text-info" style="text-align: center; color: green" th:text="${verifyMessage}"></p>
     </div>
 </div>
 <div class="wrapper flex-grow-1">

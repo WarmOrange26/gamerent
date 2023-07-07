@@ -7,7 +7,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import ru.aston.gamerent.service.EmailService;
-
 import java.util.UUID;
 
 @Slf4j
@@ -41,11 +40,7 @@ public class EmailServiceImpl implements EmailService {
         String userInfo;
 
         try {
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setFrom(sender);
-            mailMessage.setTo(email);
-            mailMessage.setText(String.format(TEXT_MESSAGE, username, email, password, token));
-            mailMessage.setSubject(SUBJECT_MESSAGE);
+            SimpleMailMessage mailMessage = createMailMessage(username, email, password, token);
             javaMailSender.send(mailMessage);
 
             log.info("A letter with registration data is sent to the e-mail: {}", email);
@@ -57,5 +52,16 @@ public class EmailServiceImpl implements EmailService {
         }
 
         return userInfo;
+    }
+
+    private SimpleMailMessage createMailMessage(String username, String email, String password, UUID token) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        
+        mailMessage.setFrom(sender);
+        mailMessage.setTo(email);
+        mailMessage.setText(String.format(TEXT_MESSAGE, username, email, password, token));
+        mailMessage.setSubject(SUBJECT_MESSAGE);
+
+        return mailMessage;
     }
 }

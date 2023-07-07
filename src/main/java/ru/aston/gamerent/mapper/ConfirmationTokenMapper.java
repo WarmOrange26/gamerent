@@ -1,6 +1,5 @@
 package ru.aston.gamerent.mapper;
 
-
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import ru.aston.gamerent.model.dto.response.ConfirmationResponseDto;

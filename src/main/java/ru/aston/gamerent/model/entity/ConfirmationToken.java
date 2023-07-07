@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -33,6 +32,7 @@ public class ConfirmationToken {
 
     @OneToOne
     @MapsId
+    @ToString.Exclude
     private User user;
 
     public ConfirmationToken(User user) {
@@ -52,5 +52,4 @@ public class ConfirmationToken {
     public int hashCode() {
         return Objects.hash(token, creationTime);
     }
-
 }

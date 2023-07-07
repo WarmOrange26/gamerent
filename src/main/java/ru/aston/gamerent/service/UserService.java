@@ -4,7 +4,7 @@ import ru.aston.gamerent.model.dto.request.RegistrationUserRequestDto;
 import ru.aston.gamerent.model.dto.request.UserRequestDto;
 import ru.aston.gamerent.model.dto.response.ConfirmationResponseDto;
 import ru.aston.gamerent.model.dto.response.UserResponseDto;
-
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserService {
@@ -12,7 +12,7 @@ public interface UserService {
 
     void updateUser(Long id, UserRequestDto userRequestDto);
 
-    ConfirmationResponseDto saveUser(RegistrationUserRequestDto registrationUserRequestDto);
+    Optional<ConfirmationResponseDto> saveUser(RegistrationUserRequestDto registrationUserRequestDto);
 
     boolean confirmEmail(UUID token);
 }

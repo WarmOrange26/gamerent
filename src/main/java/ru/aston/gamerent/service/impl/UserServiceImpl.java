@@ -1,5 +1,6 @@
 package ru.aston.gamerent.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,17 +23,19 @@ import ru.aston.gamerent.repository.ConfirmationTokenRepository;
 import ru.aston.gamerent.repository.UserRepository;
 import ru.aston.gamerent.repository.WalletRepository;
 import ru.aston.gamerent.service.UserService;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+import static java.lang.Boolean.FALSE;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+    public static final long USER_ROLE_ID = 2L;
     private final ConfirmationTokenMapper confirmationTokenMapper;
     private final UserRepository userRepository;
     private final ConfirmationTokenRepository confirmationTokenRepository;
@@ -60,20 +63,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ConfirmationResponseDto saveUser(RegistrationUserRequestDto registrationUserRequestDto) {
+    @Transactional
+    public Optional<ConfirmationResponseDto> saveUser(RegistrationUserRequestDto registrationUserRequestDto) {
         Optional<User> userFromDB = userRepository.findByEmail(registrationUserRequestDto.email());
 
         if (userFromDB.isPresent()) {
             log.info("User with email {} already exists!", registrationUserRequestDto.email());
-            return null;
+            return Optional.empty();
         }
 
         User newUser = userMapper.userRegistrationDtoToUser(registrationUserRequestDto);
-        newUser.setRoles(Set.of(new Role(2L, RoleNameEnum.ROLE_USER)));
-        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        newUser.setRegistrationTime(LocalDateTime.now());
-        newUser.setUpdateTime(LocalDateTime.now());
-        newUser.setIsBlocked(true);
+        fillUserWithExtraData(newUser);
         userRepository.save(newUser);
 
         ConfirmationToken confirmationToken = new ConfirmationToken(newUser);
@@ -81,25 +81,31 @@ public class UserServiceImpl implements UserService {
 
         log.info("User {} successfully saved. Confirmation token: {}", newUser, confirmationToken.getToken());
 
-        return confirmationTokenMapper.confirmationTokenToDto(confirmationToken);
+        return Optional.of(confirmationTokenMapper.confirmationTokenToDto(confirmationToken));
     }
 
     @Override
     public boolean confirmEmail(UUID token) {
-        ConfirmationToken confirmationToken = confirmationTokenRepository.findByToken(token);
+        return confirmationTokenRepository.findByToken(token)
+                .map(confirmationToken -> confirmationToken.getUser().getEmail())
+                .flatMap(userRepository::findByEmail)
+                .map(user -> unblockedConfirmedUser(user, token))
+                .isPresent();
+    }
 
-        if (confirmationToken != null)
-        {
-            User user = userRepository.findByEmail(confirmationToken.getUser().getEmail())
-                    .orElseThrow(() -> new NoEntityException("User with email " + confirmationToken.getUser().getEmail() + " not found"));
-            user.setIsBlocked(false);
-            userRepository.save(user);
-            log.info("User {} successfully confirm email by token {}", user, confirmationToken.getToken());
-            return true;
-        }
+    private void fillUserWithExtraData(User newUser) {
+        newUser.setRoles(Set.of(new Role(USER_ROLE_ID, RoleNameEnum.ROLE_USER)));
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        newUser.setRegistrationTime(LocalDateTime.now());
+        newUser.setUpdateTime(LocalDateTime.now());
+        newUser.setIsBlocked(true);
+    }
 
-        log.warn("Confirmation token {} not found", token);
+    private User unblockedConfirmedUser(User user, UUID token) {
+        user.setIsBlocked(FALSE);
+        User updatedUser = userRepository.save(user);
+        log.info("User {} successfully confirm email by token {}", user.getEmail(), token);
 
-        return false;
+        return updatedUser;
     }
 }

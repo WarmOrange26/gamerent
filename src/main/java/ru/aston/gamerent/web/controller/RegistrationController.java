@@ -15,7 +15,7 @@ import ru.aston.gamerent.model.dto.request.RegistrationUserRequestDto;
 import ru.aston.gamerent.model.dto.response.ConfirmationResponseDto;
 import ru.aston.gamerent.service.EmailService;
 import ru.aston.gamerent.service.UserService;
-
+import java.util.Optional;
 import java.util.UUID;
 
 import static ru.aston.gamerent.model.dto.validation.ValidationConstants.UUID_PATTERN;
@@ -48,13 +48,14 @@ public class RegistrationController {
             model.addAttribute(PASSWORD_ERROR, "Passwords does not match!");
             return REGISTRATION_PAGE;
         }
-        ConfirmationResponseDto confirmationToken = userService.saveUser(user);
-        if (confirmationToken == null) {
+        Optional<ConfirmationResponseDto> confirmationToken = userService.saveUser(user);
+        if (confirmationToken.isEmpty()) {
             model.addAttribute(EMAIL_ERROR, String.format("User with email %s already exists!", user.email()));
             return REGISTRATION_PAGE;
         }
 
-        String message = emailService.sendRegistrationMail(user.username(), user.email(), user.password(), confirmationToken.token());
+        String message = emailService
+                .sendRegistrationMail(user.username(), user.email(), user.password(), confirmationToken.get().token());
         model.addAttribute(REGISTRATION_MESSAGE, message);
 
         return INDEX_PAGE;
@@ -62,11 +63,11 @@ public class RegistrationController {
 
     @GetMapping("/verify")
     public String verifyUser(@RequestParam("token") @Pattern(regexp = UUID_PATTERN) UUID token, Model model) {
-        if (!userService.confirmEmail(token)) {
+        if (userService.confirmEmail(token)) {
+            model.addAttribute(VERIFY_MESSAGE, "Email verified successfully! Now you can log in to the site.");
+        } else {
             model.addAttribute(VERIFY_ERROR, "Couldn't verify email!");
         }
-
-        model.addAttribute(VERIFY_MESSAGE, "Email verified successfully! Now you can log in to the site.");
 
         return INDEX_PAGE;
     }
