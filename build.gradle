@@ -36,6 +36,8 @@ dependencies {
     implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.5.5.Final'
     implementation 'org.glassfish:jakarta.json:2.0.1'
     annotationProcessor "org.projectlombok:lombok:8.0.1", "org.mapstruct:mapstruct-processor:1.5.5.Final"
+    testImplementation 'io.zonky.test:embedded-database-spring-test:2.3.0'
+    testImplementation 'org.springframework.security:spring-security-test:6.1.1'
 }
 
 test {
