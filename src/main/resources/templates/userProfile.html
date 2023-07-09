@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -73,7 +73,6 @@
                                     <!--                                                class="txt">Ваш акккаунт</span></a>-->
                                     <!--                                    </div>-->
                                 </li>
-
                             </ul>
                         </div>
                     </div>
@@ -155,168 +154,34 @@
 <!-- main-area -->
 <main>
 
-    <!-- breadcrumb-area -->
-    <section class="breadcrumb-area breadcrumb-bg" style="background-image: url(../img/bg/fifa.jpg);">
+    <!-- user-single-area -->
+    <section class="game-single-area pt-120 pb-120">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="breadcrumb-content text-center">
-                        <h2 th:{game.name}><span>Название игры</span></h2>
+                    <div class="game-single-content">
+                        <div class="game-single-title mt-60 mb-30">
+                            <h4>Персональная информация</h4>
+                        </div>
+                        <div class="game-single-info mb-65">
+                            <ul>
+                                <li><span>Имя пользователя :</span> <span th:field="*{}"></span> </li>
+                                <li><span>Email :</span> <span th:field="*{}"></span></li>
+                                <li><span>Пароль :</span> <span th:field="*{}"></span></li>
+                                <li><span>Имя :</span> <span th:field="*{}"></span></li>
+                                <li><span>Фамилия :</span> <span th:field="*{}"></span></li>
+                                <li><span>Дата Регистрации :</span> <span th:field="*{}"></span></li>
+                                <li><span>Дата Рождения :</span> <span th:field="*{}"></span></li>
+                                <li><span>Телефон :</span> <span th:field="*{}"></span></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- breadcrumb-area-end -->
+    <!-- user-single-area-end -->
 
-    <!-- game-area -->
-    <section class="blog-area primary-bg pt-120 pb-175">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="blog-list-post">
-                        <div class="about-img">
-                            <img src="../img/images/fifa_1.jpg" alt="">
-                            <a href="https://www.youtube.com/watch?v=0tIW1X2dv0c" class="popup-video"><img
-                                    src="../img/icon/play_btn.png" alt=""></a>
-                        </div>
-                        <div class="blog-list-post-content">
-                            <h2>Описание</h2>
-                            <p th:{game.description} style="color: #0b0b0b">здесь описание</p>
-                        </div>
-                    </div>
-                    <div class="blog-list-post">
-                        <div class="blog-list-post-content">
-                            <div class="table-responsive-xl">
-                                <table class="table mt-0">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Количество свободных аккаунтов</th>
-                                        <th scope="col" th:{количество акк}> отобразить количество</th>
-                                        <th scope="col">
-                                           <form method="post"> <div class="community-post-tag">
-                                                <a href="#">в корзину</a>
-                                            </div>
-                                           </form>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <aside class="blog-sidebar">
-                        <div class="widget mb-45">
-                            <div class="sidebar-about">
-                                <div class="sidebar-widget-title mb-15">
-                                    <h4><span>Издатель</span></h4>
-                                </div>
-                                <div class="sidebar-trending-match">
-                                    <ul>
-                                        <li>
-                                            <span th:text = {game.developer}>здесь издатель</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="widget mb-45">
-                            <div class="sidebar-widget-title mb-25">
-                                <h4><span>Жанры</span></h4>
-                            </div>
-                            <div class="sidebar-trending-match">
-                                <ul>
-                                    <li>
-                                        <span th:text = {game.genre}>здесь жанры</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="widget mb-45">
-                            <div class="sidebar-widget-title mb-25">
-                                <h4><span>Дата релиза</span></h4>
-                            </div>
-                            <div class="sidebar-trending-match">
-                                <ul>
-                                    <li>
-                                        <span th:text = {game.дата релиза}>здесь дата</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="widget mb-45">
-                            <div class="sidebar-widget-title mb-25">
-                                <h4><span>Цена</span></h4>
-                            </div>
-                            <div class="sidebar-trending-match">
-                                <ul>
-                                    <li>
-                                        <span th:text = {game.price}>здесь цена</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </aside>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- game-area-end -->
-
-    <div class="area-bg-two">
-        <!-- area -->
-        <section class="shop-area pt-120 pb-90">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-title title-style-two text-center mb-30">
-                            <h2><span>Скриншоты</span></h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row product-active">
-                    <div class="col-xl-3">
-                        <div class="shop-item">
-                            <div class="product-thumb">
-                                <img src="../img/product/product_img04.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="shop-item">
-                            <div class="product-thumb">
-                                <img src="../img/product/product_img04.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="shop-item">
-                            <div class="product-thumb">
-                                <img src="../img/product/product_img04.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="shop-item">
-                            <div class="product-thumb">
-                                <img src="../img/product/product_img04.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="shop-item">
-                            <div class="product-thumb">
-                                <img src="../img/product/product_img04.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
 </main>
 <!-- main-area-end -->
 

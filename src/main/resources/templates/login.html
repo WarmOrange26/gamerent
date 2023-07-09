@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -63,17 +63,11 @@
                                         <p><span>|</span><i class="far fa-envelope"></i><a href="mailto:info@gmail.com">warmcompany@gmail.com</a>
                                         </p>
                                     </div>
-                                </li>
-                                <li>
-                                    <div class="header-user-login">
-                                        <a href="login.html"><i class="fas fa-user"></i>Login</a>
-                                    </div>
                                     <!--     прикрутить когда будет авторизация   <div class="header-user-login" sec:authorize="isAuthenticated()">-->
                                     <!--                                        <a th:href="@{/profile}"><span class="icon flaticon-user"></span><span-->
                                     <!--                                                class="txt">Ваш акккаунт</span></a>-->
                                     <!--                                    </div>-->
                                 </li>
-
                             </ul>
                         </div>
                     </div>
@@ -155,168 +149,93 @@
 <!-- main-area -->
 <main>
 
-    <!-- breadcrumb-area -->
-    <section class="breadcrumb-area breadcrumb-bg" style="background-image: url(../img/bg/fifa.jpg);">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumb-content text-center">
-                        <h2 th:{game.name}><span>Название игры</span></h2>
+
+    <!-- login-area -->
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center menu-style-two">
+
+                            <div class="mb-md-5 mt-md-4 pb-5">
+
+                                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                                <p class="text-white-50 mb-5">Please enter your login and password!</p>
+
+                                <div class="form-outline form-white mb-4">
+                                    <input type="email" id="typeEmailX" class="form-control form-control-lg"/>
+                                    <label class="form-label" for="typeEmailX">Email</label>
+                                </div>
+
+                                <div class="form-outline form-white mb-4">
+                                    <input type="password" id="typePasswordX" class="form-control form-control-lg"/>
+                                    <label class="form-label" for="typePasswordX">Password</label>
+                                </div>
+
+                                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Забыл пароль?</a></p>
+
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Войти</button>
+
+                                <div class="d-flex justify-content-center text-center mt-4 pt-1">
+                                    <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i> Войти с помощью</a>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="mb-0">Нет аккаунта? <a href="registration.html" class="text-white-50 fw-bold">Регистрация</a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- breadcrumb-area-end -->
+    <!-- login-area-end -->
 
-    <!-- game-area -->
-    <section class="blog-area primary-bg pt-120 pb-175">
+    <!-- brand-area -->
+    <div class="brand-area lite-gray-bg pb-170 pt-120">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="blog-list-post">
-                        <div class="about-img">
-                            <img src="../img/images/fifa_1.jpg" alt="">
-                            <a href="https://www.youtube.com/watch?v=0tIW1X2dv0c" class="popup-video"><img
-                                    src="../img/icon/play_btn.png" alt=""></a>
-                        </div>
-                        <div class="blog-list-post-content">
-                            <h2>Описание</h2>
-                            <p th:{game.description} style="color: #0b0b0b">здесь описание</p>
-                        </div>
-                    </div>
-                    <div class="blog-list-post">
-                        <div class="blog-list-post-content">
-                            <div class="table-responsive-xl">
-                                <table class="table mt-0">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Количество свободных аккаунтов</th>
-                                        <th scope="col" th:{количество акк}> отобразить количество</th>
-                                        <th scope="col">
-                                           <form method="post"> <div class="community-post-tag">
-                                                <a href="#">в корзину</a>
-                                            </div>
-                                           </form>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
+            <div class="row brand-active">
+                <div class="col-xl-2">
+                    <div class="brand-item">
+                        <img src="../img/brand/brand_logo01.png" alt="">
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <aside class="blog-sidebar">
-                        <div class="widget mb-45">
-                            <div class="sidebar-about">
-                                <div class="sidebar-widget-title mb-15">
-                                    <h4><span>Издатель</span></h4>
-                                </div>
-                                <div class="sidebar-trending-match">
-                                    <ul>
-                                        <li>
-                                            <span th:text = {game.developer}>здесь издатель</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="widget mb-45">
-                            <div class="sidebar-widget-title mb-25">
-                                <h4><span>Жанры</span></h4>
-                            </div>
-                            <div class="sidebar-trending-match">
-                                <ul>
-                                    <li>
-                                        <span th:text = {game.genre}>здесь жанры</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="widget mb-45">
-                            <div class="sidebar-widget-title mb-25">
-                                <h4><span>Дата релиза</span></h4>
-                            </div>
-                            <div class="sidebar-trending-match">
-                                <ul>
-                                    <li>
-                                        <span th:text = {game.дата релиза}>здесь дата</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="widget mb-45">
-                            <div class="sidebar-widget-title mb-25">
-                                <h4><span>Цена</span></h4>
-                            </div>
-                            <div class="sidebar-trending-match">
-                                <ul>
-                                    <li>
-                                        <span th:text = {game.price}>здесь цена</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </aside>
+                <div class="col-xl-2">
+                    <div class="brand-item">
+                        <img src="../img/brand/brand_logo02.png" alt="">
+                    </div>
+                </div>
+                <div class="col-xl-2">
+                    <div class="brand-item">
+                        <img src="../img/brand/brand_logo03.png" alt="">
+                    </div>
+                </div>
+                <div class="col-xl-2">
+                    <div class="brand-item">
+                        <img src="../img/brand/brand_logo04.png" alt="">
+                    </div>
+                </div>
+                <div class="col-xl-2">
+                    <div class="brand-item">
+                        <img src="../img/brand/brand_logo05.png" alt="">
+                    </div>
+                </div>
+                <div class="col-xl-2">
+                    <div class="brand-item">
+                        <img src="../img/brand/brand_logo06.png" alt="">
+                    </div>
+                </div>
+                <div class="col-xl-2">
+                    <div class="brand-item">
+                        <img src="../img/brand/brand_logo03.png" alt="">
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- game-area-end -->
-
-    <div class="area-bg-two">
-        <!-- area -->
-        <section class="shop-area pt-120 pb-90">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-title title-style-two text-center mb-30">
-                            <h2><span>Скриншоты</span></h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row product-active">
-                    <div class="col-xl-3">
-                        <div class="shop-item">
-                            <div class="product-thumb">
-                                <img src="../img/product/product_img04.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="shop-item">
-                            <div class="product-thumb">
-                                <img src="../img/product/product_img04.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="shop-item">
-                            <div class="product-thumb">
-                                <img src="../img/product/product_img04.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="shop-item">
-                            <div class="product-thumb">
-                                <img src="../img/product/product_img04.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="shop-item">
-                            <div class="product-thumb">
-                                <img src="../img/product/product_img04.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
+    <!-- brand-area-end -->
 </main>
 <!-- main-area-end -->
 
@@ -457,6 +376,7 @@
 <script src="../js/jquery.scrollUp.min.js"></script>
 <script src="../js/imagesloaded.pkgd.min.js"></script>
 <script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIJ_QKHN-bi6_1C9f5eYE3pZs1zhQIo5o"></script>
 <script src="../js/plugins.js"></script>
 <script src="../js/main.js"></script>
 </body>
