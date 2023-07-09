@@ -3,7 +3,9 @@ package ru.aston.gamerent.web.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.aston.gamerent.service.AccountService;
 import ru.aston.gamerent.service.GameService;
 
@@ -13,7 +15,6 @@ import ru.aston.gamerent.service.GameService;
 public class GamesController {
     public static final String GAME = "game";
     public static final String NUMBER_OF_AVAILABLE_ACCOUNTS = "numberOfAvailableAccounts";
-    public static final String DEVELOPMENT = "development";
     public static final String GAMES = "games";
     private final GameService gameService;
     private final AccountService accountService;
@@ -31,11 +32,5 @@ public class GamesController {
         model.addAttribute(NUMBER_OF_AVAILABLE_ACCOUNTS, accountService.numberOfAvailableAccounts(id));
 
         return GAME;
-    }
-
-    @PostMapping("/{id}/postpone")
-    public String addToBucket(@PathVariable Long id, Model model){
-
-        return DEVELOPMENT;
     }
 }
