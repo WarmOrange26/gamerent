@@ -13,7 +13,7 @@ import ru.aston.gamerent.model.dto.response.UserResponseDto;
 import ru.aston.gamerent.service.UserService;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("user")
 @RequiredArgsConstructor
 public class UsersController {
     public static final String UPDATE_MESSAGE = "User is update";
