@@ -35,7 +35,7 @@ class AccountControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void buyAccounts() throws Exception {
+    void buyAccountsSuccess() throws Exception {
         OrderRequestDto request = OrderRequestDto.builder()
                 .userId(1L)
                 .walletId(1L)
@@ -54,5 +54,56 @@ class AccountControllerTest {
                 .andExpect(jsonPath("$[1].password").value("YsU2f5U8q7yF"))
                 .andExpect(jsonPath("$[2].games").isArray())
                 .andExpect(jsonPath("$[2].games[1]").value("semper auctor. Mauris vel"));
+    }
+
+    @Test
+    void buyAccountsWithUserIdOutOfRange() throws Exception {
+        OrderRequestDto request = OrderRequestDto.builder()
+                .userId(999L)
+                .walletId(1L)
+                .gameIds(List.of(1L, 2L, 3L))
+                .periods(1)
+                .build();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        String jsonContent = mapper.writeValueAsString(request);
+
+        mockMvc.perform(post("/api/vi/account/buying").contentType(MediaType.APPLICATION_JSON).content(jsonContent))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    void buyAccountsWithWalletIdOutOfRange() throws Exception {
+        OrderRequestDto request = OrderRequestDto.builder()
+                .userId(1L)
+                .walletId(999L)
+                .gameIds(List.of(1L, 2L, 3L))
+                .periods(1)
+                .build();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        String jsonContent = mapper.writeValueAsString(request);
+
+        mockMvc.perform(post("/api/vi/account/buying").contentType(MediaType.APPLICATION_JSON).content(jsonContent))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    void buyAccountsWithGameIdOutOfRange() throws Exception {
+        OrderRequestDto request = OrderRequestDto.builder()
+                .userId(1L)
+                .walletId(1L)
+                .gameIds(List.of(15L))
+                .periods(1)
+                .build();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        String jsonContent = mapper.writeValueAsString(request);
+
+        mockMvc.perform(post("/api/vi/account/buying").contentType(MediaType.APPLICATION_JSON).content(jsonContent))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
     }
 }
