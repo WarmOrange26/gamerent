@@ -9,7 +9,7 @@ The goal of this application is to get an in-depth feeling for the usage of the 
 * Spring Security
 * Spring MVC
 * Thymeleaf
-* Bootstrap 
+* Bootstrap
 * Postgres in memory database
 * JPA ORM (Hibernate impl.)
 
@@ -23,7 +23,7 @@ __src/main/java/...__
 * repository: Contains all repositories to access the database.
 * service: Contains all service classes which perform further business logic.
 * util: Contains classes that help reducing code repeating.
-* __web/__ 
+* __web/__
 * * config: Contains all configuration classes. In particular messages and security.
 * * controller: Classes annotated with @Controller, which are used to return dynamically rendered HTML views.
 
@@ -33,7 +33,7 @@ Contains templates, sql scripts and configuration files.
 
 * db.changelog: Contains all changelogs.
 * application.yml: Contains the server configuration.
-* templates: This package consists of the all files .html (using the Thymeleaf Dialect). 
+* templates: This package consists of the all files .html (using the Thymeleaf Dialect).
 
 ## Authentication
 
@@ -41,7 +41,7 @@ Contains templates, sql scripts and configuration files.
 There are three access types (user roles) in this application:
 
 #### User
-By logging in as a user that has the role of "USER" the user can issue new rentals. 
+By logging in as a user that has the role of "USER" the user can issue new rentals.
 
 #### Admin
 Users with the role of "ADMIN" have access to games listings, can add/modify/delete game but cannot rent.

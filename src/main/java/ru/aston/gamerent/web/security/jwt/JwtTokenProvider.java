@@ -1,19 +1,14 @@
 package ru.aston.gamerent.web.security.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import ru.aston.gamerent.model.dto.security.AuthenticationUserDto;
@@ -28,6 +23,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class JwtTokenProvider {
+    public static final String ROLES = "roles";
 
     @Value("${spring.security.jwt.secret}")
     private String secret;
@@ -44,7 +40,23 @@ public class JwtTokenProvider {
 
     public String createToken(AuthenticationUserDto user) {
         Claims claims = Jwts.claims().setSubject(user.email());
-        claims.put("roles", getRoleNames(user.roleNames().stream().toList()));
+        claims.put(ROLES, getRoleNames(user.roleNames().stream().toList()));
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + validityInMilliseconds);
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public String createToken(Authentication authentication) {
+        Claims claims = Jwts.claims().setSubject(authentication.getName());
+        claims.put(ROLES, authentication.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .toList());
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
         return Jwts.builder()
@@ -62,14 +74,6 @@ public class JwtTokenProvider {
 
     public String getUsername(String token) {
         return Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token).getBody().getSubject();
-    }
-
-    public String resolveToken(HttpServletRequest req) {
-        String bearerToken = req.getHeader(HttpHeaders.AUTHORIZATION);
-        if (bearerToken != null && bearerToken.startsWith("Bearer")) {
-            return bearerToken.substring(6);
-        }
-        return null;
     }
 
     public boolean validateToken(String token) {

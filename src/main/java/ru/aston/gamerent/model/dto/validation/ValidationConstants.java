@@ -18,4 +18,6 @@ public class ValidationConstants {
     public static final String LAST_NAME_PATTERN = "^(?=.{1,}$)[a-zA-Z]+(?:[-' ][a-zA-Z]+)*$";
 
     public static final String PHONE_PATTERN = "^(?=.{0,}$)[0-9]*$";
+
+    public static final String UUID_PATTERN = "[\\da-fA-F]{8}-[\\da-fA-F]{4}-[\\da-fA-F]{4}-[\\da-fA-F]{4}-[\\da-fA-F]{12}";
 }
