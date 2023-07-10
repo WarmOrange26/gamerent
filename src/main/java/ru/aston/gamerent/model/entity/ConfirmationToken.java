@@ -18,8 +18,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
