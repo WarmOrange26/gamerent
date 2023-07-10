@@ -7,6 +7,8 @@ import ru.aston.gamerent.model.dto.response.GameResponse;
 import ru.aston.gamerent.model.dto.response.GenreResponse;
 import ru.aston.gamerent.model.entity.Developer;
 import ru.aston.gamerent.model.entity.Game;
+import ru.aston.gamerent.model.entity.Genre;
+import ru.aston.gamerent.model.enumeration.GenreTitleEnum;
 import ru.aston.gamerent.model.exception.NoEntityException;
 import ru.aston.gamerent.repository.DeveloperRepository;
 import ru.aston.gamerent.repository.GameRepository;
@@ -16,6 +18,7 @@ import ru.aston.gamerent.service.mapper.GameMapper;
 import org.springframework.transaction.annotation.Transactional;
 import ru.aston.gamerent.service.mapper.GenreMapper;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -49,6 +52,9 @@ public class GameServiceImpl implements GameService {
                 .orElseThrow(() -> new NoEntityException("Developer no found title"));
         Game game = gameMapper.gameRequestToGame(gameRequest);
         game.setDeveloper(developer);
+        List<Genre> genres = genreRepository.findAllByTitleIn(gameRequest.genres().stream()
+                .map(genreResponse -> GenreTitleEnum.valueOf(genreResponse.title())).toList());
+        game.setGenres(new HashSet<>(genres));
         Game saveGame = gameRepository.save(game);
         genreRepository.saveAll(game.getGenres());
         return gameMapper.gameToGameResponseDto(saveGame);

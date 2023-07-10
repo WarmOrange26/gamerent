@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.aston.gamerent.model.dto.request.GameRequest;
 import ru.aston.gamerent.model.entity.Game;
 import ru.aston.gamerent.service.GameService;
@@ -32,7 +30,7 @@ public class GameController {
 
     @GetMapping("/game-create")
     public String createGameForm(GameRequest gameRequest, Model model) {
-        model.addAttribute("genres", gameService.findAllGenres());
+        model.addAttribute("allGenres", gameService.findAllGenres());
         return "game-create";
     }
 

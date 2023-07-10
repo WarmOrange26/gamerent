@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Create game</title>
@@ -23,13 +23,15 @@
 <!--    <div th:each="*{screenshots}">-->
 <!--        <label for="screenshots">screenshots</label>-->
 <!--        <input type="url" th:field="*{screenshots}" id="screenshots" placeholder="Введите ссылки на скриншоты"><br></div>-->
-    <div th:each="genre : ${genres}" th:field="*{genres}"><tr>
-        <td>genres</td>
-        <td>
-                <input type="checkbox" name="genres" th:value="${genre.title}" id ="${genre.title}" />
-                <label th:text="${genre.title}" for="${genre.title}"></label>
-        </td>
-    </tr></div><br>
+    <div th:each="genre : ${allGenres}" >
+        <tr>
+            <td>genres</td>
+            <td>
+                <input type="checkbox" name="genres" th:field="*{genres}"  th:value="${genre.title}" />
+                <label th:text="${genre.title}" th:for="${#ids.prev('genres')}" ></label>
+            </td>
+        </tr>
+    </div><br>
 
 <!--    <c:forEach var="genre" items="${genres}">-->
 <!--        <div class="form-check form-check-inline mb-2" id="inputGenre">-->
