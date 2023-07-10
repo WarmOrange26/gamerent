@@ -1,16 +1,32 @@
 package ru.aston.gamerent.generator;
 
 import lombok.Getter;
+import ru.aston.gamerent.model.dto.request.OrderRequestDto;
 import ru.aston.gamerent.model.dto.request.RegistrationUserRequestDto;
 import ru.aston.gamerent.model.dto.request.UserRequestDto;
+import ru.aston.gamerent.model.dto.response.ActiveAccountResponseDto;
+import ru.aston.gamerent.model.dto.response.ConfirmationResponseDto;
 import ru.aston.gamerent.model.dto.response.UserDto;
 import ru.aston.gamerent.model.dto.response.UserResponseDto;
+import ru.aston.gamerent.model.entity.Account;
+import ru.aston.gamerent.model.entity.ConfirmationToken;
+import ru.aston.gamerent.model.entity.Game;
 import ru.aston.gamerent.model.entity.User;
+import ru.aston.gamerent.model.entity.Wallet;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class DtoGenerator {
+
     private static final EntityGenerator entityGeneratorTest = new EntityGenerator();
+
     private final User user = entityGeneratorTest.getUser();
+    private final ConfirmationToken token = entityGeneratorTest.getToken();
+    private final Account account = entityGeneratorTest.getAccount();
+    private final Wallet wallet = entityGeneratorTest.getWallet();
+    private final List<Game> games = entityGeneratorTest.getGames();
 
     UserResponseDto userResponseDto = UserResponseDto.builder()
             .id(user.getId())
@@ -54,5 +70,27 @@ public class DtoGenerator {
             .firstName(user.getFirstName())
             .lastName(user.getLastName())
             .birthDate(user.getBirthDate())
+            .build();
+
+    ConfirmationResponseDto confirmationResponseDto = ConfirmationResponseDto.builder()
+            .token(token.getToken())
+            .build();
+
+
+
+    List<Long> gameIds = games.stream().mapToLong(Game::getId).boxed().toList();
+
+    OrderRequestDto orderRequestDto = OrderRequestDto.builder()
+            .userId(user.getId())
+            .walletId(wallet.getId())
+            .gameIds(gameIds)
+            .periods(7)
+            .build();
+
+    ActiveAccountResponseDto accountResponseDto = ActiveAccountResponseDto.builder()
+            .login(account.getLogin())
+            .password(account.getPassword())
+            .expirationTime(account.getExpirationTime())
+            .games(games.stream().map(Game::getTitle).collect(Collectors.toList()))
             .build();
 }

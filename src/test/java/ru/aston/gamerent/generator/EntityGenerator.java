@@ -2,6 +2,9 @@ package ru.aston.gamerent.generator;
 
 import lombok.Getter;
 import ru.aston.gamerent.model.entity.Account;
+import ru.aston.gamerent.model.entity.AccountsGames;
+import ru.aston.gamerent.model.entity.ConfirmationToken;
+import ru.aston.gamerent.model.entity.Game;
 import ru.aston.gamerent.model.entity.User;
 import ru.aston.gamerent.model.entity.Wallet;
 import ru.aston.gamerent.model.enumeration.CurrencyCodeEnum;
@@ -9,6 +12,9 @@ import ru.aston.gamerent.model.enumeration.CurrencyCodeEnum;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @Getter
 public class EntityGenerator {
@@ -30,7 +36,7 @@ public class EntityGenerator {
     Wallet wallet = Wallet.builder()
             .id(1L)
             .currency(CurrencyCodeEnum.RUB)
-            .value(BigDecimal.ONE)
+            .value(BigDecimal.TEN)
             .build();
 
     Account account = Account.builder()
@@ -41,4 +47,37 @@ public class EntityGenerator {
             .updateTime(LocalDateTime.now())
             .expirationTime(LocalDateTime.now())
             .build();
+
+    ConfirmationToken token = ConfirmationToken.builder()
+            .id(1L)
+            .user(user)
+            .token(UUID.randomUUID())
+            .creationTime(LocalDateTime.now())
+            .build();
+
+    Game game1 = Game.builder()
+            .id(1L)
+            .title("title1")
+            .releaseDate(LocalDate.now())
+            .description("desc1")
+            .price(BigDecimal.ONE)
+            .image("image1")
+            .trailerUrl("trailer1")
+            .createTime(LocalDateTime.now())
+            .updateTime(LocalDateTime.now())
+            .accounts(Set.of(account))
+            .build();
+
+    List<Game> games = List.of(game1);
+
+    AccountsGames accountsGames1 = AccountsGames.builder()
+            .id(1L)
+            .assigningTime(LocalDateTime.now())
+            .account(account)
+            .game(game1)
+            .build();
+
+    {
+        account.setAccountsGame(List.of(accountsGames1));
+    }
 }
