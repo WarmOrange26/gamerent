@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+  <meta charset="utf-8">
+   <title>404</title>
+  <link href="../css/errors.css" rel="stylesheet">
+</head>
+
+<body>
+<section class="notFound">
+  <div class="img">
+    <img src="https://assets.codepen.io/5647096/backToTheHomepage.png" alt="Back to the Homepage"/>
+    <img src="https://assets.codepen.io/5647096/Delorean.png" alt="El Delorean, El Doc y Marti McFly"/>
+  </div>
+  <div class="text">
+    <h1>404</h1>
+    <div th:if="${#request.getParameter('error') == 'true'}"
+         style="color:red;margin:10px 0px;">
+      Login Failed!!!<br/>
+      Reason :
+      <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+            th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">Static summary</span>
+    </div>
+    <h2>PAGE NOT FOUND</h2>
+    <h3>BACK TO HOME?</h3>
+    <a th:href="@{/}" class="yes">YES</a>
+    <a href="https://www.youtube.com/watch?v=G3AfIvJBcGo">NO</a>
+  </div>
+</section>
+</body>
+</html>

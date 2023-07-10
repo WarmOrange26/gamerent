@@ -52,3 +52,6 @@ Public users do not have a role defined in the code.
 
 #### Redirection
 If unauthenticated users try to access paths of a specific role, which they are not part of, they will be redirected to the login screen.
+
+### Main page
+![Image alt](https://github.com/WarmOrange26/gamerent/tree/dev/src/main/resources/static/images/mainPage.jpg)

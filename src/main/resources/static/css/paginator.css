@@ -1,0 +1,14 @@
+.num {
+    display: none;
+}
+.paginator {
+    line-height: 150%;
+}
+.paginator > span {
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.paginator_active {
+    color: #E8AE1A;
+}
