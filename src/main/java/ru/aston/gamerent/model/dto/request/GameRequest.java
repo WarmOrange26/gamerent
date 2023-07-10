@@ -3,9 +3,16 @@ package ru.aston.gamerent.model.dto.request;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import org.hibernate.validator.constraints.URL;
+import org.mapstruct.Mapping;
+import ru.aston.gamerent.model.dto.response.GenreResponse;
+import ru.aston.gamerent.model.dto.response.ScreenshotResponse;
+import ru.aston.gamerent.model.entity.Screenshot;
+import ru.aston.gamerent.model.enumeration.GenreTitleEnum;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 /**
  * DTO for {@link ru.aston.gamerent.model.entity.Game}
@@ -28,6 +35,8 @@ public record GameRequest(
         String image,
         @URL
         @NotNull(message = "The trailer is mandatory!")
-        String trailerUrl
+        String trailerUrl,
+        List<ScreenshotResponse> screenshots,
+        Set<GenreResponse> genres
 ) {
 }

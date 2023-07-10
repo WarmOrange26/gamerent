@@ -26,7 +26,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/index", "/registration").permitAll()
                 )
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .apply(new JwtTokenFilterConfigurer(jwtTokenProvider));

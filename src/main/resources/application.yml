@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${DATABASE_URL}
-    username: ${USER_DATABASE}
-    password: ${USER_PASSWORD}
+    url: jdbc:postgresql://localhost:5433/gamerent
+    username: gamerent
+    password: gamerentpass
   jpa:
     show-sql: true
     properties:
@@ -12,18 +12,20 @@ spring:
     change-log: db.changelog/changelog.yml
   security:
     jwt:
-      secret: ${JWT_SECRET_PHRASE}
+      secret: ssssssssssssssssssssssssssssssssssssss
       expired: 3600000
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ${EMAIL_SENDER}
-    password: ${EMAIL_PASSWORD}
-    protocol: smtp
-    properties.mail.smtp:
-        auth: true
-        starttls.enable: true
-        ssl.trust: smtp.gmail.com
-game-rent:
-  scheduling:
-    account-blocking: 0 0 * * * *
+server:
+    port: 8081
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: ${EMAIL_SENDER}
+#    password: ${EMAIL_PASSWORD}
+#    protocol: smtp
+#    properties.mail.smtp:
+#        auth: true
+#        starttls.enable: true
+#        ssl.trust: smtp.gmail.com
+#game-rent:
+#  scheduling:
+#    account-blocking: 0 0 * * * *

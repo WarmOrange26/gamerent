@@ -19,7 +19,29 @@
     <label for="image">image</label>
     <input type="url" th:field="*{image}" id="image" placeholder="Введите ссылку на обложку"><br>
     <label for="trailerUrl">trailerUrl</label>
-    <input type="url" th:field="*{trailerUrl}" id="trailerUrl" placeholder="Введите ссылку на трейлер">
+    <input type="url" th:field="*{trailerUrl}" id="trailerUrl" placeholder="Введите ссылку на трейлер"><br>
+<!--    <div th:each="*{screenshots}">-->
+<!--        <label for="screenshots">screenshots</label>-->
+<!--        <input type="url" th:field="*{screenshots}" id="screenshots" placeholder="Введите ссылки на скриншоты"><br></div>-->
+    <div th:each="genre : ${genres}" th:field="*{genres}"><tr>
+        <td>genres</td>
+        <td>
+                <input type="checkbox" name="genres" th:value="${genre.title}" id ="${genre.title}" />
+                <label th:text="${genre.title}" for="${genre.title}"></label>
+        </td>
+    </tr></div><br>
+
+<!--    <c:forEach var="genre" items="${genres}">-->
+<!--        <div class="form-check form-check-inline mb-2" id="inputGenre">-->
+<!--            <input class="form-check-input" type="checkbox" name="genre" id="${genre.name()}" value="${genre}"-->
+<!--            <c:if test="${game.getGenres().contains(genre)}">checked</c:if>>-->
+<!--            <label class="form-check-label text-capitalize" for="${genre.name()}">-->
+<!--                ${genre.name().replace("_", " ").toLowerCase()}-->
+<!--            </label>-->
+<!--        </div>-->
+<!--    </c:forEach>-->
+
+
     <input type="submit" value="Create">
 </form>
 </body>
