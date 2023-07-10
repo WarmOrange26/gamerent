@@ -1,41 +1,463 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Game description</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>WARM ENTERPRISE</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="../img/warm-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/animate.min.css">
+    <link rel="stylesheet" href="../css/magnific-popup.css">
+    <link rel="stylesheet" href="../css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/odometer.css">
+    <link rel="stylesheet" href="../css/aos.css">
+    <link rel="stylesheet" href="../css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../css/meanmenu.css">
+    <link rel="stylesheet" href="../css/slick.css">
+    <link rel="stylesheet" href="../css/default.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
-<h4 th:text="${game.title()}">NAME OF THE GAME</h4>
-<div>
-    <span>Price: </span> <span th:text="${game.price()}">PRICE</span> <span> RUB</span>
+
+<!-- preloader -->
+<div id="preloader">
+    <div id="loading-center">
+        <div id="loading-center-absolute">
+            <img src="../img/icon/preloader.svg" alt="">
+        </div>
+    </div>
 </div>
-<div>
-    <span>Game description: </span> <span th:text="${game.description()}">GAME DESCRIPTION</span>
-</div>
-<span>genre: </span>
-<span th:each="genre : ${game.genres()}">
-    <span th:text="${genre.getTitle()}"> </span> <span>;     </span>
-</span>
-<div>
-    <a th:href="@{/developers/{id}(id=${game.developer().getId()})}"
-       th:text="${game.developer().getTitle()}">DEVELOPER</a>
-</div>
-<div>
-    <span> Date of release: </span> <span th:text="${game.releaseDate()}">DATE</span>
-</div>
-<div th:text="${game.image()}">IMAGE</div>
-<div th:each="screenshot : ${game.screenshots()}">
-    <span>screenshot: </span>
-    <span th:text="${screenshot.getUrl()}">SCREENSHOT</span>
-</div>
-<span>Trailer URL: </span><span th:text="${game.trailerUrl()}">TRAILER</span>
+<!-- preloader-end -->
+
+<!-- header-area -->
+<header>
+    <div class="header-top-area s-header-top-area d-none d-lg-block">
+        <div class="container-fluid s-container-full-padding">
+            <div class="row align-items-center">
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="header-top-offer">
+                        <p>Ексклюзив Black Friday ! Offer</p>
+                        <span class="coming-time" data-countdown="2023/7/27"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="header-top-right">
+                        <div class="header-social">
+                            <ul>
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="header-top-action">
+                            <ul>
+                                <li>
+                                    <div class="header-top-mail">
+                                        <p><span>|</span><i class="far fa-envelope"></i><a href="mailto:info@gmail.com">warmcompany@gmail.com</a>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="header-user-login">
+                                        <a href="login.html"><i class="fas fa-user"></i>Login</a>
+                                    </div>
+                                    <!--     прикрутить когда будет авторизация   <div class="header-user-login" sec:authorize="isAuthenticated()">-->
+                                    <!--                                        <a th:href="@{/profile}"><span class="icon flaticon-user"></span><span-->
+                                    <!--                                                class="txt">Ваш акккаунт</span></a>-->
+                                    <!--                                    </div>-->
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="sticky-header" class="transparent-header">
+        <div class="container-fluid s-container-full-padding">
+            <div class="row">
+                <div class="col-12">
+                    <div class="main-menu menu-style-two">
+                        <nav>
+                            <div class="logo">
+                                <a href="main-page.html"><img src="../img/logo/logoWarm.png" alt="Logo"></a>
+                            </div>
+                            <div id="mobile-menu" class="navbar-wrap d-none d-lg-flex">
+                                <ul>
+                                    <li class="show"><a href="main-page.html">Домой</a>
+                                    </li>
+                                    <li><a href="#">Информация</a>
+                                        <ul class="submenu">
+                                            <li><a href="simple-page.html">Предзаказ</a></li>
+                                            <li><a href="simple-page.html">Сдача аккаунта PS5</a></li>
+                                            <li><a href="simple-page.html">Покупка игр</a></li>
+                                            <li><a href="simple-page.html">Как продлить аренду?</a></li>
+                                            <li><a href="simple-page.html">Вопрос-Ответ</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="simple-page.html">Акции</a></li>
+                                    <li><a href="#">Как Арендовать</a>
+                                        <ul class="submenu">
+                                            <li><a href="simple-page.html">Оформление</a></li>
+                                            <li><a href="simple-page.html">Способы оплаты</a></li>
+                                            <li><a href="simple-page.html">Доставка</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="catalog.html">Каталог</a></li>
+                                    <li><a href="#">О нас</a>
+                                        <ul class="submenu">
+                                            <li><a href="simple-page.html">Пожертвования</a></li>
+                                            <li><a href="simple-page.html">Гарантия</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="simple-page.html">Контакты</a></li>
+                                </ul>
+                            </div>
+                            <div class="header-action">
+                                <ul>
+                                    <li class="header-shop-cart"><a href="basket.html"><i
+                                            class="fas fa-shopping-basket"></i></a>
+                                    </li>
+                                    <li class="header-search"><a href="#" data-toggle="modal"
+                                                                 data-target="#search-modal"><i
+                                            class="fas fa-search"></i></a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="mobile-menu"></div>
+                </div>
+                <!-- Modal Search -->
+                <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form>
+                                <input type="text" placeholder="Search here...">
+                                <button><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- header-area-end -->
+
+<!-- main-area -->
+<main>
+
+    <!-- breadcrumb-area -->
+    <section class="breadcrumb-area breadcrumb-bg" style="background-image: url(../img/bg/fifa.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center">
+                        <h2 th:{game.name}><span>Название игры</span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb-area-end -->
+
+    <!-- game-area -->
+    <section class="blog-area primary-bg pt-120 pb-175">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="blog-list-post">
+                        <div class="about-img">
+                            <img src="../img/images/fifa_1.jpg" alt="">
+                            <a href="https://www.youtube.com/watch?v=0tIW1X2dv0c" class="popup-video"><img
+                                    src="../img/icon/play_btn.png" alt=""></a>
+                        </div>
+                        <div class="blog-list-post-content">
+                            <h2>Описание</h2>
+                            <p th:{game.description} style="color: #0b0b0b">здесь описание</p>
+                        </div>
+                    </div>
+                    <div class="blog-list-post">
+                        <div class="blog-list-post-content">
+                            <div class="table-responsive-xl">
+                                <table class="table mt-0">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Количество свободных аккаунтов</th>
+                                        <th scope="col" th:{количество акк}> отобразить количество</th>
+                                        <th scope="col">
+                                           <form method="post"> <div class="community-post-tag">
+                                                <a href="#">в корзину</a>
+                                            </div>
+                                           </form>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <aside class="blog-sidebar">
+                        <div class="widget mb-45">
+                            <div class="sidebar-about">
+                                <div class="sidebar-widget-title mb-15">
+                                    <h4><span>Издатель</span></h4>
+                                </div>
+                                <div class="sidebar-trending-match">
+                                    <ul>
+                                        <li>
+                                            <span th:text = {game.developer}>здесь издатель</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="widget mb-45">
+                            <div class="sidebar-widget-title mb-25">
+                                <h4><span>Жанры</span></h4>
+                            </div>
+                            <div class="sidebar-trending-match">
+                                <ul>
+                                    <li>
+                                        <span th:text = {game.genre}>здесь жанры</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="widget mb-45">
+                            <div class="sidebar-widget-title mb-25">
+                                <h4><span>Дата релиза</span></h4>
+                            </div>
+                            <div class="sidebar-trending-match">
+                                <ul>
+                                    <li>
+                                        <span th:text = {game.дата релиза}>здесь дата</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="widget mb-45">
+                            <div class="sidebar-widget-title mb-25">
+                                <h4><span>Цена</span></h4>
+                            </div>
+                            <div class="sidebar-trending-match">
+                                <ul>
+                                    <li>
+                                        <span th:text = {game.price}>здесь цена</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- game-area-end -->
+
+    <div class="area-bg-two">
+        <!-- area -->
+        <section class="shop-area pt-120 pb-90">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-title title-style-two text-center mb-30">
+                            <h2><span>Скриншоты</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row product-active">
+                    <div class="col-xl-3">
+                        <div class="shop-item">
+                            <div class="product-thumb">
+                                <img src="../img/product/product_img04.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="shop-item">
+                            <div class="product-thumb">
+                                <img src="../img/product/product_img04.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="shop-item">
+                            <div class="product-thumb">
+                                <img src="../img/product/product_img04.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="shop-item">
+                            <div class="product-thumb">
+                                <img src="../img/product/product_img04.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="shop-item">
+                            <div class="product-thumb">
+                                <img src="../img/product/product_img04.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+<!-- main-area-end -->
+
+<!-- footer-area -->
+<footer>
+    <div class="footer-top footer-bg s-footer-bg">
+        <!-- newsletter-area -->
+        <div class="newsletter-area s-newsletter-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="newsletter-wrap">
+                            <div class="section-title newsletter-title">
+                                <h2>Подписка на <span>Новости</span></h2>
+                            </div>
+                            <div class="newsletter-form">
+                                <form action="#">
+                                    <div class="newsletter-form-grp">
+                                        <i class="far fa-envelope"></i>
+                                        <input type="email" placeholder="Enter your email...">
+                                    </div>
+                                    <button>ПОДПИСАТЬСЯ <i class="fas fa-paper-plane"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- newsletter-area-end -->
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="footer-widget mb-50">
+                        <div class="footer-logo mb-35">
+                            <a href="../index.html"><img src="../img/logo/logoWarm.png" alt=""></a>
+                        </div>
+                        <div class="footer-text">
+                            <p>Наш маркетплейс лучший</p>
+                            <div class="footer-contact">
+                                <ul>
+                                    <li><i class="fas fa-map-marker-alt"></i> <span>Адрес : </span>ASTON CO</li>
+                                    <li><i class="fas fa-headphones"></i> <span>Телефон : </span>+77 8888 923 235</li>
+                                    <li><i class="fas fa-envelope-open"></i><span>Email : </span>warmcompany@gmail.com
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-3 col-sm-6">
+                    <div class="footer-widget mb-50">
+                        <div class="fw-title mb-35">
+                            <h5>Жанры игр</h5>
+                        </div>
+                        <div class="fw-link">
+                            <ul>
+                                <li><a href="#">Шутеры</a></li>
+                                <li><a href="#">Ролевые игры</a></li>
+                                <li><a href="#">Гонки</a></li>
+                                <li><a href="#">Единоборства</a></li>
+                                <li><a href="#">Триллеры</a></li>
+                                <li><a href="#">Стратегия</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-3 col-sm-6">
+                    <div class="footer-widget mb-50">
+                        <div class="fw-title mb-35">
+                            <h5>Нужна помощь?</h5>
+                        </div>
+                        <div class="fw-link">
+                            <ul>
+                                <li><a href="#">Правила и политика</a></li>
+                                <li><a href="#">Политика конфиденциальности</a></li>
+                                <li><a href="#">Политика возврата</a></li>
+                                <li><a href="#">Блоги</a></li>
+                                <li><a href="#">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="footer-widget mb-50">
+                        <div class="fw-title mb-35">
+                            <h5>Подписывайтесь на нас</h5>
+                        </div>
+                        <div class="footer-social">
+                            <ul>
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-fire"><img src="../img/images/footer_fire.png" alt=""></div>
+        <div class="footer-fire footer-fire-right"><img src="../img/images/footer_fire.png" alt=""></div>
+    </div>
+    <div class="copyright-wrap s-copyright-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="copyright-text">
+                        <p>Copyright © 2023 <a href="#">WARM</a> All Rights Reserved.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 d-none d-md-block">
+                    <div class="payment-method-img text-right">
+                        <img src="../img/images/card_img.png" alt="img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- footer-area-end -->
+
+
+<!-- JS here -->
+<script src="../js/vendor/jquery-3.4.1.min.js"></script>
+<script src="../js/popper.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/isotope.pkgd.min.js"></script>
+<script src="../js/slick.min.js"></script>
+<script src="../js/jquery.meanmenu.min.js"></script>
+<script src="../js/wow.min.js"></script>
+<script src="../js/aos.js"></script>
+<script src="../js/jquery.lettering.js"></script>
+<script src="../js/jquery.textillate.js"></script>
+<script src="../js/jquery.odometer.min.js"></script>
+<script src="../js/jquery.appear.js"></script>
+<script src="../js/owl.carousel.min.js"></script>
+<script src="../js/jquery.countdown.min.js"></script>
+<script src="../js/jquery.scrollUp.min.js"></script>
+<script src="../js/imagesloaded.pkgd.min.js"></script>
+<script src="../js/jquery.magnific-popup.min.js"></script>
+<script src="../js/plugins.js"></script>
+<script src="../js/main.js"></script>
 </body>
-<div>
-    <span>Number of available accounts: </span> <span th:text="${numberOfAvailableAccounts}">DATE</span>
-</div>
-<div th:if="${numberOfAvailableAccounts}">
-<form th:method="POST" th:action="@{/games/{id}/postpone(id=${game.id()})}">
-    <input type="submit" value="POSTPONE">
-</form>
-</div>
 </html>

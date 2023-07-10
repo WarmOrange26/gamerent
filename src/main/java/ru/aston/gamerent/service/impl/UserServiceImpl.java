@@ -3,15 +3,16 @@ package ru.aston.gamerent.service.impl;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mapstruct.factory.Mappers;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.aston.gamerent.exception.NoEntityException;
-import ru.aston.gamerent.model.dto.response.UserDto;
 import ru.aston.gamerent.mapper.ConfirmationTokenMapper;
 import ru.aston.gamerent.mapper.UserMapper;
 import ru.aston.gamerent.model.dto.request.RegistrationUserRequestDto;
 import ru.aston.gamerent.model.dto.request.UserRequestDto;
 import ru.aston.gamerent.model.dto.response.ConfirmationResponseDto;
+import ru.aston.gamerent.model.dto.response.UserDto;
 import ru.aston.gamerent.model.dto.response.UserResponseDto;
 import ru.aston.gamerent.model.entity.Account;
 import ru.aston.gamerent.model.entity.ConfirmationToken;
@@ -24,6 +25,7 @@ import ru.aston.gamerent.repository.ConfirmationTokenRepository;
 import ru.aston.gamerent.repository.UserRepository;
 import ru.aston.gamerent.repository.WalletRepository;
 import ru.aston.gamerent.service.UserService;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -36,8 +38,9 @@ import static java.lang.Boolean.FALSE;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
     public static final long USER_ROLE_ID = 2L;
-    private final ConfirmationTokenMapper confirmationTokenMapper;
+    private final ConfirmationTokenMapper confirmationTokenMapper = Mappers.getMapper(ConfirmationTokenMapper.class);
     private final UserRepository userRepository;
     private final ConfirmationTokenRepository confirmationTokenRepository;
     private final WalletRepository walletRepository;
