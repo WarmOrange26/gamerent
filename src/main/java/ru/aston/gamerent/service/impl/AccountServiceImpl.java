@@ -120,6 +120,7 @@ public class AccountServiceImpl implements AccountService {
                         .filter(account -> account.getExpirationTime().isBefore(LocalDateTime.now()))
                         .findFirst()
                         .orElseThrow(() -> new NoEntityException("Accounts were not found")))
+                .distinct()
                 .toList();
     }
 

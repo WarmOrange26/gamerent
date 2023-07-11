@@ -5,6 +5,17 @@ spring:
     jwt:
       secret: ${JWT_SECRET_PHRASE:qwe}
       expired: 3600000
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${CLIENT_ID:qwe}
+            client-secret: ${CLIENT_SECRET:qwe}
+            redirectUri: http://localhost:8080/login/oauth2/code/google
+            scope:
+              - openid
+              - email
+              - profile
   mail:
     host: smtp.gmail.com
     port: 587
