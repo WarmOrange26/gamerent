@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserResponseDto getUserById(long id) {
+    public UserResponseDto getUserById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
         List<Account> accounts = accountRepository.findAccountsByUser(user);

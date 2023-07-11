@@ -5,11 +5,13 @@ import ru.aston.gamerent.model.dto.response.UserDto;
 import ru.aston.gamerent.model.dto.request.UserRequestDto;
 import ru.aston.gamerent.model.dto.response.ConfirmationResponseDto;
 import ru.aston.gamerent.model.dto.response.UserResponseDto;
+import ru.aston.gamerent.model.entity.User;
+
 import java.util.Optional;
 import java.util.UUID;
 
 public interface UserService {
-    UserResponseDto getUserById(long id);
+    UserResponseDto getUserById(Long id);
 
     UserDto updateUser(Long id, UserRequestDto userRequestDto);
 
