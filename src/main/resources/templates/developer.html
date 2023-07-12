@@ -5,12 +5,12 @@
     <title>Developer</title>
 </head>
 <body>
-<h4 th:text="${developerResponse.getTitle()}">TITLE</h4>
+<h4 th:text="${developerResponse.title()}">TITLE</h4>
 
-<span th:text="${developerResponse.getDescription()}">DESCRIPTION</span>
+<span th:text="${developerResponse.description()}">DESCRIPTION</span>
 <div>games: </div>
-<div th:each="game : ${developerResponse.getGames()}">
-    <span th:text="${game.getTitle()}">GAME</span>
+<div th:each="game : ${developerResponse.games()}">
+    <span th:text="${game}">GAME</span>
 </div>
 </body>
 </html>

@@ -8,7 +8,8 @@ import java.util.Optional;
 
 public interface GameService {
     List<GameResponseDto> getAllGames();
-
+  
     GameResponseDto getGameById(Long id);
 
+    Optional<Game> findById(Long id);
 }

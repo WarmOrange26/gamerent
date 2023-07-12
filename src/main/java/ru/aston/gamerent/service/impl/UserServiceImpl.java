@@ -57,6 +57,10 @@ public class UserServiceImpl implements UserService {
 
         return userMapper.userToUserResponseDto(user, wallets, accounts);
     }
+    @Override
+    public Optional<User> findById(Long id){
+        return userRepository.findById(id);
+    }
 
     @Override
     public UserDto updateUser(Long id, UserRequestDto userRequestDto) {

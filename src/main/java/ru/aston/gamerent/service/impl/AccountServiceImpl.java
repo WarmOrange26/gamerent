@@ -30,7 +30,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -178,5 +180,26 @@ public class AccountServiceImpl implements AccountService {
         return accounts.stream()
                 .map(accountMapper::accountToActiveAccountResponse)
                 .toList();
+    }
+  
+    @Override
+    public Account getAccountById(Long id) {
+        return accountRepository.findById(id).orElseThrow(( ) -> new NoEntityException("Account with this id doesn't exists"));
+    }
+  
+    @Override
+    public List<Account> findByGameId(Long gameId) {
+        return accountRepository.findByGameId(gameId);
+      
+    }
+    @Override
+    public List<Account> selectAvailableAccounts(Long gameId) {
+        return findByGameId(gameId).stream().filter(account -> account.getExpirationTime().isBefore(LocalDateTime.now()))
+                .collect(Collectors.toList());
+      
+    }
+    @Override
+    public int numberOfAvailableAccounts(Long gameId) {
+        return selectAvailableAccounts(gameId).size();
     }
 }

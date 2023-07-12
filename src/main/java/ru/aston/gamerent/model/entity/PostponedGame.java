@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -41,7 +42,7 @@ public class PostponedGame {
     @ToString.Exclude
     private Game game;
 
-    @Column(name = "postponed_time", nullable = false)
+    @Column(name = "postpone_time", nullable = false)
     private LocalDateTime postponedTime;
 
     @Override

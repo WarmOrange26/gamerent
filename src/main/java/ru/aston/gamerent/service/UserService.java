@@ -16,6 +16,8 @@ public interface UserService {
     UserDto updateUser(Long id, UserRequestDto userRequestDto);
 
     Optional<ConfirmationResponseDto> saveUser(RegistrationUserRequestDto registrationUserRequestDto);
+  
+    Optional<User> findById(Long id);
 
     boolean confirmEmail(UUID token);
 }
