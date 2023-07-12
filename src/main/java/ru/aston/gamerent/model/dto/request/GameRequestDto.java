@@ -15,7 +15,7 @@ public record GameRequestDto(
         @Pattern(regexp = "[\\sa-zA-Z0-9]*", message = "Platform should consists latin letters and numbers")
         String platform,
         String developer,
-        @PastOrPresent(message = "Year must be in the past")
+        @PastOrPresent(message = "Year should be in the past")
         Year releaseYear,
         @Positive(message = "Min price should be positive")
         BigDecimal minPrice,

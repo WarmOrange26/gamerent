@@ -8,6 +8,8 @@ import ru.aston.gamerent.model.dto.response.DeveloperResponseDto;
 import ru.aston.gamerent.repository.DeveloperRepository;
 import ru.aston.gamerent.service.DeveloperService;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DeveloperServiceImpl implements DeveloperService {
@@ -18,5 +20,12 @@ public class DeveloperServiceImpl implements DeveloperService {
     public DeveloperResponseDto findDeveloperById(Long id) {
         return developerRepository.findById(id).map(developerMapper::developerToDeveloperResponse)
                 .orElseThrow(() -> new NoEntityException("Game with this id doesn't exist"));
+    }
+
+    @Override
+    public List<DeveloperResponseDto> findAllDevelopers() {
+        return developerRepository.findAll().stream()
+                .map(developerMapper::developerToDeveloperResponse)
+                .toList();
     }
 }

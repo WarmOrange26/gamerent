@@ -1,0 +1,6 @@
+<a th:fragment="paging(pageNum, label, tooltip)" class="page-link"
+   th:href="@{'/games/search-results?' + ${keyword!=null && keyword!=''? 'keyword=' + keyword + '&' : ''} + 'page=' + ${pageNum} + '&size=' + ${pageSize}}"
+   method="post"
+   th:title="${tooltip}" rel="tooltip" xmlns:th="http://www.w3.org/1999/xhtml">
+    [[${label}]]
+</a>

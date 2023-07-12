@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/gamerent
-    username: gamerent
-    password: gamerentpass
+    url: ${DATABASE_URL}
+    username: ${USER_DATABASE}
+    password: ${USER_PASSWORD}
   jpa:
     show-sql: true
     properties:
@@ -12,7 +12,7 @@ spring:
     change-log: db.changelog/changelog.yml
   security:
     jwt:
-      secret: yhbr543hjncui986dvfscr43wnkio90654qwsaxd43rfvgdt09
+      secret: ${JWT_SECRET_PHRASE}
       expired: 3600000
     oauth2:
       client:
@@ -28,8 +28,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: example@example.com
-    password: 12345
+    username: ${EMAIL_SENDER}
+    password: ${EMAIL_PASSWORD}
     protocol: smtp
     properties.mail.smtp:
       auth: true

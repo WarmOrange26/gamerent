@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+Search
+<form th:action="@{/games/search-results}" method="post" th:object="${gameRequestDto}">
+    <label for="title">Enter game title: </label>
+    <input type="text" th:field="*{title}" id="title"/>
+    <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+    </br>
+    <label for="minPrice">Enter min price: </label>
+    <input type="text" th:field="*{minPrice}" id="minPrice"/>
+    <div style="color:red" th:if="${#fields.hasErrors('minPrice')}" th:errors="*{minPrice}">Min price Error</div>
+    </br>
+    <label for="maxPrice">Enter max price: </label>
+    <input type="text" th:field="*{maxPrice}" id="maxPrice"/>
+    <div style="color:red" th:if="${#fields.hasErrors('maxPrice')}" th:errors="*{maxPrice}">Max price Error</div>
+    </br>
+    <label for="releaseYear">Enter year: </label>
+    <input type="text" th:field="*{releaseYear}" id="releaseYear"/>
+    <div style="color:red" th:if="${#fields.hasErrors('releaseYear')}" th:errors="*{releaseYear}">Year Error</div>
+    </br>
+    <ul>
+        <select class="form-control" id="developer" name="developer">
+            <option value="">Select developer</option>
+            <option th:each="developer : ${developers}"
+                    th:value="${developer.title}"
+                    th:text="${developer.title}">
+            </option>
+        </select>
+    </ul>
+    <ul>
+        <select class="form-control" id="platform" name="platform">
+            <option value="">Select platform</option>
+            <option th:each="platform : ${platforms}"
+                    th:value="${platform.name}"
+                    th:text="${platform.name}">
+            </option>
+        </select>
+    </ul>
+    <div class="col-md-3 input-group mt-2">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="pageSize">Items per page:</label>
+        </div>
+        <select name="size" th:value="${pageSize}" onchange="changePageSize()" class="size-select"
+                id="pageSize">
+            <option th:each="s : ${ {1, 3, 10} }" th:value="${s}" th:text="${s}" th:selected="${s == pageSize}"></option>
+        </select>
+    </div>
+    <input type="submit" value="Search"/>
+</form>
+</body>
+</html>
