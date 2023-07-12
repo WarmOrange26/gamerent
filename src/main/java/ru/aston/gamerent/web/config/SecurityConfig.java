@@ -31,10 +31,8 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers(LOGIN).permitAll()
-                        .requestMatchers("/", "/index", "/registration").permitAll()
-                )
-                .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
+                        .requestMatchers("/css/**", "/js/**", "/fonts/**", "/images/**", "img/**").permitAll()
+                        .requestMatchers("/", "/index", "/registration/**", LOGIN).permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login

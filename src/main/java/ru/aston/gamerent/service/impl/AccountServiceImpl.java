@@ -122,6 +122,7 @@ public class AccountServiceImpl implements AccountService {
                         .filter(account -> account.getExpirationTime().isBefore(LocalDateTime.now()))
                         .findFirst()
                         .orElseThrow(() -> new NoEntityException("Accounts were not found")))
+                .distinct()
                 .toList();
     }
 
@@ -177,7 +178,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private List<ActiveAccountResponseDto> getAccountsPasswords(List<Account> accounts) {
-        return accounts.stream()
+        return accounts.strehttps://github.com/WarmOrange26/gamerent/pull/41/conflict?name=src%252Fmain%252Fjava%252Fru%252Faston%252Fgamerent%252Fservice%252Fimpl%252FAccountServiceImpl.java&ancestor_oid=7167b2db1aa98178a5dced7bf8c21fead1d3b786&base_oid=f12ba571e575f6d16819044735ba103820423433&head_oid=76e3e485b620bd20abc218eb8c974654051b86c7am()
                 .map(accountMapper::accountToActiveAccountResponse)
                 .toList();
     }

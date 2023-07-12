@@ -38,8 +38,7 @@ import static java.lang.Boolean.FALSE;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-
-    public static final long USER_ROLE_ID = 2L;
+    public static final long USER_ROLE_ID = 1L;
     private final ConfirmationTokenMapper confirmationTokenMapper = Mappers.getMapper(ConfirmationTokenMapper.class);
     private final UserRepository userRepository;
     private final ConfirmationTokenRepository confirmationTokenRepository;

@@ -17,6 +17,7 @@ import ru.aston.gamerent.service.PostponedGameService;
 public class GamesController {
     public static final String GAME = "game";
     public static final String NUMBER_OF_AVAILABLE_ACCOUNTS = "numberOfAvailableAccounts";
+    public static final String CATALOG = "catalog";
     public static final String GAMES = "games";
     private final GameService gameService;
     private final AccountService accountService;
@@ -26,7 +27,7 @@ public class GamesController {
     public String showAll(Model model) {
         model.addAttribute(GAMES, gameService.getAllGames());
 
-        return GAMES;
+        return CATALOG;
     }
 
     @GetMapping("/{id}")
@@ -36,7 +37,7 @@ public class GamesController {
 
         return GAME;
     }
-
+  
     @PostMapping("/{id}/add")
     public String addToCart(@PathVariable Long id, Model model){
         Long userId = 1L;
