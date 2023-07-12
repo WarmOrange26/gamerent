@@ -40,6 +40,8 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:8.0.1", "org.mapstruct:mapstruct-processor:1.5.5.Final"
     testImplementation 'io.zonky.test:embedded-database-spring-test:2.3.0'
     testImplementation 'org.springframework.security:spring-security-test:6.1.1'
+    implementation 'org.hibernate:hibernate-core:6.2.6.Final'
+    annotationProcessor 'org.hibernate:hibernate-jpamodelgen:6.2.6.Final'
 }
 
 test {
