@@ -1,5 +1,6 @@
 package ru.aston.gamerent.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -67,10 +68,12 @@ public class Game {
 
     @Column(name = "create_time", nullable = false)
     @CreationTimestamp
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime createTime;
 
     @Column(name = "update_time", nullable = false)
     @UpdateTimestamp
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime updateTime;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")

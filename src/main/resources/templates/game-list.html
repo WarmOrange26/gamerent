@@ -21,7 +21,8 @@
                 <th>image</th>
                 <th>trailerUrl</th>
                 <th>createTime</th>
-                <th>screenshots</th>
+                <th>updateTime</th>
+                <th>genre</th>
             </tr>
             </thead>
             <tbody>
@@ -36,7 +37,9 @@
                 <td th:text="${game.trailerUrl}"></td>
                 <td th:text="${game.createTime}"></td>
                 <td th:text="${game.updateTime}"></td>
-                <td th:text="${game.screenshots}"></td>
+                <td>
+                    <span th:each="genre : ${game.genres}" th:text="${genre.title + ' '}"></span>
+                </td>
                 <td><a th:href="@{game-update/{id}(id=${game.id})}">Edit</a></td>
                 <td><a th:href="@{game-delete/{id}(id=${game.id})}">Delete</a></td>
             </tr>

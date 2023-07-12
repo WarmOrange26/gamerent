@@ -64,10 +64,17 @@ public class GameServiceImpl implements GameService {
     public void updateGame(Long id, GameRequest gameRequest) {
         Developer developer = developerRepository.findByTitle(gameRequest.developer())
                 .orElseThrow(() -> new NoEntityException("Developer no found title"));
-        Game gameFromDB = gameRepository.findById(id).orElseThrow(() -> new NoEntityException("Game with id " + id + " was not found"));
-        Game game = gameMapper.gameRequestToGame(gameRequest, gameFromDB);
-        game.setDeveloper(developer);
-        gameRepository.saveAndFlush(game);
+        Game gameFromDB = gameRepository.findById(id)
+                .orElseThrow(() -> new NoEntityException("Game with id " + id + " was not found"));
+
+        Game updatedGame = gameMapper.gameRequestToGame(gameRequest, gameFromDB);
+        updatedGame.setDeveloper(developer);
+
+        List<Genre> genres = genreRepository.findAllByTitleIn(gameRequest.genres().stream()
+                .map(genreResponse -> GenreTitleEnum.valueOf(genreResponse.title())).toList());
+        updatedGame.setGenres(new HashSet<>(genres));
+
+        gameRepository.saveAndFlush(updatedGame);
     }
 
     @Override

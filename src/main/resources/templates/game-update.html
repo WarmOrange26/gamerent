@@ -20,6 +20,15 @@
     <input type="url" th:field="*{image}" id="image" placeholder="Введите ссылку на обложку"><br>
     <label for="trailerUrl">trailerUrl</label>
     <input type="url" th:field="*{trailerUrl}" id="trailerUrl" placeholder="Введите ссылку на трейлер">
+    <div th:each="genre : ${allGenres}" >
+        <tr>
+            <td>genres</td>
+            <td>
+                <input type="checkbox" name="genres" th:field="*{genres}"  th:value="${genre.title}" />
+                <label th:text="${genre.title}" th:for="${#ids.prev('genres')}" ></label>
+            </td>
+        </tr>
+    </div><br>
     <input type="submit" value="Update">
 </form>
 </body>

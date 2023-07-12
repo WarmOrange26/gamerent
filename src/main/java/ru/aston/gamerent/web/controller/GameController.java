@@ -47,7 +47,8 @@ public class GameController {
     }
 
     @GetMapping("/game-update/{id}")
-    public String updateGameForm(@PathVariable("id") Long id, GameRequest gameRequest) {
+    public String updateGameForm(@PathVariable("id") Long id, GameRequest gameRequest, Model model) {
+        model.addAttribute("allGenres", gameService.findAllGenres());
         return "game-update";
     }
 
