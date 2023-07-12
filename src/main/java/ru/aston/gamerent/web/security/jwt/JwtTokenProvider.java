@@ -11,13 +11,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import ru.aston.gamerent.model.dto.security.AuthenticationUserDto;
-import ru.aston.gamerent.model.enumeration.RoleNameEnum;
 import ru.aston.gamerent.web.security.JwtUserDetailsService;
+
 import java.security.Key;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Component
 @Slf4j
@@ -36,19 +33,6 @@ public class JwtTokenProvider {
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(this.secret);
         return Keys.hmacShaKeyFor(keyBytes);
-    }
-
-    public String createToken(AuthenticationUserDto user) {
-        Claims claims = Jwts.claims().setSubject(user.email());
-        claims.put(ROLES, getRoleNames(user.roleNames().stream().toList()));
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(validity)
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
-                .compact();
     }
 
     public String createToken(Authentication authentication) {
@@ -89,11 +73,5 @@ public class JwtTokenProvider {
             log.info("Expired or invalid JWT token");
             return false;
         }
-    }
-
-    private List<String> getRoleNames(List<RoleNameEnum> userRoles) {
-        List<String> result = new ArrayList<>();
-        userRoles.forEach(role -> result.add(role.name()));
-        return result;
     }
 }
