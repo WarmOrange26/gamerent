@@ -5,9 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.aston.gamerent.service.AccountService;
 import ru.aston.gamerent.service.GameService;
+import ru.aston.gamerent.service.PostponedGameService;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,6 +21,7 @@ public class GamesController {
     public static final String GAMES = "games";
     private final GameService gameService;
     private final AccountService accountService;
+    private final PostponedGameService postponedGameService;
 
     @GetMapping
     public String showAll(Model model) {
@@ -32,6 +35,16 @@ public class GamesController {
         model.addAttribute(GAME, gameService.getGameById(id));
         model.addAttribute(NUMBER_OF_AVAILABLE_ACCOUNTS, accountService.numberOfAvailableAccounts(id));
 
+        return GAME;
+    }
+  
+    @PostMapping("/{id}/add")
+    public String addToCart(@PathVariable Long id, Model model){
+        Long userId = 1L;
+        postponedGameService.postponeGame(userId, id);
+        model.addAttribute("gameResponse", gameService.getGameById(id));
+        model.addAttribute("numberOfAvailableAccounts", accountService.numberOfAvailableAccounts(id));
+        //model.addAttribute("gameIsAddedToCart", postponedGameService.postponeGame(userId, id));
         return GAME;
     }
 }

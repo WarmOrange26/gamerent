@@ -41,7 +41,6 @@ public class OAuth2GoogleUserService implements OAuth2UserService<OidcUserReques
 
         List<SimpleGrantedAuthority> authorities = convertUserRolesToAuthorities(user);
         DefaultOidcUser oidcUser = new DefaultOidcUser(authorities, userRequest.getIdToken());
-
         addJwtTokenToResponse(oidcUser);
 
         return oidcUser;

@@ -38,7 +38,6 @@ import static java.lang.Boolean.FALSE;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-
     public static final long USER_ROLE_ID = 1L;
     private final ConfirmationTokenMapper confirmationTokenMapper = Mappers.getMapper(ConfirmationTokenMapper.class);
     private final UserRepository userRepository;
@@ -49,13 +48,17 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserResponseDto getUserById(long id) {
+    public UserResponseDto getUserById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
         List<Account> accounts = accountRepository.findAccountsByUser(user);
         List<Wallet> wallets = walletRepository.findWalletsByUser(user);
 
         return userMapper.userToUserResponseDto(user, wallets, accounts);
+    }
+    @Override
+    public Optional<User> findById(Long id){
+        return userRepository.findById(id);
     }
 
     @Override
