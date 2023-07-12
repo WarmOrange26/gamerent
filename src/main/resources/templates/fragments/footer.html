@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<footer th:fragment="footer">
+    <div class="footer-top footer-bg s-footer-bg">
+        <!-- newsletter-area -->
+        <div class="newsletter-area s-newsletter-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="newsletter-wrap">
+                            <div class="section-title newsletter-title">
+                                <h2>Подписка на <span>Новости</span></h2>
+                            </div>
+                            <div class="newsletter-form">
+                                <form action="#">
+                                    <div class="newsletter-form-grp">
+                                        <i class="far fa-envelope"></i>
+                                        <input type="email" placeholder="Enter your email...">
+                                    </div>
+                                    <button>ПОДПИСАТЬСЯ <i class="fas fa-paper-plane"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- newsletter-area-end -->
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="footer-widget mb-50">
+                        <div class="footer-logo mb-35">
+                            <a href="index.html"><img th:src="@{/img/logo/logoWarm.png}" alt=""></a>
+                        </div>
+                        <div class="footer-text">
+                            <p>Наш маркетплейс лучший</p>
+                            <div class="footer-contact">
+                                <ul>
+                                    <li><i class="fas fa-map-marker-alt"></i> <span>Адрес : </span>ASTON CO</li>
+                                    <li><i class="fas fa-headphones"></i> <span>Телефон : </span>+77 8888 923 235</li>
+                                    <li><i class="fas fa-envelope-open"></i><span>Email : </span>warmcompany@gmail.com
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-3 col-sm-6">
+                    <div class="footer-widget mb-50">
+                        <div class="fw-title mb-35">
+                            <h5>Жанры игр</h5>
+                        </div>
+                        <div class="fw-link">
+                            <ul>
+                                <li><a href="#">Шутеры</a></li>
+                                <li><a href="#">Ролевые игры</a></li>
+                                <li><a href="#">Гонки</a></li>
+                                <li><a href="#">Единоборства</a></li>
+                                <li><a href="#">Триллеры</a></li>
+                                <li><a href="#">Стратегия</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-3 col-sm-6">
+                    <div class="footer-widget mb-50">
+                        <div class="fw-title mb-35">
+                            <h5>Нужна помощь?</h5>
+                        </div>
+                        <div class="fw-link">
+                            <ul>
+                                <li><a href="#">Правила и политика</a></li>
+                                <li><a href="#">Политика конфиденциальности</a></li>
+                                <li><a href="#">Политика возврата</a></li>
+                                <li><a href="#">Блоги</a></li>
+                                <li><a href="#">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="footer-widget mb-50">
+                        <div class="fw-title mb-35">
+                            <h5>Подписывайтесь на нас</h5>
+                        </div>
+                        <div class="footer-social">
+                            <ul>
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-fire"><img th:src="@{/img/images/footer_fire.png}" alt=""></div>
+        <div class="footer-fire footer-fire-right"><img th:src="@{/img/images/footer_fire.png}" alt=""></div>
+    </div>
+    <div class="copyright-wrap s-copyright-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="copyright-text">
+                        <p>Copyright © 2023 <a href="#">WARM</a> All Rights Reserved.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 d-none d-md-block">
+                    <div class="payment-method-img text-right">
+                        <img th:src="@{/img/images/card_img.png}" alt="img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
