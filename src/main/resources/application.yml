@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${DATABASE_URL}
-    username: ${USER_DATABASE}
-    password: ${USER_PASSWORD}
+    url: jdbc:postgresql://localhost:5433/gamerent
+    username: gamerent
+    password: gamerentpass
   jpa:
     show-sql: true
     properties:
@@ -12,7 +12,7 @@ spring:
     change-log: db.changelog/changelog.yml
   security:
     jwt:
-      secret: ${JWT_SECRET_PHRASE}
+      secret: yhbr543hjncui986dvfscr43wnkio90654qwsaxd43rfvgdt09
       expired: 3600000
     oauth2:
       client:
@@ -28,13 +28,13 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${EMAIL_SENDER}
-    password: ${EMAIL_PASSWORD}
+    username: example@example.com
+    password: 12345
     protocol: smtp
     properties.mail.smtp:
-        auth: true
-        starttls.enable: true
-        ssl.trust: smtp.gmail.com
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
 game-rent:
   scheduling:
     account-blocking: 0 0 * * * *
