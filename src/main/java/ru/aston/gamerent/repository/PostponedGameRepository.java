@@ -16,7 +16,7 @@ public interface PostponedGameRepository extends JpaRepository<PostponedGame, Lo
 
     @Query(POSTPONED_GAME_BY_USER_ID_GAME_ID_HQL)
     Optional<PostponedGame> findByUserIdAndGameId(@Param("userId") Long userId, @Param("gameId") Long gameId);
+
     @Query(POSTPONED_USER_ID_GAME_ID_HQL)
     List<PostponedGame> findByUserId(@Param("userId") Long userId);
-
 }

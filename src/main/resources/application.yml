@@ -14,6 +14,17 @@ spring:
     jwt:
       secret: ${JWT_SECRET_PHRASE}
       expired: 3600000
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            redirectUri: http://localhost:8080/login/oauth2/code/google
+            scope:
+              - openid
+              - email
+              - profile
   mail:
     host: smtp.gmail.com
     port: 587
@@ -27,3 +38,5 @@ spring:
 game-rent:
   scheduling:
     account-blocking: 0 0 * * * *
+  currency:
+    data-path: https://www.cbr-xml-daily.ru/daily_json.js

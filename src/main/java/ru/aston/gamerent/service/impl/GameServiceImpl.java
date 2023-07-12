@@ -31,6 +31,7 @@ public class GameServiceImpl implements GameService {
                 .map(gameMapper::gameToGameResponseDto)
                 .orElseThrow(() -> new NoEntityException("Game with this id doesn't exists"));
     }
+
     @Override
     public Optional<Game> findById(Long id) {
         return gameRepository.findById(id);

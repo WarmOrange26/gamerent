@@ -6,6 +6,7 @@ import ru.aston.gamerent.model.dto.request.RegistrationUserRequestDto;
 import ru.aston.gamerent.model.dto.request.SettingValueRequestDto;
 import ru.aston.gamerent.model.dto.request.UserRequestDto;
 import ru.aston.gamerent.model.dto.response.AccountResponseDto;
+import ru.aston.gamerent.model.dto.response.UserDto;
 import ru.aston.gamerent.model.dto.response.UserResponseDto;
 import ru.aston.gamerent.model.dto.response.WalletResponseDto;
 import ru.aston.gamerent.model.entity.Account;
@@ -61,4 +62,6 @@ public interface UserMapper {
     @Mapping(target = "settings", ignore = true)
     @Mapping(target = "updateTime", ignore = true)
     User userRegistrationDtoToUser(RegistrationUserRequestDto registrationUserRequestDto);
+
+    UserDto userToUserDto(User user);
 }
