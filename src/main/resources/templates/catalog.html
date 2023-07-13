@@ -57,8 +57,10 @@
                             <div class="accessories-content">
                                 <h5><a th:href="@{/games/{id}(id=${game.id()})}"  th:text="${game.title()}">название игры</a></h5>
                                 <span th:text="'Цена: ' + ${game.price()} + '₽'">Цена: </span>
-                                <form th:method="post">
-                                <a href="#" class="shop-add-action">Добавить в корзину</a>
+                                <form th:method="post" th:action="@{/cart/{id}/add(id=${game.id()})}">
+                                    <button type="submit" th:text="'Добавить в корзину'" class="shop-add-action">
+                                        Добавить в корзину
+                                    </button>
                                 </form>
                             </div>
                         </div>

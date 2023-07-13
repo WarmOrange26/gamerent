@@ -95,7 +95,7 @@ class UserServiceImplTest {
         when(walletRepository.findWalletsByUser(user)).thenReturn(wallets);
         when(userMapper.userToUserResponseDto(user, wallets, accounts)).thenReturn(userResponseDto);
 
-        assertThat(userService.getUserById(user.getId())).isEqualTo(userResponseDto);
+        assertThat(userService.findUserById(user.getId())).isEqualTo(userResponseDto);
     }
 
     @Test
@@ -103,7 +103,7 @@ class UserServiceImplTest {
         when(userRepository.findById(WRONG_USER_ID))
                 .thenThrow(new NoEntityException("User with id " + WRONG_USER_ID + " was not found"));
 
-        assertThatThrownBy(() -> userService.getUserById(WRONG_USER_ID))
+        assertThatThrownBy(() -> userService.findUserById(WRONG_USER_ID))
                 .isInstanceOf(NoEntityException.class)
                 .hasMessage("User with id " + WRONG_USER_ID + " was not found");
     }
@@ -123,7 +123,7 @@ class UserServiceImplTest {
         when(userRepository.findById(WRONG_USER_ID))
                 .thenThrow(new NoEntityException("User with id " + WRONG_USER_ID + " was not found"));
 
-        assertThatThrownBy(() -> userService.getUserById(WRONG_USER_ID))
+        assertThatThrownBy(() -> userService.findUserById(WRONG_USER_ID))
                 .isInstanceOf(NoEntityException.class)
                 .hasMessage("User with id " + WRONG_USER_ID + " was not found");
     }
@@ -142,7 +142,7 @@ class UserServiceImplTest {
     void saveUserExisting() {
         when(userRepository.findByEmail(registrationUserRequestDto.email())).thenReturn(Optional.ofNullable(user));
 
-        assertThat(userService.saveUser(registrationUserRequestDto)).isEqualTo(Optional.empty());
+        assertThat(userService.saveUser(registrationUserRequestDto)).isEmpty();
     }
 
     @Test
@@ -151,13 +151,13 @@ class UserServiceImplTest {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.ofNullable(user));
         when(userRepository.save(user)).thenReturn(user);
 
-        assertThat(userService.confirmEmail(token.getToken())).isEqualTo(true);
+        assertThat(userService.confirmEmail(token.getToken())).isTrue();
     }
 
     @Test
     void confirmEmailWrongToken() {
         when(confirmationTokenRepository.findByToken(token.getToken())).thenReturn(Optional.empty());
 
-        assertThat(userService.confirmEmail(token.getToken())).isEqualTo(false);
+        assertThat(userService.confirmEmail(token.getToken())).isFalse();
     }
 }

@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface UserService {
-    UserResponseDto getUserById(long id);
+    UserResponseDto findUserById(long id);
 
     UserDto updateUser(Long id, UserRequestDto userRequestDto);
 
