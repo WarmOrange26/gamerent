@@ -26,13 +26,12 @@ import ru.aston.gamerent.repository.WalletRepository;
 import ru.aston.gamerent.service.AccountService;
 import ru.aston.gamerent.util.AccountValidator;
 import ru.aston.gamerent.util.BankApiConnector;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -85,11 +84,10 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public int numberOfAvailableAccounts(Long gameId) {
+    public long numberOfAvailableAccounts(Long gameId) {
         return accountRepository.findByGameId(gameId).stream()
                 .filter(account -> account.getExpirationTime().isBefore(LocalDateTime.now()))
-                .toList()
-                .size();
+                .count();
     }
 
     private void changeAccountPassword(Account account) {
@@ -178,29 +176,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private List<ActiveAccountResponseDto> getAccountsPasswords(List<Account> accounts) {
-        return accounts.strehttps://github.com/WarmOrange26/gamerent/pull/41/conflict?name=src%252Fmain%252Fjava%252Fru%252Faston%252Fgamerent%252Fservice%252Fimpl%252FAccountServiceImpl.java&ancestor_oid=7167b2db1aa98178a5dced7bf8c21fead1d3b786&base_oid=f12ba571e575f6d16819044735ba103820423433&head_oid=76e3e485b620bd20abc218eb8c974654051b86c7am()
+        return accounts.stream()
                 .map(accountMapper::accountToActiveAccountResponse)
                 .toList();
-    }
-  
-    @Override
-    public Account getAccountById(Long id) {
-        return accountRepository.findById(id).orElseThrow(( ) -> new NoEntityException("Account with this id doesn't exists"));
-    }
-  
-    @Override
-    public List<Account> findByGameId(Long gameId) {
-        return accountRepository.findByGameId(gameId);
-      
-    }
-    @Override
-    public List<Account> selectAvailableAccounts(Long gameId) {
-        return findByGameId(gameId).stream().filter(account -> account.getExpirationTime().isBefore(LocalDateTime.now()))
-                .collect(Collectors.toList());
-      
-    }
-    @Override
-    public int numberOfAvailableAccounts(Long gameId) {
-        return selectAvailableAccounts(gameId).size();
     }
 }

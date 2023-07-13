@@ -12,11 +12,7 @@ public interface AccountService {
   
     Account getAccountById(Long id);
   
-    List<Account> selectAvailableAccounts(Long gameId);
-  
     List<Account> findByGameId(Long gameId);
   
-    int numberOfAvailableAccounts(Long gameId);
-  
-    Account getAccountById(Long id);
+    long numberOfAvailableAccounts(Long gameId);
 }
