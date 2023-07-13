@@ -7,6 +7,7 @@ import ru.aston.gamerent.mapper.GameMapper;
 import ru.aston.gamerent.model.dto.response.GameResponseDto;
 import ru.aston.gamerent.repository.GameRepository;
 import ru.aston.gamerent.service.GameService;
+
 import java.util.List;
 
 @Service
@@ -27,6 +28,6 @@ public class GameServiceImpl implements GameService {
     public GameResponseDto getGameById(Long id) {
         return gameRepository.findById(id)
                 .map(gameMapper::gameToGameResponseDto)
-                .orElseThrow(() -> new NoEntityException("Game with this id doesn't exists"));
+                .orElseThrow(() -> new NoEntityException("Game with id " + id + " was not found"));
     }
 }

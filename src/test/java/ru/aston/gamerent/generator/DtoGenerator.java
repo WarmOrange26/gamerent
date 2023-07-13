@@ -6,10 +6,13 @@ import ru.aston.gamerent.model.dto.request.RegistrationUserRequestDto;
 import ru.aston.gamerent.model.dto.request.UserRequestDto;
 import ru.aston.gamerent.model.dto.response.ActiveAccountResponseDto;
 import ru.aston.gamerent.model.dto.response.ConfirmationResponseDto;
+import ru.aston.gamerent.model.dto.response.DeveloperResponseDto;
+import ru.aston.gamerent.model.dto.response.GameResponseDto;
 import ru.aston.gamerent.model.dto.response.UserDto;
 import ru.aston.gamerent.model.dto.response.UserResponseDto;
 import ru.aston.gamerent.model.entity.Account;
 import ru.aston.gamerent.model.entity.ConfirmationToken;
+import ru.aston.gamerent.model.entity.Developer;
 import ru.aston.gamerent.model.entity.Game;
 import ru.aston.gamerent.model.entity.User;
 import ru.aston.gamerent.model.entity.Wallet;
@@ -27,6 +30,8 @@ public class DtoGenerator {
     private final Account account = entityGeneratorTest.getAccount();
     private final Wallet wallet = entityGeneratorTest.getWallet();
     private final List<Game> games = entityGeneratorTest.getGames();
+    private final Developer developer = entityGeneratorTest.getDeveloper();
+    private final Game game = entityGeneratorTest.getGame1();
 
     UserResponseDto userResponseDto = UserResponseDto.builder()
             .id(user.getId())
@@ -76,8 +81,6 @@ public class DtoGenerator {
             .token(token.getToken())
             .build();
 
-
-
     List<Long> gameIds = games.stream().mapToLong(Game::getId).boxed().toList();
 
     OrderRequestDto orderRequestDto = OrderRequestDto.builder()
@@ -92,5 +95,21 @@ public class DtoGenerator {
             .password(account.getPassword())
             .expirationTime(account.getExpirationTime())
             .games(games.stream().map(Game::getTitle).collect(Collectors.toList()))
+            .build();
+
+    DeveloperResponseDto developerResponseDto = DeveloperResponseDto.builder()
+            .id(developer.getId())
+            .title(developer.getTitle())
+            .description(developer.getDescription())
+            .build();
+
+    GameResponseDto gameResponseDto  = GameResponseDto.builder()
+            .id(game.getId())
+            .title(game.getTitle())
+            .releaseDate(game.getReleaseDate())
+            .description(game.getDescription())
+            .price(game.getPrice())
+            .image(game.getImage())
+            .trailerUrl(game.getTrailerUrl())
             .build();
 }

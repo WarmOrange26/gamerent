@@ -17,6 +17,6 @@ public class DeveloperServiceImpl implements DeveloperService {
     @Override
     public DeveloperResponseDto findDeveloperById(Long id) {
         return developerRepository.findById(id).map(developerMapper::developerToDeveloperResponse)
-                .orElseThrow(() -> new NoEntityException("Game with this id doesn't exist"));
+                .orElseThrow(() -> new NoEntityException("Developer with id " + id + " was not found"));
     }
 }

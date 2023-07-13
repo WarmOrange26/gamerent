@@ -4,6 +4,7 @@ import lombok.Getter;
 import ru.aston.gamerent.model.entity.Account;
 import ru.aston.gamerent.model.entity.AccountsGames;
 import ru.aston.gamerent.model.entity.ConfirmationToken;
+import ru.aston.gamerent.model.entity.Developer;
 import ru.aston.gamerent.model.entity.Game;
 import ru.aston.gamerent.model.entity.User;
 import ru.aston.gamerent.model.entity.Wallet;
@@ -69,6 +70,12 @@ public class EntityGenerator {
             .build();
 
     List<Game> games = List.of(game1);
+
+    Developer developer = Developer.builder()
+            .id(1L)
+            .title("CD Projekt")
+            .description("description")
+            .build();
 
     AccountsGames accountsGames1 = AccountsGames.builder()
             .id(1L)
