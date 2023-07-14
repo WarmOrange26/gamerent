@@ -107,6 +107,19 @@ public class AccountServiceImpl implements AccountService {
         return accountResponseInfoDto;
     }
 
+    @Override
+    public AccountResponseInfoDto saveAccount(AccountRequestDto accountRequestDto) {
+        Account account = accountMapper.accountRequestDtoToAccount(accountRequestDto);
+        account.setPlatform(platformRepository.findByName(accountRequestDto.platformName()));
+        account.setCreationTime(LocalDateTime.now());
+        account.setUpdateTime(LocalDateTime.now());
+        account.setExpirationTime(LocalDateTime.now());
+        AccountResponseInfoDto accountResponseInfoDto =
+                accountMapper.accountToAccountResponseInfoDto(accountRepository.save(account));
+        log.info("Account successfully saved: {}", account);
+        return accountResponseInfoDto;
+    }
+
     private void changeAccountPassword(Account account) {
         try {
             String newPassword = generateNewPassword();
