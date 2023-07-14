@@ -32,7 +32,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers("/css/**", "/js/**", "/fonts/**", "/images/**", "img/**").permitAll()
-                        .requestMatchers("/", "/index", "/registration/**", LOGIN).permitAll()
+                        .requestMatchers("/", "/index", "/registration/**", "/admin/accounts", LOGIN).permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login

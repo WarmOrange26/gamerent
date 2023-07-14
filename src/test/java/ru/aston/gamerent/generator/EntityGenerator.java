@@ -5,6 +5,7 @@ import ru.aston.gamerent.model.entity.Account;
 import ru.aston.gamerent.model.entity.AccountsGames;
 import ru.aston.gamerent.model.entity.ConfirmationToken;
 import ru.aston.gamerent.model.entity.Game;
+import ru.aston.gamerent.model.entity.Platform;
 import ru.aston.gamerent.model.entity.User;
 import ru.aston.gamerent.model.entity.Wallet;
 import ru.aston.gamerent.model.enumeration.CurrencyCodeEnum;
@@ -46,6 +47,7 @@ public class EntityGenerator {
             .creationTime(LocalDateTime.now())
             .updateTime(LocalDateTime.now())
             .expirationTime(LocalDateTime.now())
+            .platform(new Platform(1L, "PC"))
             .build();
 
     ConfirmationToken token = ConfirmationToken.builder()
@@ -80,4 +82,9 @@ public class EntityGenerator {
     {
         account.setAccountsGame(List.of(accountsGames1));
     }
+
+    Platform platform = Platform.builder()
+            .id(1L)
+            .name("PC")
+            .build();
 }
