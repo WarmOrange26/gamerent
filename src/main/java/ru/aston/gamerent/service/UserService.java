@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface UserService {
     UserResponseDto findUserByEmail(String email);
 
-    UserDto updateUser(Long id, UserRequestDto userRequestDto);
+    UserDto updateUser(String email, UserRequestDto userRequestDto);
 
     Optional<ConfirmationResponseDto> saveUser(RegistrationUserRequestDto registrationUserRequestDto);
 

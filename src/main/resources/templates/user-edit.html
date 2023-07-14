@@ -36,9 +36,7 @@
 </div>
 <!-- preloader-end -->
 
-<!-- header-area -->
 <div th:insert="~{fragments/header :: header}"></div>
-<!-- header-area-end -->
 
 <!-- main-area -->
 <main>
@@ -55,23 +53,23 @@
                         <form th:method="post" th:object="${user}">
                             <div class="game-single-info mb-65">
                                 <ul>
-                                    <li><span>Имя пользователя :</span> <input type="text" name="имя пользователя"
-                                                                               th:field="*{}"></input></li>
-                                    <li><span>Email :</span> <input type="email" name="email" th:field="*{}"></span>
+                                    <li><span>Имя пользователя :</span> <input type="text" name="username" id="username"
+                                                                               th:field="*{username}"
+                                                                               class="form-control input-lg"
+                                                                               placeholder="Username" required="required"/></li>
+                                    <li><span>Email :</span> <input type="email" name="email" th:field="*{email}"></span>
                                     </li>
-                                    <li><span>Пароль :</span> <input type="password" name="пароль"
-                                                                     th:field="*{}"></span></li>
-                                    <li><span>Имя :</span> <input type="text" name="имя" th:field="*{}"></span></li>
-                                    <li><span>Фамилия :</span> <input type="text" name="фамилия" th:field="*{}"></span>
+                                    <li><span>Имя :</span> <input type="text" name="firstName" th:field="*{firstName}"></span></li>
+                                    <li><span>Фамилия :</span> <input type="text" name="lastName" th:field="*{lastName}"></span>
                                     </li>
-                                    <li><span>Дата Рождения :</span> <input type="date" name="дата рождения"
-                                                                            th:field="*{}"></span></li>
-                                    <li><span>Телефон :</span> <input type="tel" name="телефон" th:field="*{}"></span>
+                                    <li><span>Дата Рождения :</span> <input type="date" name="birthDate"
+                                                                            th:field="*{birthDate}"></span></li>
+                                    <li><span>Телефон :</span> <input type="tel" name="phone" th:field="*{phone}"></span>
                                     </li>
                                 </ul>
                                 <div>
                                     <button type="submit" class="btn btn-primary">Save</button>
-                                    <button type="button" class="btn btn-danger">Cancel</button>
+                                    <a th:href="@{/users}" type="button" class="btn btn-danger">Cancel</a>
                                 </div>
                             </div>
                         </form>

@@ -58,12 +58,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(Long id, UserRequestDto userRequestDto) {
-        return userRepository.findById(id)
+    public UserDto updateUser(String email, UserRequestDto userRequestDto) {
+        return userRepository.findByEmail(email)
                 .map(user -> userMapper.userRequestToUser(userRequestDto, user))
                 .map(userRepository::saveAndFlush)
                 .map(userMapper::userToUserDto)
-                .orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
+                .orElseThrow(() -> new NoEntityException("User with email " + email + " was not found"));
     }
 
     @Override
