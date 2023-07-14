@@ -32,9 +32,9 @@ spring:
     password: ${EMAIL_PASSWORD}
     protocol: smtp
     properties.mail.smtp:
-        auth: true
-        starttls.enable: true
-        ssl.trust: smtp.gmail.com
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
 game-rent:
   scheduling:
     account-blocking: 0 0 * * * *
