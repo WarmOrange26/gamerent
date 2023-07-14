@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Accounts</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<div style="text-align: center;">
+    <h2>Добавить аккаунт</h2>
+</div>
+<div class="container">
+    <form name="accountForm" th:method="POST" th:action="@{/admin/accounts}" th:object="${account}">
+        <fieldset>
+            <legend>Выбор платформы</legend>
+            <div class="input-group mb-3">
+                <select class="form-select" aria-label="Выбор платформы" name="platformName">
+                    <option value="" selected>Выбор платформы</option>
+                    <option value="PlayStation">PlayStation</option>
+                    <option value="Xbox">Xbox</option>
+                    <option value="Nintendo">Nintendo</option>
+                    <option value="PC">PC</option>
+                </select>
+            </div>
+            <span class="text-danger" th:if="${#fields.hasErrors('platformName')}" th:errors="*{platformName}"></span>
+        </fieldset>
+        <fieldset>
+            <legend>Учетные данные аккаунта</legend>
+            <div class="mb-3">
+                <label for="loginInput" class="form-label">Логин</label>
+                <input type="text" id="loginInput" name="login" class="form-control" >
+            </div>
+            <span class="text-danger" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+            <div class="mb-3">
+                <label for="passwordInput" class="form-label">Пароль</label>
+                <input type="text" id="passwordInput" name="password" class="form-control">
+            </div>
+            <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        </fieldset>
+        <button type="submit" class="btn btn-outline-success">Сохранить</button>
+    </form>
+    <p>
+    <div style="text-align: center;">
+        <form th:action="@{/index}">
+            <button type="submit" class="btn btn-secondary">Назад</button>
+        </form>
+    </div>
+    <p>
+        <th:block class="text-info" th:text="${success}"></th:block>
+        <th:block class="text-info" th:text="${error}"></th:block>
+
+</div>
+<div class="wrapper flex-grow-1"></div>
+</body>
+</html>

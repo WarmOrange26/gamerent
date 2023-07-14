@@ -11,16 +11,20 @@ import ru.aston.gamerent.exception.NotEnoughMoneyException;
 import ru.aston.gamerent.generator.DtoGenerator;
 import ru.aston.gamerent.generator.EntityGenerator;
 import ru.aston.gamerent.mapper.AccountMapper;
+import ru.aston.gamerent.model.dto.request.AccountRequestDto;
 import ru.aston.gamerent.model.dto.request.OrderRequestDto;
+import ru.aston.gamerent.model.dto.response.AccountResponseInfoDto;
 import ru.aston.gamerent.model.dto.response.ActiveAccountResponseDto;
 import ru.aston.gamerent.model.entity.Account;
 import ru.aston.gamerent.model.entity.Game;
+import ru.aston.gamerent.model.entity.Platform;
 import ru.aston.gamerent.model.entity.User;
 import ru.aston.gamerent.model.entity.Wallet;
 import ru.aston.gamerent.repository.AccountRepository;
 import ru.aston.gamerent.repository.GameRepository;
 import ru.aston.gamerent.repository.OrderAccountRepository;
 import ru.aston.gamerent.repository.OrderRepository;
+import ru.aston.gamerent.repository.PlatformRepository;
 import ru.aston.gamerent.repository.UserRepository;
 import ru.aston.gamerent.repository.WalletRepository;
 import ru.aston.gamerent.util.AccountValidator;
@@ -33,13 +37,14 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AccountServiceImplTest {
+
+    @Mock
+    private PlatformRepository platformRepository;
 
     @Mock
     private AccountRepository accountRepository;
@@ -78,6 +83,9 @@ class AccountServiceImplTest {
     private ActiveAccountResponseDto accountResponseDto;
     private OrderRequestDto orderRequestDto;
     private List<Game> games;
+    private Platform platform;
+    private AccountResponseInfoDto accountResponseInfoDto;
+    private AccountRequestDto accountRequestDto;
 
     @BeforeEach
     void setup() {
@@ -90,6 +98,9 @@ class AccountServiceImplTest {
         games = entityGenerator.getGames();
         accountResponseDto = dtoGenerator.getAccountResponseDto();
         orderRequestDto = dtoGenerator.getOrderRequestDto();
+        accountResponseInfoDto = dtoGenerator.getAccountResponseInfoDto();
+        accountRequestDto = dtoGenerator.getAccountRequestDto();
+        platform = entityGenerator.getPlatform();
     }
 
     @Test
@@ -184,5 +195,17 @@ class AccountServiceImplTest {
         when(accountRepository.findByGameId(game.getId())).thenReturn(List.of(account));
 
         assertThat(accountService.numberOfAvailableAccounts(game.getId())).isEqualTo(game.getAccounts().size());
+    }
+
+    @Test
+    void shouldSaveAccount() {
+        when(accountMapper.accountRequestDtoToAccount(accountRequestDto)).thenReturn(account);
+        when(platformRepository.findByName(platform.getName())).thenReturn(platform);
+        when(accountRepository.save(account)).thenReturn(account);
+        when(accountMapper.accountToAccountResponseInfoDto(account)).thenReturn(accountResponseInfoDto);
+        AccountResponseInfoDto savedAccount = accountService.saveAccount(accountRequestDto);
+        assertEquals(accountRequestDto.login(), savedAccount.login());
+        assertEquals(accountResponseInfoDto.login(), savedAccount.login());
+        verify(accountRepository, times(1)).save(account);
     }
 }
