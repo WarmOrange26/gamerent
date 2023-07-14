@@ -14,5 +14,5 @@ public interface AccountService {
 
     List<Account> findByGameId(Long gameId);
 
-    int numberOfAvailableAccounts(Long gameId);
+    long numberOfAvailableAccounts(Long gameId);
 }

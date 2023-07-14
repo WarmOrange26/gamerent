@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create game</title>
+</head>
+<body>
+<form action="#" th:action="@{/game-create}" th:object="${gameRequest}" method="post">
+    <label for="title">Title</label>
+    <input type="text" th:field="*{title}" id="title" placeholder="Введите название игры"><br>
+    <label for="developer">developer</label>
+    <input type="text" th:field="*{developer}" id="developer" placeholder="Введите производителя"><br>
+    <label for="releaseDate">releaseDate</label>
+    <input type="date" th:field="*{releaseDate}" id="releaseDate" placeholder="Введите дату создания релиза"><br>
+    <label for="description">description</label>
+    <input type="text" th:field="*{description}" id="description" placeholder="Введите описание"><br>
+    <label for="price">price</label>
+    <input type="number" th:field="*{price}" id="price" placeholder="Введите цену за день"><br>
+    <label for="image">image</label>
+    <input type="url" th:field="*{image}" id="image" placeholder="Введите ссылку на обложку"><br>
+    <label for="trailerUrl">trailerUrl</label>
+    <input type="url" th:field="*{trailerUrl}" id="trailerUrl" placeholder="Введите ссылку на трейлер"><br>
+    <div th:each="genre : ${allGenres}" >
+        <tr>
+            <td>genres</td>
+            <td>
+                <input type="checkbox" name="genres" th:field="*{genres}"  th:value="${genre.title}" />
+                <label th:text="${genre.title}" th:for="${#ids.prev('genres')}" ></label>
+            </td>
+        </tr>
+    </div><br>
+    <input type="submit" value="Create">
+</form>
+</body>
+</html>

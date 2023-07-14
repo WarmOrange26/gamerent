@@ -1,0 +1,145 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>WARM ENTERPRISE</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/img/warm-icon.png}">
+        <!-- Place favicon.ico in the root directory -->
+
+        <!-- CSS here -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+        <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+        <link rel="stylesheet" th:href="@{/css/fontawesome-all.min.css}">
+        <link rel="stylesheet" th:href="@{/css/odometer.css}">
+        <link rel="stylesheet" th:href="@{/css/aos.css}">
+        <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+        <link rel="stylesheet" th:href="@{/css/meanmenu.css}">
+        <link rel="stylesheet" th:href="@{/css/slick.css}">
+        <link rel="stylesheet" th:href="@{/css/default.css}">
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+        <link rel="stylesheet" th:href="@{/css/responsive.css}">
+    </head>
+    <body>
+
+        <!-- preloader -->
+        <div id="preloader">
+            <div id="loading-center">
+                <div id="loading-center-absolute">
+                    <img th:src="@{/img/icon/preloader.svg}" alt="">
+                </div>
+            </div>
+        </div>
+        <!-- preloader-end -->
+
+        <div th:insert="~{fragments/header :: header}"></div>
+
+        <!-- main-area -->
+        <main>
+            <!-- basket-area -->
+            <div class="community-area primary-bg pt-120 pb-175">
+                <form method="post" > <!-- оплата покупки  -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="community-wrap">
+                                <div class="table-responsive-xl">
+                                    <table class="table mt-0">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Название игры</th>
+                                                <th scope="col">Цена</th>
+                                                <th scope="col">Платформа</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="game: ${games}">
+                                                <th scope="row">
+                                                    <div class="community-post-wrap">
+                                                        <div class="community-post-content" >
+                                                           <p style="color: #0b0b0b" th:text = "${game.title()}">Title</p>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <td th:text = "${game.price()}">Price</td>
+
+                                                   <td class="community-bell">
+                                                       <form method="post" th:action="@{/cart/{id}/delete(id=${game.id()})}">
+                                                        <button type="submit" ><i>удалить</i></button>
+                                                       </form>
+                                                   </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="create-topic">
+                                    <span>Итого</span>
+                                    <form method="post" th:action="@{/cart/buy}">
+                                        <div class="community-sidebar-social">
+                                            <ul>
+                                                <li><span style="color: red">Отобразить общую сумму</span></li>
+                                            </ul>
+                                        </div>
+                                        <button type="submit" class="btn" th:text="Купить">Buy</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <aside class="community-sidebar">
+                                <div class="widget community-widget mb-30">
+                                    <div class="community-widget-title mb-25">
+                                        <h5>Время аренды</h5>
+                                    </div>
+                                    <div class="community-sidebar-social">
+                                        <ul>
+<!--                                            todo привязать к форме -->
+                                            <li><select>
+                                                <option>1 день</option>
+                                                <option>7 дней</option>
+                                                <option>30 дней</option>
+                                            </select></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+                </form>
+                <div class="community-bg-shape"><img th:src="@{/img/images/community_bg_shape.png}" alt=""></div>
+            </div>
+            <!-- basket-area-end -->
+        </main>
+        <!-- main-area-end -->
+
+        <div th:insert="~{fragments/footer :: footer}"></div>
+
+        <!-- JS here -->
+        <script th:src="@{/js/vendor/jquery-3.4.1.min.js}"></script>
+        <script th:src="@{/js/popper.min.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <script th:src="@{/js/isotope.pkgd.min.js}"></script>
+        <script th:src="@{/js/slick.min.js}"></script>
+        <script th:src="@{/js/jquery.meanmenu.min.js}"></script>
+        <script th:src="@{/js/wow.min.js}"></script>
+        <script th:src="@{/js/aos.js}"></script>
+        <script th:src="@{/js/jquery.lettering.js}"></script>
+        <script th:src="@{/js/jquery.textillate.js}"></script>
+        <script th:src="@{/js/jquery.odometer.min.js}"></script>
+        <script th:src="@{/js/jquery.appear.js}"></script>
+        <script th:src="@{/js/owl.carousel.min.js}"></script>
+        <script th:src="@{/js/jquery.countdown.min.js}"></script>
+        <script th:src="@{/js/jquery.scrollUp.min.js}"></script>
+        <script th:src="@{/js/imagesloaded.pkgd.min.js}"></script>
+        <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+        <script th:src="@{/js/plugins.js}"></script>
+        <script th:src="@{/js/main.js}"></script>
+    </body>
+</html>

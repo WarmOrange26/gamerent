@@ -83,11 +83,10 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public int numberOfAvailableAccounts(Long gameId) {
+    public long numberOfAvailableAccounts(Long gameId) {
         return accountRepository.findByGameId(gameId).stream()
                 .filter(account -> account.getExpirationTime().isBefore(LocalDateTime.now()))
-                .toList()
-                .size();
+                .count();
     }
 
     private void changeAccountPassword(Account account) {

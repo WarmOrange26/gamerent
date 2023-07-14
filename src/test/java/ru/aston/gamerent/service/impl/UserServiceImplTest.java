@@ -37,7 +37,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
 
-    private static final Long WRONG_USER_ID = 0L;
+    private static final String WRONG_USER_EMAIL = "wrong@mail.yo";
 
     @Mock
     private UserRepository userRepository;
@@ -90,42 +90,42 @@ class UserServiceImplTest {
 
     @Test
     void getUserById() {
-        when(userRepository.findById(user.getId())).thenReturn(Optional.ofNullable(user));
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.ofNullable(user));
         when(accountRepository.findAccountsByUser(user)).thenReturn(accounts);
         when(walletRepository.findWalletsByUser(user)).thenReturn(wallets);
         when(userMapper.userToUserResponseDto(user, wallets, accounts)).thenReturn(userResponseDto);
 
-        assertThat(userService.getUserById(user.getId())).isEqualTo(userResponseDto);
+        assertThat(userService.findUserByEmail(user.getEmail())).isEqualTo(userResponseDto);
     }
 
     @Test
     void getUserByIdThrowException() {
-        when(userRepository.findById(WRONG_USER_ID))
-                .thenThrow(new NoEntityException("User with id " + WRONG_USER_ID + " was not found"));
+        when(userRepository.findByEmail(WRONG_USER_EMAIL))
+                .thenThrow(new NoEntityException("User with id " + WRONG_USER_EMAIL + " was not found"));
 
-        assertThatThrownBy(() -> userService.getUserById(WRONG_USER_ID))
+        assertThatThrownBy(() -> userService.findUserByEmail(WRONG_USER_EMAIL))
                 .isInstanceOf(NoEntityException.class)
-                .hasMessage("User with id " + WRONG_USER_ID + " was not found");
+                .hasMessage("User with id " + WRONG_USER_EMAIL + " was not found");
     }
 
     @Test
     void updateUser() {
-        when(userRepository.findById(user.getId())).thenReturn(Optional.ofNullable(user));
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.ofNullable(user));
         when(userMapper.userRequestToUser(userRequestDto, user)).thenReturn(user);
         when(userRepository.saveAndFlush(user)).thenReturn(user);
         when(userMapper.userToUserDto(user)).thenReturn(userDto);
 
-        assertThat(userService.updateUser(user.getId(), userRequestDto)).isEqualTo(userDto);
+        assertThat(userService.updateUser(user.getEmail(), userRequestDto)).isEqualTo(userDto);
     }
 
     @Test
     void updateUserThrowException() {
-        when(userRepository.findById(WRONG_USER_ID))
-                .thenThrow(new NoEntityException("User with id " + WRONG_USER_ID + " was not found"));
+        when(userRepository.findByEmail(WRONG_USER_EMAIL))
+                .thenThrow(new NoEntityException("User with id " + WRONG_USER_EMAIL + " was not found"));
 
-        assertThatThrownBy(() -> userService.getUserById(WRONG_USER_ID))
+        assertThatThrownBy(() -> userService.findUserByEmail(WRONG_USER_EMAIL))
                 .isInstanceOf(NoEntityException.class)
-                .hasMessage("User with id " + WRONG_USER_ID + " was not found");
+                .hasMessage("User with id " + WRONG_USER_EMAIL + " was not found");
     }
 
     @Test
@@ -142,7 +142,7 @@ class UserServiceImplTest {
     void saveUserExisting() {
         when(userRepository.findByEmail(registrationUserRequestDto.email())).thenReturn(Optional.ofNullable(user));
 
-        assertThat(userService.saveUser(registrationUserRequestDto)).isEqualTo(Optional.empty());
+        assertThat(userService.saveUser(registrationUserRequestDto)).isEmpty();
     }
 
     @Test
@@ -151,13 +151,13 @@ class UserServiceImplTest {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.ofNullable(user));
         when(userRepository.save(user)).thenReturn(user);
 
-        assertThat(userService.confirmEmail(token.getToken())).isEqualTo(true);
+        assertThat(userService.confirmEmail(token.getToken())).isTrue();
     }
 
     @Test
     void confirmEmailWrongToken() {
         when(confirmationTokenRepository.findByToken(token.getToken())).thenReturn(Optional.empty());
 
-        assertThat(userService.confirmEmail(token.getToken())).isEqualTo(false);
+        assertThat(userService.confirmEmail(token.getToken())).isFalse();
     }
 }

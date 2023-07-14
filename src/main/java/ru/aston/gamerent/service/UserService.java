@@ -9,9 +9,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface UserService {
-    UserResponseDto getUserById(long id);
+    UserResponseDto findUserByEmail(String email);
 
-    UserDto updateUser(Long id, UserRequestDto userRequestDto);
+    UserDto updateUser(String email, UserRequestDto userRequestDto);
 
     Optional<ConfirmationResponseDto> saveUser(RegistrationUserRequestDto registrationUserRequestDto);
 

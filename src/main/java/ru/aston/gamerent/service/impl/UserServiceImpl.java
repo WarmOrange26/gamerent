@@ -38,7 +38,6 @@ import static java.lang.Boolean.FALSE;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-
     public static final long USER_ROLE_ID = 1L;
     private final ConfirmationTokenMapper confirmationTokenMapper = Mappers.getMapper(ConfirmationTokenMapper.class);
     private final UserRepository userRepository;
@@ -49,9 +48,9 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserResponseDto getUserById(long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
+    public UserResponseDto findUserByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NoEntityException("User with id " + email + " was not found"));
         List<Account> accounts = accountRepository.findAccountsByUser(user);
         List<Wallet> wallets = walletRepository.findWalletsByUser(user);
 
@@ -59,12 +58,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(Long id, UserRequestDto userRequestDto) {
-        return userRepository.findById(id)
+    public UserDto updateUser(String email, UserRequestDto userRequestDto) {
+        return userRepository.findByEmail(email)
                 .map(user -> userMapper.userRequestToUser(userRequestDto, user))
                 .map(userRepository::saveAndFlush)
                 .map(userMapper::userToUserDto)
-                .orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
+                .orElseThrow(() -> new NoEntityException("User with email " + email + " was not found"));
     }
 
     @Override

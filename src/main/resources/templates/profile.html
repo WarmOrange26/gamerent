@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org" >
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -23,7 +23,6 @@
     <link rel="stylesheet" th:href="@{/css/default.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
-    <link rel="stylesheet" th:href="@{/css/paginator.css}">
 </head>
 <body>
 
@@ -31,54 +30,63 @@
 <div id="preloader">
     <div id="loading-center">
         <div id="loading-center-absolute">
-            <img th:src="@{/static/img/icon/preloader.svg}" alt="">
+            <img th:src="@{/img/icon/preloader.svg}" alt="">
         </div>
     </div>
 </div>
 <!-- preloader-end -->
 
-<!-- header-area -->
 <div th:insert="~{fragments/header :: header}"></div>
-<!-- header-area-end -->
 
 <!-- main-area -->
 <main>
 
-    <!-- catalog-area -->
-    <section class="shop-area pt-120 pb-90">
+    <!-- user-single-area -->
+    <section class="game-single-area pt-120 pb-120">
         <div class="container">
-            <div class="row" >
-                <div class="col-lg-4 col-sm-6" th:each="game: ${games}" >
-                    <div th:class="num" >
-                        <div class="accessories-item text-center mb-80">
-                            <div class="accessories-thumb mb-30">
-                                <a th:href="@{/games/{id}(id=${game.id()})}"><img th:src="@{/img/product/shop_item01.jpg}" alt=""></a>
-                            </div>
-                            <div class="accessories-content">
-                                <h5><a th:href="@{/games/{id}(id=${game.id()})}"  th:text="${game.title()}">название игры</a></h5>
-                                <span th:text="'Цена: ' + ${game.price()} + '₽'">Цена: </span>
-                                <form th:method="post" th:action="@{/cart/{id}/add(id=${game.id()})}">
-                                    <button type="submit" th:text="'Добавить в корзину'" class="shop-add-action">
-                                        Добавить в корзину
-                                    </button>
+            <div class="row">
+                <div class="col-12">
+                    <div class="game-single-content">
+                        <div class="game-single-title mt-60 mb-30">
+                            <h4>Персональная информация</h4>
+                        </div>
+                        <div class="game-single-info mb-65">
+                            <ul>
+                                <li><span>Имя пользователя :</span> <span th:text="${user.username()}"></span> </li>
+                                <li><span>Email :</span> <span th:text="${user.email()}"></span></li>
+                                <li><span>Имя :</span> <span th:text="${user.firstName()}"></span></li>
+                                <li><span>Фамилия :</span> <span th:text="${user.lastName()}"></span></li>
+                                <li><span>Дата Регистрации :</span> <span th:text="${user.registrationTime()}"></span></li>
+                                <li><span>Дата Рождения :</span> <span th:text="${user.birthDate()}"></span></li>
+                                <li><span>Телефон :</span> <span th:text="${user.phone()}"></span></li>
+                                <form th:method="post" ><li>
+                                    <a th:href="@{/user/edit}" th:text="'Редактировать данные'" class="shop-add-action">
+                                        <span class="btn-title"> Редактировать данные </span>
+                                    </a>
+                                </li>
                                 </form>
-                            </div>
+                                <br>
+                                <table class="table mt-0">
+                                    <h6><span>Игры приобретённые вами</span></h6>
+                                    <ul th:each="account: ${user.accounts()}" >
+                                        <li><span th:text="${account.login()}"></span></li>
+                                        <li><span th:text="${account.password()}"></span></li>
+                                        <li scope="col">
+                                        </li>
+                                    </ul>
+                                </table>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            Страницы:
-            <div class="paginator" onclick="pagination(event)"></div>
         </div>
     </section>
-    <!-- catalog-area-end -->
-
+    <!-- user-single-area-end -->
 </main>
 <!-- main-area-end -->
 
-<!-- footer-area -->
 <div th:insert="~{fragments/footer :: footer}"></div>
-<!-- footer-area-end -->
 
 <!-- JS here -->
 <script th:src="@{/js/vendor/jquery-3.4.1.min.js}"></script>
@@ -100,6 +108,5 @@
 <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
 <script th:src="@{/js/plugins.js}"></script>
 <script th:src="@{/js/main.js}"></script>
-<script th:src="@{/js/pagination.js}"></script>
 </body>
 </html>

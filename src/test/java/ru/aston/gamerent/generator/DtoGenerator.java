@@ -55,7 +55,6 @@ public class DtoGenerator {
     UserRequestDto userRequestDto = UserRequestDto.builder()
             .username(user.getUsername())
             .email(user.getEmail())
-            .password(user.getPassword())
             .firstName(user.getFirstName())
             .lastName(user.getLastName())
             .phone(user.getPhone())

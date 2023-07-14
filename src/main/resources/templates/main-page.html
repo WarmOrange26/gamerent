@@ -10,19 +10,19 @@
 		<link rel="shortcut icon" type="image/x-icon" href="../img/warm-icon.png">
         <!-- Place favicon.ico in the root directory -->
 
-		<!-- CSS here -->
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
-        <link rel="stylesheet" href="../css/animate.min.css">
-        <link rel="stylesheet" href="../css/magnific-popup.css">
-        <link rel="stylesheet" href="../css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="../css/odometer.css">
-        <link rel="stylesheet" href="../css/aos.css">
-        <link rel="stylesheet" href="../css/owl.carousel.min.css">
-        <link rel="stylesheet" href="../css/meanmenu.css">
-        <link rel="stylesheet" href="../css/slick.css">
-        <link rel="stylesheet" href="../css/default.css">
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="stylesheet" href="../css/responsive.css">
+        <!-- CSS here -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+        <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+        <link rel="stylesheet" th:href="@{/css/fontawesome-all.min.css}">
+        <link rel="stylesheet" th:href="@{/css/odometer.css}">
+        <link rel="stylesheet" th:href="@{/css/aos.css}">
+        <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+        <link rel="stylesheet" th:href="@{/css/meanmenu.css}">
+        <link rel="stylesheet" th:href="@{/css/slick.css}">
+        <link rel="stylesheet" th:href="@{/css/default.css}">
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+        <link rel="stylesheet" th:href="@{/css/responsive.css}">
     </head>
     <body>
 
@@ -30,122 +30,14 @@
         <div id="preloader">
             <div id="loading-center">
                 <div id="loading-center-absolute">
-                    <img src="../img/icon/preloader.svg" alt="">
+                    <img th:src="@{/static/img/icon/preloader.svg}" alt="">
                 </div>
             </div>
         </div>
         <!-- preloader-end -->
 
         <!-- header-area -->
-        <header>
-            <div class="header-top-area s-header-top-area d-none d-lg-block">
-                <div class="container-fluid s-container-full-padding">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6 d-none d-lg-block">
-                            <div class="header-top-offer">
-                                <p>Ексклюзив Black Friday ! Offer</p>
-                                <span class="coming-time" data-countdown="2023/7/27"></span>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="header-top-right">
-                                <div class="header-social">
-                                    <ul>
-                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="header-top-action">
-                                    <ul>
-                                        <li>
-                                            <div class="header-top-mail">
-                                                <p><span>|</span><i class="far fa-envelope"></i><a href="mailto:info@gmail.com">warmcompany@gmail.com</a></p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="header-user-login">
-                                                <a href="login.html"><i class="fas fa-user"></i>Login</a>
-                                            </div>
-                                            <!--     прикрутить когда будет авторизация   <div class="header-user-login" sec:authorize="isAuthenticated()">-->
-                                            <!--                                        <a th:href="@{/profile}"><span class="icon flaticon-user"></span><span-->
-                                            <!--                                                class="txt">Ваш акккаунт</span></a>-->
-                                            <!--                                    </div>-->
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="sticky-header" class="transparent-header">
-                <div class="container-fluid s-container-full-padding">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="main-menu menu-style-two">
-                                <nav>
-                                    <div class="logo">
-                                        <a href="main-page.html"><img src="../img/logo/logoWarm.png" alt="Logo"></a>
-                                    </div>
-                                    <div id="mobile-menu" class="navbar-wrap d-none d-lg-flex">
-                                        <ul>
-                                            <li class="show"><a href="main-page.html">Домой</a>
-                                            </li>
-                                            <li><a href="#">Информация</a>
-                                                <ul class="submenu">
-                                                    <li><a href="simple-page.html">Предзаказ</a></li>
-                                                    <li><a href="simple-page.html">Сдача аккаунта PS5</a></li>
-                                                    <li><a href="simple-page.html">Покупка игр</a></li>
-                                                    <li><a href="simple-page.html">Как продлить аренду?</a></li>
-                                                    <li><a href="simple-page.html">Вопрос-Ответ</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="simple-page.html">Акции</a></li>
-                                            <li><a href="#">Как Арендовать</a>
-                                                <ul class="submenu">
-                                                    <li><a href="simple-page.html">Оформление</a></li>
-                                                    <li><a href="simple-page.html">Способы оплаты</a></li>
-                                                    <li><a href="simple-page.html">Доставка</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="catalog.html">Каталог</a></li>
-                                            <li><a href="#">О нас</a>
-                                                <ul class="submenu">
-                                                    <li><a href="simple-page.html">Пожертвования</a></li>
-                                                    <li><a href="simple-page.html">Гарантия</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="simple-page.html">Контакты</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="header-action">
-                                        <ul>
-                                            <li class="header-shop-cart"><a href="basket.html"><i class="fas fa-shopping-basket"></i></a>
-                                            </li>
-                                            <li class="header-search"><a href="#" data-toggle="modal" data-target="#search-modal"><i class="fas fa-search"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </nav>
-                            </div>
-                            <div class="mobile-menu"></div>
-                        </div>
-                        <!-- Modal Search -->
-                        <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <form>
-                                        <input type="text" placeholder="Search here...">
-                                        <button><i class="fa fa-search"></i></button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <div th:insert="~{fragments/header :: header}"></div>
         <!-- header-area-end -->
 
         <!-- main-area -->
@@ -153,7 +45,7 @@
             <!-- slider-area -->
             <section class="slider-area">
                 <div class="slider-active">
-                    <div class="single-slider slider-bg slider-style-two" style="background-image: url(../img/slider/god_of_war.jpg);">
+                    <div class="single-slider slider-bg slider-style-two" th:style="'background-image: url(../img/slider/god_of_war.jpg);'">
                         <div class="container-fluid container-full-padding">
                             <div class="row">
                                 <div class="col-xl-6 col-lg-7 col-md-11">
@@ -161,16 +53,16 @@
                                         <h6 data-animation="fadeInUp" data-delay=".4s">world bestseller</h6>
                                         <h2 data-animation="fadeInUp" data-delay=".4s">GOD <br><span>OF</span><br> WAR</h2>
                                         <p data-animation="fadeInUp" data-delay=".6s" style="color:white">Здеся небольшое краткое описание о том какая это пиздатая игра и всё такое</p>
-                                        <a href="#" class="btn btn-style-two" data-animation="fadeInUp" data-delay=".8s">Арендовать</a>
+                                        <a th:href="@{/catalog}" class="btn btn-style-two" data-animation="fadeInUp" data-delay=".8s">Арендовать</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="slider-img" data-animation="slideInRightS" data-delay=".6s"><img src="../img/slider/kratos_res.png" alt=""></div>
-                        <div class="slider-img slider-img2" data-animation="slideInLeftS" data-delay=".6s"><img src="../img/slider/thor_res.png" alt=""></div>
-                        <div class="slider-circle-shape"><img src="../img/slider/slider_circle.png" alt="" class="rotateme"></div>
+                        <div class="slider-img" data-animation="slideInRightS" data-delay=".6s"><img th:src="@{/img/slider/kratos_res.png}" alt=""></div>
+                        <div class="slider-img slider-img2" data-animation="slideInLeftS" data-delay=".6s"><img th:src="@{/img/slider/thor_res.png}" alt=""></div>
+                        <div class="slider-circle-shape"><img th:src="@{/img/slider/slider_circle.png}" alt="" class="rotateme"></div>
                     </div>
-                    <div class="single-slider slider-bg slider-style-two" style="background-image: url(../img/slider/horizon_slider.jpg);">
+                    <div class="single-slider slider-bg slider-style-two" th:style="'background-image: url(../img/slider/horizon_slider.jpg);'">
                         <div class="container-fluid container-full-padding">
                             <div class="row">
                                 <div class="col-xl-6 col-lg-7 col-md-11">
@@ -178,7 +70,7 @@
                                         <h6 data-animation="fadeInUp" data-delay=".4s">world gaming</h6>
                                         <h2 data-animation="fadeInUp" data-delay=".4s"><span>HORIZON</span> FORBIDDEN WEST</h2>
                                         <p data-animation="fadeInUp" data-delay=".6s" style="color:white">Здеся небольшое краткое описание о том как ты будешь кайфовать от этой игрушки</p>
-                                        <a href="#" class="btn btn-style-two" data-animation="fadeInUp" data-delay=".8s">Арендовать</a>
+                                        <a th:href="@{/catalog}" class="btn btn-style-two" data-animation="fadeInUp" data-delay=".8s">Арендовать</a>
                                     </div>
                                 </div>
                             </div>
@@ -206,7 +98,7 @@
                                     <div class="released-game-item">
                                         <div class="released-game-item-bg"></div>
                                         <div class="released-game-img">
-                                            <img src="../img/images/cod.jpg" alt="">
+                                            <img th:src="@{/img/images/cod.jpg}" alt="">
                                         </div>
                                         <div class="released-game-content">
                                             <div class="released-game-rating">
@@ -227,7 +119,7 @@
                                                     <li><span>Платформа :</span>PlayStation 3, Xbox 360, Windows, Wii, Nintendo DS</li>
                                                 </ul>
                                             </div>
-                                            <a href="#" class="btn btn-style-two">арендовать</a>
+                                            <a th:href="@{/catalog}" class="btn btn-style-two">арендовать</a>
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +127,7 @@
                                     <div class="released-game-item">
                                         <div class="released-game-item-bg"></div>
                                         <div class="released-game-img">
-                                            <img src="../img/images/doom.jpg" alt="">
+                                            <img th:src="@{/img/images/doom.jpg}" alt="">
                                         </div>
                                         <div class="released-game-content">
                                             <div class="released-game-rating">
@@ -256,7 +148,7 @@
                                                     <li><span>Платформа :</span>PlayStation 4, PlayStation 5</li>
                                                 </ul>
                                             </div>
-                                            <a href="#" class="btn btn-style-two">арендовать</a>
+                                            <a th:href="@{/catalog}" class="btn btn-style-two">арендовать</a>
                                         </div>
                                     </div>
                                 </div>
@@ -264,7 +156,7 @@
                                     <div class="released-game-item">
                                         <div class="released-game-item-bg"></div>
                                         <div class="released-game-img">
-                                            <img src="../img/images/SW.jpg" alt="">
+                                            <img th:src="@{/img/images/SW.jpg}" alt="">
                                         </div>
                                         <div class="released-game-content">
                                             <div class="released-game-rating">
@@ -285,7 +177,7 @@
                                                     <li><span>Платформа :</span>PlayStation 4, PlayStation 5, Xbox</li>
                                                 </ul>
                                             </div>
-                                            <a href="#" class="btn btn-style-two">арендовать</a>
+                                            <a th:href="@{/catalog}" class="btn btn-style-two">арендовать</a>
                                         </div>
                                     </div>
                                 </div>
@@ -293,7 +185,7 @@
                                     <div class="released-game-item">
                                         <div class="released-game-item-bg"></div>
                                         <div class="released-game-img">
-                                            <img src="../img/images/HMM.jpg" alt="">
+                                            <img th:src="@{/img/images/HMM.jpg}" alt="">
                                         </div>
                                         <div class="released-game-content">
                                             <div class="released-game-rating">
@@ -314,7 +206,7 @@
                                                     <li><span>Платформа :</span>PlayStation 4, PlayStation 5, Xbox</li>
                                                 </ul>
                                             </div>
-                                            <a href="#" class="btn btn-style-two">арендовать</a>
+                                            <a th:href="@{/catalog}" class="btn btn-style-two">арендовать</a>
                                         </div>
                                     </div>
                                 </div>
@@ -323,16 +215,16 @@
                         <div class="col-xl-4 col-lg-12">
                             <div class="released-game-nav">
                                 <div class="released-game-nav-item">
-                                    <img src="../img/images/logocod.jpg" alt="">
+                                    <img th:src="@{/img/images/logocod.jpg}" alt="">
                                 </div>
                                 <div class="released-game-nav-item">
-                                    <img src="../img/images/logodoom.jpg" alt="">
+                                    <img th:src="@{/img/images/logodoom.jpg}" alt="">
                                 </div>
                                 <div class="released-game-nav-item">
-                                    <img src="../img/images/logosw.jpg" alt="">
+                                    <img th:src="@{/img/images/logosw.jpg}" alt="">
                                 </div>
                                 <div class="released-game-nav-item">
-                                    <img src="../img/images/logohmm.jpg" alt="">
+                                    <img th:src="@{/img/images/logohmm.jpg}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -354,7 +246,7 @@
                                 <ul>
                                     <li>
                                         <div class="just-gamers-list-icon">
-                                            <img src="../img/icon/gamer_list_icon01.png" alt="">
+                                            <img th:src="@{/img/icon/gamer_list_icon01.png}" alt="">
                                         </div>
                                         <div class="just-gamers-list-content fix">
                                             <h5>Просто текст</h5>
@@ -363,7 +255,7 @@
                                     </li>
                                     <li>
                                         <div class="just-gamers-list-icon">
-                                            <img src="../img/icon/gamer_list_icon02.png" alt="">
+                                            <img th:src="@{/img/icon/gamer_list_icon02.png}" alt="">
                                         </div>
                                         <div class="just-gamers-list-content fix">
                                             <h5>Просто текст</h5>
@@ -372,7 +264,7 @@
                                     </li>
                                     <li>
                                         <div class="just-gamers-list-icon">
-                                            <img src="../img/icon/gamer_list_icon03.png" alt="">
+                                            <img th:src="@{/img/icon/gamer_list_icon03.png}" alt="">
                                         </div>
                                         <div class="just-gamers-list-content fix">
                                             <h5>Просто текст</h5>
@@ -384,12 +276,12 @@
                         </div>
                         <div class="col-xl-7 col-lg-6 d-none d-lg-block">
                             <div class="just-gamers-img">
-                                <img src="../img/images/gamers.png" alt="" class="just-gamers-character">
+                                <img th:src="@{/img/images/gamers.png}" alt="" class="just-gamers-character">
                                 <div class="just-gamers-circle-shape">
-                                    <img src="../img/images/gamers_circle_line.png" alt="">
-                                    <img src="../img/images/gamers_circle_shape.png" alt="" class="rotateme">
+                                    <img th:src="@{/img/images/gamers_circle_line.png}" alt="">
+                                    <img th:src="@{/img/images/gamers_circle_shape.png}" alt="" class="rotateme">
                                 </div>
-                                <img src="../img/images/just_gamers_chart.png" alt="" class="gamers-chart-shape">
+                                <img th:src="@{/img/images/just_gamers_chart.png}" alt="" class="gamers-chart-shape">
                             </div>
                         </div>
                     </div>
@@ -413,7 +305,7 @@
                         <div class="col-lg-4 col-sm-6 grid-item">
                             <div class="featured-game-item mb-30">
                                 <div class="featured-game-thumb">
-                                    <img src="../img/images/farcry.jpg" alt="">
+                                    <img th:src="@{/img/images/farcry.jpg}" alt="">
                                 </div>
                                 <div class="featured-game-content">
                                     <h4><a href="#">FAR <span>CRY</span></a></h4>
@@ -423,7 +315,7 @@
                                     </div>
                                 </div>
                                 <div class="featured-game-content featured-game-overlay-content">
-                                    <div class="featured-game-icon"><img src="../img/icon/featured_game_icon.png" alt=""></div>
+                                    <div class="featured-game-icon"><img th:src="@{/img/icon/featured_game_icon.png}" alt=""></div>
                                     <h4><a href="#">FAR <span>CRY</span></a></h4>
                                     <div class="featured-game-meta">
                                         <i class="fas fa-bell"></i>
@@ -435,7 +327,7 @@
                         <div class="col-lg-4 col-sm-6 grid-item">
                             <div class="featured-game-item mb-30">
                                 <div class="featured-game-thumb">
-                                    <img src="../img/images/crysis.jpg" alt="">
+                                    <img th:src="@{/img/images/crysis.jpg}" alt="">
                                 </div>
                                 <div class="featured-game-content">
                                     <h4><a href="#">CRYSIS <span>3</span></a></h4>
@@ -445,7 +337,7 @@
                                     </div>
                                 </div>
                                 <div class="featured-game-content featured-game-overlay-content">
-                                    <div class="featured-game-icon"><img src="../img/icon/featured_game_icon.png" alt=""></div>
+                                    <div class="featured-game-icon"><img th:src="@{/img/icon/featured_game_icon.png}" alt=""></div>
                                     <h4><a href="#">CRYSIS <span>3</span></a></h4>
                                     <div class="featured-game-meta">
                                         <i class="fas fa-bell"></i>
@@ -457,7 +349,7 @@
                         <div class="col-lg-4 col-sm-6 grid-item">
                             <div class="featured-game-item mb-30">
                                 <div class="featured-game-thumb">
-                                    <img src="../img/images/killzone.jpg" alt="">
+                                    <img th:src="@{/img/images/killzone.jpg}" alt="">
                                 </div>
                                 <div class="featured-game-content">
                                     <h4><a href="#">KILLZONE <span>SHADOW FALL</span></a></h4>
@@ -467,7 +359,7 @@
                                     </div>
                                 </div>
                                 <div class="featured-game-content featured-game-overlay-content">
-                                    <div class="featured-game-icon"><img src="../img/icon/featured_game_icon.png" alt=""></div>
+                                    <div class="featured-game-icon"><img th:src="@{/img/icon/featured_game_icon.png}" alt=""></div>
                                     <h4><a href="#">KILLZONE <span>SHADOW FALL</span></a></h4>
                                     <div class="featured-game-meta">
                                         <i class="fas fa-bell"></i>
@@ -479,7 +371,7 @@
                         <div class="col-lg-4 col-sm-6 grid-item">
                             <div class="featured-game-item mb-30">
                                 <div class="featured-game-thumb">
-                                    <img src="../img/images/battlefield.jpg" alt="">
+                                    <img th:src="@{/img/images/battlefield.jpg}" alt="">
                                 </div>
                                 <div class="featured-game-content">
                                     <h4><a href="#">BATTLEFIELD <span>3</span></a></h4>
@@ -489,7 +381,7 @@
                                     </div>
                                 </div>
                                 <div class="featured-game-content featured-game-overlay-content">
-                                    <div class="featured-game-icon"><img src="../img/icon/featured_game_icon.png" alt=""></div>
+                                    <div class="featured-game-icon"><img th:src="@{/img/icon/featured_game_icon.png}" alt=""></div>
                                     <h4><a href="#">BATTLEFIELD <span>3</span></a></h4>
                                     <div class="featured-game-meta">
                                         <i class="fas fa-bell"></i>
@@ -501,7 +393,7 @@
                         <div class="col-lg-4 col-sm-6 grid-item">
                             <div class="featured-game-item mb-30">
                                 <div class="featured-game-thumb">
-                                    <img src="../img/images/insurgency.jpg" alt="">
+                                    <img th:src="@{/img/images/insurgency.jpg}" alt="">
                                 </div>
                                 <div class="featured-game-content">
                                     <h4><a href="#">INSURGENCY <span>SANDSTROM</span></a></h4>
@@ -511,7 +403,7 @@
                                     </div>
                                 </div>
                                 <div class="featured-game-content featured-game-overlay-content">
-                                    <div class="featured-game-icon"><img src="../img/icon/featured_game_icon.png" alt=""></div>
+                                    <div class="featured-game-icon"><img th:src="@{/img/icon/featured_game_icon.png}" alt=""></div>
                                     <h4><a href="#">INSURGENCY <span>SANDSTROM</span></a></h4>
                                     <div class="featured-game-meta">
                                         <i class="fas fa-bell"></i>
@@ -523,7 +415,7 @@
                         <div class="col-lg-4 col-sm-6 grid-item">
                             <div class="featured-game-item mb-30">
                                 <div class="featured-game-thumb">
-                                    <img src="../img/images/Metro_Exodus.png" alt="">
+                                    <img th:src="@{/img/images/Metro_Exodus.png}" alt="">
                                 </div>
                                 <div class="featured-game-content">
                                     <h4><a href="#">METRO <span>EXODUS</span></a></h4>
@@ -533,7 +425,7 @@
                                     </div>
                                 </div>
                                 <div class="featured-game-content featured-game-overlay-content">
-                                    <div class="featured-game-icon"><img src="../img/icon/featured_game_icon.png" alt=""></div>
+                                    <div class="featured-game-icon"><img th:src="@{/img/icon/featured_game_icon.png}" alt=""></div>
                                     <h4><a href="#">METRO <span>EXODUS</span></a></h4>
                                     <div class="featured-game-meta">
                                         <i class="fas fa-bell"></i>
@@ -548,26 +440,25 @@
             <!-- featured-game-area-end -->
 
             <!-- cta-area -->
-            <section class="cta-area cta-bg" style="background-image: url(../img/images/cyberpunk.jpg);">
+            <section class="cta-area cta-bg" th:style="'background-image: url(../img/images/cyberpunk.jpg);'">
                 <div class="container">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-xl-5 col-lg-6">
                             <div class="cta-img">
-                                <img src="../img/images/girlcyberpunk.png" alt="">
+                                <img th:src="@{/img/images/girlcyberpunk.png}" alt="">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="cta-content">
                                 <div class="cta-icon mb-15">
-                                    <img src="../img/icon/cta_icon.png" alt="">
+                                    <img th:src="@{/img/icon/cta_icon.png}" alt="">
                                 </div>
                                 <div class="section-title title-style-three white-title mb-50">
-                                    <h2>WORLDS MEET <span>Real</span></h2>
-                                    <p>Compete with 100 player on a remote island for winner
-                                        known issue where certain strategic</p>
+                                    <h2>Cyber <span>Punk</span></h2>
+                                    <p >Много много игроков играли в эту игру и остались довольны</p>
                                 </div>
                                 <div class="cta-btn">
-                                    <a href="#" class="btn btn-style-two">Арендовать</a>
+                                    <a th:href="@{/catalog}" class="btn btn-style-two">Арендовать</a>
                                 </div>
                             </div>
                         </div>
@@ -579,141 +470,29 @@
         <!-- main-area-end -->
 
         <!-- footer-area -->
-        <footer>
-            <div class="footer-top footer-bg s-footer-bg">
-                <!-- newsletter-area -->
-                <div class="newsletter-area s-newsletter-area">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="newsletter-wrap">
-                                    <div class="section-title newsletter-title">
-                                        <h2>Подписка на <span>Новости</span></h2>
-                                    </div>
-                                    <div class="newsletter-form">
-                                        <form action="#">
-                                            <div class="newsletter-form-grp">
-                                                <i class="far fa-envelope"></i>
-                                                <input type="email" placeholder="Enter your email...">
-                                            </div>
-                                            <button>ПОДПИСАТЬСЯ <i class="fas fa-paper-plane"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- newsletter-area-end -->
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="footer-widget mb-50">
-                                <div class="footer-logo mb-35">
-                                    <a href="../index.html"><img src="../img/logo/logoWarm.png" alt=""></a>
-                                </div>
-                                <div class="footer-text">
-                                    <p>Наш маркетплейс лучший</p>
-                                    <div class="footer-contact">
-                                        <ul>
-                                            <li><i class="fas fa-map-marker-alt"></i> <span>Адрес : </span>ASTON CO</li>
-                                            <li><i class="fas fa-headphones"></i> <span>Телефон : </span>+77 8888 923 235</li>
-                                            <li><i class="fas fa-envelope-open"></i><span>Email : </span>warmcompany@gmail.com</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-6">
-                            <div class="footer-widget mb-50">
-                                <div class="fw-title mb-35">
-                                    <h5>Жанры игр</h5>
-                                </div>
-                                <div class="fw-link">
-                                    <ul>
-                                        <li><a href="#">Шутеры</a></li>
-                                        <li><a href="#">Ролевые игры</a></li>
-                                        <li><a href="#">Гонки</a></li>
-                                        <li><a href="#">Единоборства</a></li>
-                                        <li><a href="#">Триллеры</a></li>
-                                        <li><a href="#">Стратегия</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-lg-3 col-sm-6">
-                            <div class="footer-widget mb-50">
-                                <div class="fw-title mb-35">
-                                    <h5>Нужна помощь?</h5>
-                                </div>
-                                <div class="fw-link">
-                                    <ul>
-                                        <li><a href="#">Правила и политика</a></li>
-                                        <li><a href="#">Политика конфиденциальности</a></li>
-                                        <li><a href="#">Политика возврата</a></li>
-                                        <li><a href="#">Блоги</a></li>
-                                        <li><a href="#">FAQ</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6">
-                            <div class="footer-widget mb-50">
-                                <div class="fw-title mb-35">
-                                    <h5>Подписывайтесь на нас</h5>
-                                </div>
-                                <div class="footer-social">
-                                    <ul>
-                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-fire"><img src="../img/images/footer_fire.png" alt=""></div>
-                <div class="footer-fire footer-fire-right"><img src="../img/images/footer_fire.png" alt=""></div>
-            </div>
-            <div class="copyright-wrap s-copyright-wrap">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="copyright-text">
-                                <p>Copyright © 2023 <a href="#">WARM</a> All Rights Reserved.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 d-none d-md-block">
-                            <div class="payment-method-img text-right">
-                                <img src="../img/images/card_img.png" alt="img">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <div th:insert="~{fragments/footer :: footer}"></div>
         <!-- footer-area-end -->
 
-		<!-- JS here -->
-        <script src="../js/vendor/jquery-3.4.1.min.js"></script>
-        <script src="../js/popper.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/isotope.pkgd.min.js"></script>
-        <script src="../js/slick.min.js"></script>
-        <script src="../js/jquery.meanmenu.min.js"></script>
-        <script src="../js/wow.min.js"></script>
-        <script src="../js/aos.js"></script>
-        <script src="../js/jquery.lettering.js"></script>
-        <script src="../js/jquery.textillate.js"></script>
-        <script src="../js/jquery.odometer.min.js"></script>
-        <script src="../js/jquery.appear.js"></script>
-        <script src="../js/owl.carousel.min.js"></script>
-        <script src="../js/jquery.countdown.min.js"></script>
-        <script src="../js/jquery.scrollUp.min.js"></script>
-        <script src="../js/imagesloaded.pkgd.min.js"></script>
-        <script src="../js/jquery.magnific-popup.min.js"></script>
-        <script src="../js/plugins.js"></script>
-        <script src="../js/main.js"></script>
+        <!-- JS here -->
+        <script th:src="@{/js/vendor/jquery-3.4.1.min.js}"></script>
+        <script th:src="@{/js/popper.min.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <script th:src="@{/js/isotope.pkgd.min.js}"></script>
+        <script th:src="@{/js/slick.min.js}"></script>
+        <script th:src="@{/js/jquery.meanmenu.min.js}"></script>
+        <script th:src="@{/js/wow.min.js}"></script>
+        <script th:src="@{/js/aos.js}"></script>
+        <script th:src="@{/js/jquery.lettering.js}"></script>
+        <script th:src="@{/js/jquery.textillate.js}"></script>
+        <script th:src="@{/js/jquery.odometer.min.js}"></script>
+        <script th:src="@{/js/jquery.appear.js}"></script>
+        <script th:src="@{/js/owl.carousel.min.js}"></script>
+        <script th:src="@{/js/jquery.countdown.min.js}"></script>
+        <script th:src="@{/js/jquery.scrollUp.min.js}"></script>
+        <script th:src="@{/js/imagesloaded.pkgd.min.js}"></script>
+        <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+        <script th:src="@{/js/plugins.js}"></script>
+        <script th:src="@{/js/main.js}"></script>
+        <script th:src="@{/js/pagination.js}"></script>
     </body>
 </html>
