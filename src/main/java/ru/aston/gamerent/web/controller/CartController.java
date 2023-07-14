@@ -40,4 +40,14 @@ public class CartController {
 
         return "redirect:" + redirectUrl;
     }
+
+    @PostMapping("/{gameId}/delete")
+    public String deleteFromCart(@PathVariable Long gameId,
+                                 @AuthenticationPrincipal UserDetails userDetails) {
+        String username = userDetails.getUsername();
+
+        cartService.deleteGameFromCart(username, gameId);
+
+        return "redirect:/cart";
+    }
 }

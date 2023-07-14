@@ -1,5 +1,6 @@
 package ru.aston.gamerent.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.aston.gamerent.mapper.GameMapper;
@@ -7,8 +8,8 @@ import ru.aston.gamerent.model.dto.response.GameResponseDto;
 import ru.aston.gamerent.model.entity.Game;
 import ru.aston.gamerent.model.entity.PostponedGame;
 import ru.aston.gamerent.model.entity.User;
-import ru.aston.gamerent.repository.GameRepository;
 import ru.aston.gamerent.repository.CartRepository;
+import ru.aston.gamerent.repository.GameRepository;
 import ru.aston.gamerent.repository.UserRepository;
 import ru.aston.gamerent.service.CartService;
 
@@ -48,5 +49,16 @@ public class CartServiceImpl implements CartService {
                 .map(PostponedGame::getGame)
                 .map(gameMapper::gameToGameResponseDto)
                 .toList();
+    }
+
+    @Override
+    @Transactional
+    public void deleteGameFromCart(String email, Long gameId) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow();
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow();
+
+        cartRepository.deleteByUserAndGame(user, game);
     }
 }

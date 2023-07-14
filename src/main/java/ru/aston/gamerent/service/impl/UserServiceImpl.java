@@ -48,9 +48,9 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserResponseDto findUserById(long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new NoEntityException("User with id " + id + " was not found"));
+    public UserResponseDto findUserByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NoEntityException("User with id " + email + " was not found"));
         List<Account> accounts = accountRepository.findAccountsByUser(user);
         List<Wallet> wallets = walletRepository.findWalletsByUser(user);
 

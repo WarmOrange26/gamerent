@@ -8,4 +8,6 @@ public interface CartService {
     GameResponseDto addGameToCart(String email, Long gameId);
 
     List<GameResponseDto> findByUserEmail(String email);
+
+    void deleteGameFromCart(String username, Long gameId);
 }

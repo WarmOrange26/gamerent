@@ -1,0 +1,96 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>WARM ENTERPRISE</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/warm-icon.png}">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/css/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/odometer.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/meanmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/slick.css}">
+    <link rel="stylesheet" th:href="@{/css/default.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+</head>
+<body>
+
+<!-- preloader -->
+<div id="preloader">
+    <div id="loading-center">
+        <div id="loading-center-absolute">
+            <img th:src="@{/img/icon/preloader.svg}" alt="">
+        </div>
+    </div>
+</div>
+<!-- preloader-end -->
+
+<div th:insert="~{fragments/header :: header}"></div>
+
+<!-- main-area -->
+<main>
+
+    <!-- user-single-area -->
+    <section class="game-single-area pt-120 pb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="game-single-content">
+                        <div class="game-single-title mt-60 mb-30">
+                            <h4>Персональная информация</h4>
+                        </div>
+                        <div class="game-single-info mb-65">
+                            <ul>
+                                <li><span>Имя пользователя :</span> <span th:text="${user.username()}"></span> </li>
+                                <li><span>Email :</span> <span th:text="${user.email()}"></span></li>
+                                <li><span>Имя :</span> <span th:text="${user.firstName()}"></span></li>
+                                <li><span>Фамилия :</span> <span th:text="${user.lastName()}"></span></li>
+                                <li><span>Дата Регистрации :</span> <span th:text="${user.registrationTime()}"></span></li>
+                                <li><span>Дата Рождения :</span> <span th:text="${user.birthDate()}"></span></li>
+                                <li><span>Телефон :</span> <span th:text="${user.phone()}"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- user-single-area-end -->
+</main>
+<!-- main-area-end -->
+
+<div th:insert="~{fragments/footer :: footer}"></div>
+
+<!-- JS here -->
+<script th:src="@{/js/vendor/jquery-3.4.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/slick.min.js}"></script>
+<script th:src="@{/js/jquery.meanmenu.min.js}"></script>
+<script th:src="@{/js/wow.min.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/jquery.lettering.js}"></script>
+<script th:src="@{/js/jquery.textillate.js}"></script>
+<script th:src="@{/js/jquery.odometer.min.js}"></script>
+<script th:src="@{/js/jquery.appear.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/jquery.scrollUp.min.js}"></script>
+<script th:src="@{/js/imagesloaded.pkgd.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/plugins.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

@@ -8,7 +8,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<link rel="shortcut icon" type="image/x-icon" href="../img/warm-icon.png">
+		<link rel="shortcut icon" type="image/x-icon" th:href="@{/img/warm-icon.png}">
         <!-- Place favicon.ico in the root directory -->
 
         <!-- CSS here -->
@@ -37,9 +37,7 @@
         </div>
         <!-- preloader-end -->
 
-        <!-- header-area -->
         <div th:insert="~{fragments/header :: header}"></div>
-        <!-- header-area-end -->
 
         <!-- main-area -->
         <main>
@@ -60,30 +58,34 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr th:each="game: ${games}">
                                                 <th scope="row">
                                                     <div class="community-post-wrap">
-                                                        <div class="community-post-content" th:each="объект: ${}">
-                                                           <p style="color: #0b0b0b" th:text = ${здесь имя игры}> Electronic game (пример) - удалить </p>
+                                                        <div class="community-post-content" >
+                                                           <p style="color: #0b0b0b" th:text = "${game.title()}">Title</p>
                                                         </div>
                                                     </div>
                                                 </th>
-                                                <td th:text = ${здесь цена игры}>1200 (пример) - удалить</td>
-                                                <td th:text = ${здесь имя платформы}>PS4 (пример) - удалить</td>
-                                               <form method="post"> <td class="community-bell"><a th:href="@{'/basket'}"><i>удалить</i></a></td> </form> <!-- Удаляет игру из корзины -->
+                                                <td th:text = "${game.price()}">Price</td>
+<!--                                                <td th:text = "${game.}">PS4 (пример) - удалить</td>-->
+                                               <form method="post" th:action="@{/cart/{id}/delete(id=${game.id()})}">
+                                                   <td class="community-bell">
+                                                       <button type="submit" ><i>удалить</i></button>
+                                                   </td>
+                                               </form>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="create-topic">
                                     <span>Итого</span>
-                                    <form method="post">
+                                    <form method="post" th:action="@{/cart/buy}">
                                         <div class="community-sidebar-social">
                                             <ul>
-                                                <li><span style="color: red">Отобразить общую сумму</span></li>
+                                                <li><span style="color: red" th:text="'Totality'">Отобразить общую сумму</span></li>
                                             </ul>
                                         </div>
-                                        <button class="btn">оформить заказ</button>
+                                        <button type="submit" class="btn" th:text="Купить">Buy</button>
                                     </form>
                                 </div>
                             </div>
@@ -96,6 +98,7 @@
                                     </div>
                                     <div class="community-sidebar-social">
                                         <ul>
+<!--                                            todo привязать к форме -->
                                             <li><select>
                                                 <option>1 день</option>
                                                 <option>7 дней</option>
@@ -115,9 +118,7 @@
         </main>
         <!-- main-area-end -->
 
-        <!-- footer-area -->
         <div th:insert="~{fragments/footer :: footer}"></div>
-        <!-- footer-area-end -->
 
         <!-- JS here -->
         <script th:src="@{/js/vendor/jquery-3.4.1.min.js}"></script>
