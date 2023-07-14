@@ -59,6 +59,22 @@
                                 <li><span>Дата Регистрации :</span> <span th:text="${user.registrationTime()}"></span></li>
                                 <li><span>Дата Рождения :</span> <span th:text="${user.birthDate()}"></span></li>
                                 <li><span>Телефон :</span> <span th:text="${user.phone()}"></span></li>
+                                <form th:method="post" ><li>
+                                    <a th:href="@{/user/edit}" th:text="'Редактировать данные'" class="shop-add-action">
+                                        <span class="btn-title"> Редактировать данные </span>
+                                    </a>
+                                </li>
+                                </form>
+                                <br>
+                                <table class="table mt-0">
+                                    <h6><span>Игры приобретённые вами</span></h6>
+                                    <ul th:each="account: ${user.accounts()}" >
+                                        <li><span th:text="${account.login()}"></span></li>
+                                        <li><span th:text="${account.password()}"></span></li>
+                                        <li scope="col">
+                                        </li>
+                                    </ul>
+                                </table>
                             </ul>
                         </div>
                     </div>

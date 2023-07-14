@@ -34,7 +34,7 @@ public class ExceptionsHandleController {
     }
 
     @ExceptionHandler(Exception.class)
-    public String handleException() {
+    public String handleException(Exception e) {
         return SERVER_ERROR_PAGE;
     }
 }

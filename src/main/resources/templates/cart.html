@@ -67,12 +67,13 @@
                                                     </div>
                                                 </th>
                                                 <td th:text = "${game.price()}">Price</td>
-<!--                                                <td th:text = "${game.}">PS4 (пример) - удалить</td>-->
-                                               <form method="post" th:action="@{/cart/{id}/delete(id=${game.id()})}">
+
                                                    <td class="community-bell">
-                                                       <button type="submit" ><i>удалить</i></button>
+                                                       <form method="post" th:action="@{/cart/{id}/delete(id=${game.id()})}">
+                                                        <button type="submit" ><i>удалить</i></button>
+                                                       </form>
                                                    </td>
-                                               </form>
+
                                             </tr>
                                         </tbody>
                                     </table>
@@ -82,7 +83,7 @@
                                     <form method="post" th:action="@{/cart/buy}">
                                         <div class="community-sidebar-social">
                                             <ul>
-                                                <li><span style="color: red" th:text="'Totality'">Отобразить общую сумму</span></li>
+                                                <li><span style="color: red">Отобразить общую сумму</span></li>
                                             </ul>
                                         </div>
                                         <button type="submit" class="btn" th:text="Купить">Buy</button>

@@ -116,7 +116,7 @@
                             <div class="sidebar-trending-match">
                                 <ul>
                                     <li th:each="genre : ${game.genres()}">
-                                        <span th:text = "${genre.getTitle()} + ' '">здесь жанры</span>
+                                        <span th:text = "${genre.title()} + ' '">здесь жанры</span>
                                     </li>
                                 </ul>
                             </div>
