@@ -1,9 +1,11 @@
 package ru.aston.gamerent.generator;
 
 import lombok.Getter;
+import ru.aston.gamerent.model.dto.request.AccountRequestDto;
 import ru.aston.gamerent.model.dto.request.OrderRequestDto;
 import ru.aston.gamerent.model.dto.request.RegistrationUserRequestDto;
 import ru.aston.gamerent.model.dto.request.UserRequestDto;
+import ru.aston.gamerent.model.dto.response.AccountResponseInfoDto;
 import ru.aston.gamerent.model.dto.response.ActiveAccountResponseDto;
 import ru.aston.gamerent.model.dto.response.ConfirmationResponseDto;
 import ru.aston.gamerent.model.dto.response.UserDto;
@@ -14,6 +16,7 @@ import ru.aston.gamerent.model.entity.Game;
 import ru.aston.gamerent.model.entity.User;
 import ru.aston.gamerent.model.entity.Wallet;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,7 +80,6 @@ public class DtoGenerator {
             .build();
 
 
-
     List<Long> gameIds = games.stream().mapToLong(Game::getId).boxed().toList();
 
     OrderRequestDto orderRequestDto = OrderRequestDto.builder()
@@ -92,5 +94,20 @@ public class DtoGenerator {
             .password(account.getPassword())
             .expirationTime(account.getExpirationTime())
             .games(games.stream().map(Game::getTitle).collect(Collectors.toList()))
+            .build();
+
+    AccountRequestDto accountRequestDto = AccountRequestDto.builder()
+            .login(account.getLogin())
+            .password(account.getPassword())
+            .platformName("PC")
+            .build();
+
+    AccountResponseInfoDto accountResponseInfoDto = AccountResponseInfoDto.builder()
+            .id(1L)
+            .login(account.getLogin())
+            .password(account.getPassword())
+            .platformName("PC")
+            .creationTime(LocalDateTime.now())
+            .updateTime(LocalDateTime.now())
             .build();
 }

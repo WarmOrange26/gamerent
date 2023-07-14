@@ -10,7 +10,9 @@ import ru.aston.gamerent.exception.NoEntityException;
 import ru.aston.gamerent.exception.NotEnoughMoneyException;
 import ru.aston.gamerent.exception.PlatformApiConnectionException;
 import ru.aston.gamerent.mapper.AccountMapper;
+import ru.aston.gamerent.model.dto.request.AccountRequestDto;
 import ru.aston.gamerent.model.dto.request.OrderRequestDto;
+import ru.aston.gamerent.model.dto.response.AccountResponseInfoDto;
 import ru.aston.gamerent.model.dto.response.ActiveAccountResponseDto;
 import ru.aston.gamerent.model.entity.Account;
 import ru.aston.gamerent.model.entity.Order;
@@ -21,11 +23,13 @@ import ru.aston.gamerent.repository.AccountRepository;
 import ru.aston.gamerent.repository.GameRepository;
 import ru.aston.gamerent.repository.OrderAccountRepository;
 import ru.aston.gamerent.repository.OrderRepository;
+import ru.aston.gamerent.repository.PlatformRepository;
 import ru.aston.gamerent.repository.UserRepository;
 import ru.aston.gamerent.repository.WalletRepository;
 import ru.aston.gamerent.service.AccountService;
 import ru.aston.gamerent.util.AccountValidator;
 import ru.aston.gamerent.util.BankApiConnector;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -42,6 +46,7 @@ public class AccountServiceImpl implements AccountService {
     private final OrderAccountRepository orderAccountRepository;
     private final GameRepository gameRepository;
     private final WalletRepository walletRepository;
+    private final PlatformRepository platformRepository;
     private final AccountValidator accountValidator;
     private final BankApiConnector bankApiConnector;
     private final AccountMapper accountMapper;
@@ -88,6 +93,19 @@ public class AccountServiceImpl implements AccountService {
                 .filter(account -> account.getExpirationTime().isBefore(LocalDateTime.now()))
                 .toList()
                 .size();
+    }
+
+    @Override
+    public AccountResponseInfoDto saveAccount(AccountRequestDto accountRequestDto) {
+        Account account = accountMapper.accountRequestDtoToAccount(accountRequestDto);
+        account.setPlatform(platformRepository.findByName(accountRequestDto.platformName()));
+        account.setCreationTime(LocalDateTime.now());
+        account.setUpdateTime(LocalDateTime.now());
+        account.setExpirationTime(LocalDateTime.now());
+        AccountResponseInfoDto accountResponseInfoDto =
+                accountMapper.accountToAccountResponseInfoDto(accountRepository.save(account));
+        log.info("Account successfully saved: {}", account);
+        return accountResponseInfoDto;
     }
 
     private void changeAccountPassword(Account account) {

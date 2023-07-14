@@ -50,9 +50,8 @@ public class Account {
     @Column(name = "expiration_time", nullable = false)
     private LocalDateTime expirationTime;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "platform_id")
-    @ToString.Exclude
     private Platform platform;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "account")
